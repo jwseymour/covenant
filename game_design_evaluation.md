@@ -1,205 +1,169 @@
-# Game Design Evaluation
+# Game Design Evaluation — v2
 
-> Assessment of the Dark Fantasy Realm-Hopping Influence Game as of the current GDD state.
-
----
-
-## 1. What's Working Well
-
-### The Core Fantasy Is Strong
-The pitch — "you are a singular, abstract entity orchestrating dominions across shifting realms through deceptive religions while harvesting souls" — is genuinely distinctive. It doesn't map neatly onto any existing game, which is rare. The Berserk/Souls aesthetic anchors it in something that has proven mass appeal without being derivative.
-
-### The Core Loop Has Elegant Tension
-Visit → instruct → leave → orchestrate. This is mechanically clean and creates a natural, recurring dilemma: **breadth vs. depth**. Every turn you attend one dominion, every other dominion drifts. This is the kind of tension that makes good strategy games — it's simple to understand, impossible to optimise, and always painful. It's reminiscent of the best parts of **Chaos in the Old World** (area control with limited actions) crossed with the programming mechanic from **Robo Rally** (set instructions, watch them play out).
-
-### The Realm System Has High Potential
-Two levels of interaction (access points vs. overlap), progressive merging toward endgame chaos, and complementary energy systems — this has the bones of something very rich. The macro view / micro view split is smart and necessary.
-
-### Digital-Only Is Correctly Scoped
-The design genuinely needs to be digital. Conditional instructions, hidden information enforcement, continuous realm flow, decay tracking, NPC autonomy — none of these work on a physical table. This isn't "board game but on a screen," it's a game that *requires* the medium.
+> Post-update assessment of the design after incorporating all latest decisions.
 
 ---
 
-## 2. Risks & Tensions
+## 1. Overall Assessment
 
-### 🔴 The Complexity Budget
+The design has matured significantly. Where the first evaluation identified 12 disconnected systems, the updated GDD now has **a coherent architecture** where most systems serve a clear purpose and connect to each other logically:
 
-This is the biggest risk. Let me count the systems currently in the design:
+```mermaid
+graph TD
+    A["Player (single entity)"] -->|visits| B["Dominion"]
+    A -->|founds| C["Religion"]
+    A -->|performs| D["Personal Rituals/Rites"]
+    B -->|executes| E["Conditional Instructions"]
+    B -->|generates| F["Military/Economic Power"]
+    C -->|routes| G["Souls"]
+    D -->|costs| G
+    G -->|win condition| H["Victory"]
+    G -->|currency| D
+    I["Realm Flow"] -->|affects| B
+    I -->|affects| C
+    I -->|unlocks| J["Overlap Rites"]
+    J -->|enhances| D
+    K["Missions"] -->|reward| H
+    K -->|reward| G
+```
 
-| System | Complexity |
-|--------|-----------|
-| Conditional instruction programming | Very High |
-| Realm flow prediction | High |
-| Influence decay per dominion | Medium |
-| Rival subversion mechanics | High |
-| Soul routing via religion | High |
-| Religion creation & spread | High |
-| Items with realm compatibility | Medium |
-| Espionage / information networks | Medium |
-| Mission/goal cards | Low |
-| Realm energy systems & merging | Very High |
-| Asymmetric player powers | High |
-| Weighted graph traversal for troops | Medium |
-
-That's **12 interlocking systems** for a 4-player game. For comparison:
-- **Twilight Imperium** (famously complex) has ~8 core systems
-- **Spirit Island** (heavy but tight) has ~6
-- **Chaos in the Old World** (the closest comparison) has ~5
-
-> [!CAUTION]
-> Not all of these will survive contact with playtesting. Some will need to be cut or merged. The question isn't *whether* you'll simplify — it's *which systems are load-bearing* and which are nice-to-have.
-
-**Suggestion:** Identify your **3 non-negotiable systems** — the ones that, if removed, would make this a different game. Everything else should be designed to be cuttable. My candidates for non-negotiable:
-1. The core loop (visit → instruct → leave)
-2. Realm flow and merging
-3. The soul/religion economy
-
-### 🟡 Conditional Instructions May Be a UX Nightmare
-
-This is simultaneously the most exciting and most dangerous mechanic. Writing conditional logic is essentially **programming**, and most people — even strategy gamers — find programming un-fun when it gets complex.
-
-Consider the spectrum:
-- **Too simple:** "If attacked, defend" — barely more interesting than a directive. Why bother with conditionals?
-- **Sweet spot:** "If Realm B is overlapping my territory, recruit from border cities. If my army is larger than the neighbouring faction, expand north. Otherwise, consolidate." — strategic, readable, replayable.
-- **Too complex:** Compound boolean logic with nested conditions — this is a programming language, not a board game.
-
-**Suggestion:** Design instructions as a **visual flowchart or decision tree** that the player constructs by dragging and connecting blocks, not by typing text. Think of it like a simple visual programming language (similar to Scratch or the automation in games like **Factorio** or **Opus Magnum**). Each block is a condition (from a limited, curated set) connected to an action (also from a curated set). Limit the tree to 3-5 nodes per dominion. This keeps it tactile, readable, and constrains complexity without removing expressiveness.
-
-### 🟡 Realm Flow Legibility
-
-"Constantly flowing, somewhat predictable" is easy to say and very hard to implement readably. If players can't intuit where realms are heading, they can't plan, and the game becomes reactive rather than strategic.
-
-**Suggestion:** Consider giving realm flow a **rhythm** — maybe realms oscillate in predictable patterns (like orbits) but with occasional perturbations. Show projected paths 3-5 turns ahead as fading ghost outlines in the macro view. The further ahead, the more uncertain the projection. This gives skilled players something to read and plan around while keeping some volatility. Think of it like weather forecasts — accurate short-term, probabilistic long-term.
-
-### 🟡 Soul Routing Is Undefined and Critical
-
-Souls are the win condition but the routing mechanic doesn't exist yet. This is the engine that everything else is supposed to feed into. Without it, you can't evaluate whether religions, dominions, combat, or anything else actually matter.
-
-Some possible models:
-
-**Model A — Belief Tags:** Each religion has a set of "beliefs" (tags). When an inhabitant dies, their beliefs route them to the player whose soul-collection aligns with those tags. Simple, clear, gameable.
-
-**Model B — Hierarchical Afterlife:** Each player controls an "afterlife domain." Religions teach inhabitants that the correct afterlife is the one matching certain criteria. Multiple players can claim overlapping criteria, creating contested souls. More complex, more interesting.
-
-**Model C — Soul Flow Network:** Souls move through a network (separate from the map) and players place "attractors" via religions to pull souls toward them. The network could be influenced by realm merging. Most mechanically interesting but adds another layer of complexity.
-
-**Suggestion:** Model A is probably the right starting point. It's clean, it connects directly to religion creation, and it can be deepened later without reworking the foundation.
-
-### 🟡 Items Feel Like a Bolt-On
-
-You noted this yourself — "items alone may not be enough." The issue is that items, as currently described, are a **logistics mechanic** (get thing, move thing to where it's useful) layered on top of a game that's already about logistics (move yourself to dominions, manage across realms). They don't add a new *verb* — they add more of the same verb.
-
-**Suggestion:** Instead of portable items, consider **powers or rites tied to realm energy systems.** Each realm's energy allows certain unique actions. When realms overlap, the energy systems combine, unlocking new actions that weren't possible in either realm alone. This turns the realm merging system (which is already in the game) into the source of tactical variety, rather than adding a separate collection mechanic. Players would want to be in specific places during specific overlaps — creating temporal strategy rather than spatial logistics.
-
-If you still want collectible things, make them **rare, high-impact relics** (3-5 in the whole game) rather than a common item economy. Think Berserk's Behelits — singular objects that reshape the game when used, not inventory management.
+The player sits at the centre of a **spend-vs-hoard loop** (souls), a **breadth-vs-depth loop** (dominions), a **short-term-vs-long-term loop** (dominions vs religions), and a **personal-vs-institutional loop** (rituals vs instructions). Four distinct tensions, all mechanically clean. This is strong.
 
 ---
 
-## 3. System-by-System Evaluation
+## 2. What Improved Most
 
-### 3.1 Core Loop: Visit → Instruct → Leave
-**Rating: Strong foundation, needs UX work**
+### The Dominion/Religion Split
+This is now the cleanest design decision in the game. Having two parallel systems with different time horizons, risk profiles, and strategic roles gives players meaningfully different tools:
 
-The one-dominion-per-turn constraint is excellent. It creates a natural clock — you can only be in one place, so every turn is an opportunity cost. The fact that you must physically return to update instructions means dominion count has diminishing returns — more dominions = more out-of-date instructions = more vulnerability. This is elegant self-balancing.
+| | Dominion | Religion |
+|---|---|---|
+| **Investment** | High (needs visits) | Low (set up and leave) |
+| **Payoff speed** | Immediate control | Slow soul routing |
+| **Risk** | Vulnerable to subversion | Vulnerable to rival religions |
+| **Scalability** | Limited by visit frequency | Can spread passively |
+| **Counter** | Player must visit to maintain | Player must establish counter-religion |
+
+The insight that **religion can spread into territory you don't control** is particularly powerful. It means a player who is losing the dominion game can still compete in the religion game — and vice versa. This is a natural catch-up mechanic that doesn't feel artificial.
+
+### Souls as Currency
+Making souls both the win condition AND a spendable resource is the most important design decision so far. It creates the core tension that every good strategy game needs — a reason NOT to simply accumulate. Every soul spent on a rite is a soul not counted at the Convergence. Players who spend aggressively take risks; players who hoard play conservatively. Neither is obviously correct, which is exactly what you want.
+
+### The N-Body Realm Model
+This is inspired. N-body simulations have exactly the properties you want: predictable short-term, chaotic long-term, visually beautiful, and naturally escalating (bodies eventually collide). The trajectory-with-widening-uncertainty visualisation is elegant and solves the legibility problem from the first evaluation.
+
+### Personal Agency
+The addition of personal rituals, direct confrontation, and selfish motives addresses the biggest concern from the first evaluation (the "operations manager" problem). Players now have at least three personal verbs: perform rites, confront rivals, and pursue personal missions. Combined with the instruction system, this gives each turn a mix of strategic planning (instructions) and tactical immediacy (personal actions).
+
+---
+
+## 3. Remaining Risks
+
+### 🔴 The Turn Is Overloaded
+
+Look at everything a player might do on a single turn:
+1. Review all dominion and religion status across all realms
+2. Review realm flow predictions
+3. Read any incoming scout reports
+4. Set/update conditional instructions at their current dominion
+5. Set scouting orders
+6. Perform personal rites
+7. Use relics
+8. Interact with co-located players (confrontation/negotiation)
+9. Choose next destination
+
+That's **9 potential activities** per turn. In a simultaneous-turn game, all 4 players do this at the same time. If each turn takes 10-15 minutes of decision-making, a round could take an hour with downtime.
+
+**Suggestion:** Impose an **action budget** — maybe 2-3 actions per turn. Setting instructions is one action. Performing a rite is one action. Using a relic is one action. Scouting is one action. This forces prioritisation (do you update instructions OR perform a rite?) and keeps turns tight. Choosing your destination is free (it's part of the turn resolution, not an action).
+
+### 🟡 The Instruction System Needs Prototyping Early
+
+Tiered complexity is the right call, but the UX will make or break this:
+- The flowchart builder needs to feel like **dragging blocks on a whiteboard**, not like programming
+- Map-click-to-flowchart is a killer feature if it works — click a node to set it as "expand toward here," click an army to set it as "if this army appears, defend" — but it needs to be tested very early
+- Code mode is a nice power-user feature but should be hidden behind an "advanced" toggle, not visible by default
 
 > [!IMPORTANT]
-> This mechanic naturally caps expansion. A player with 10 dominions can only refresh each one every 10 turns. This may be the catch-up mechanic you're looking for — overexpansion punishes itself.
+> **Prototype the instruction system BEFORE anything else.** It's the mechanic players will spend the most time interacting with. If it doesn't feel good, nothing else matters. Build a minimal flowchart builder with 3 conditions and 5 actions, test it with someone, iterate.
 
-**Concern:** What does the player *do* on their turn besides set instructions? If the only action is "visit a dominion and programme it," turns might feel thin. There should probably be something the player does *as themselves* — not through dominions. This is where the player's personal concept/powers could live.
+### 🟡 Religion Is Mechanically Thin
 
-### 3.2 Dominion Contestation
-**Rating: Promising, needs guardrails**
+You've correctly identified religion as a core system. But right now its mechanical description is still just "belief tags that route souls." There are open questions about spread speed, organic evolution, player interaction, and structure. Until these are answered, you can't evaluate whether the dominion/religion split actually creates the strategic tension you want.
 
-Rivals visiting your dominion is good — it creates paranoia and incentivises regular check-ins. The three-factor effectiveness model (time since visit, player abilities, establishment method) is sensible.
+**A concrete suggestion for religion mechanics:**
+- Founding a religion requires the player to be at a location for one turn (an action)
+- The player chooses 2 belief tags from a pool of ~10 available tags
+- The religion spreads to adjacent nodes at a rate of ~1 node per 2-3 turns (slow)
+- Spread is faster if the belief tags align with the local realm's energy
+- Spread is slower (or blocked) if a competing religion with contradictory tags is already established
+- A player can have **multiple religions** (since they're lies anyway) — different religions in different areas, each optimised for local conditions
+- Religions DON'T need active management once founded (unlike dominions) — this is their key advantage
 
-**Concern:** What stops a player from just following another player around, subverting every dominion they leave behind? There needs to be friction. Some options:
-- **Subversion takes multiple turns of presence** (you can't just visit and immediately flip a dominion)
-- **The original player can set "traps" or defensive instructions** that make subversion costly
-- **Subversion is visible** — other players can see that someone is contesting a dominion, creating political consequences
-- **Player concepts might resist each other** differently (your abstract nature makes you harder/easier to subvert depending on who's doing it)
+### 🟡 Combat Is Completely Undefined
 
-### 3.3 Religion Creation
-**Rating: Underdeveloped — needs to become a primary system**
+There WILL be military conflict — dominions have armies, there are weighted movement routes, expansion requires taking nodes. But there's no combat system at all yet. This matters because combat resolution affects:
+- Whether the game is deterministic (pure strategy) or probabilistic (some luck)
+- How much realm energy matters in military conflict
+- Whether items/relics affect combat
+- How long combat takes to resolve (affects pacing)
 
-Religion is currently described as "tools of manipulation" and "determines where souls go." But it's actually the **transmission mechanism** between your dominions and your victory condition. It deserves much more thought.
+**Suggestion:** Keep combat simple. This is not a wargame — it's a manipulation/strategy game. Combat should be a means to an end, not the main event. A simple strength-comparison with modifiers (realm energy, relics, terrain) and minimal randomness would fit the tone. Maybe a deterministic combat system where the larger force wins but takes losses proportional to the defender's strength — no dice, no luck, just positioning and planning.
 
-**Suggestion:** Religions could work as **doctrine sets** that you compose when founding them:
-- Each religion has 2-3 doctrines chosen from a larger pool
-- Doctrines determine: which realm's energy the religion resonates with, what behaviours it encourages in followers, and where souls are routed
-- A religion with doctrines that match the local realm's energy spreads faster
-- Doctrines from overlapping realms might create hybrid religions that are powerful but unstable
-- A dominion's religion could conflict with a neighbouring dominion's religion, causing friction, conversion, or war
+### 🟡 The Catch-Up Problem May Not Actually Exist
 
-This makes religion creation a meaningful strategic choice rather than just "stamp this dominion with my brand."
+You wanted an explicit catch-up mechanic, but consider: the game already has several natural catch-up properties:
+- Overexpansion punishes itself (too many dominions = neglect)
+- Religion works independently of territory (a player losing dominions can still route souls)
+- Souls-as-currency means the leader is incentivised to spend (reducing their lead)
+- The Convergence scrambles everything (late-game chaos benefits underdogs)
 
-### 3.4 Realm Flow & Merging
-**Rating: High potential, needs formalization**
-
-The two-tier system (access points vs. overlap) is sound. The progressive merging toward endgame is great for pacing — early game is isolated and intimate, late game is chaotic and interconnected.
-
-**Suggestion for the flow model:** Think of realms as bubbles in a lava lamp. They drift in slow, semi-predictable patterns. When bubbles touch, an access point forms. When they merge more deeply, overlap occurs. The key parameters would be:
-- **Drift direction and speed** — visible to all, predictable 3-5 turns ahead
-- **Attraction/repulsion** — some realms are drawn to each other (complementary energies), others repel. This could be fixed per game or shift based on player actions.
-- **Merge depth** — how much overlap has occurred, which determines how many cross-realm edges exist and how much rule blending happens
-
-### 3.5 Information & Espionage
-**Rating: Well-scoped, needs mechanical definition**
-
-The default visibility level (only dominion ownership is visible) is a good baseline — enough information to react, not enough to perfectly predict. The espionage layer adds a reason to invest in intelligence rather than just troops and religion.
-
-**Suggestion:** Espionage could be tied to the player's personal presence. When you visit a dominion, you could choose to spend your turn **observing** rather than **instructing** — learning everything about that location (nearby enemy instructions, influence levels, any items present). This creates a real cost: you're burning your one turn of presence to gather intel instead of managing your own territory. Information becomes expensive, which makes it valuable.
-
-For remote espionage (info networks), consider having it require an established dominion nearby — you can only spy on places adjacent to territory you control. This connects intelligence to expansion organically.
-
-### 3.6 Pacing & Endgame
-**Rating: Undefined — critical gap**
-
-The progressive realm merging gives natural escalation, but there's no defined end trigger.
-
-**Suggestions:**
-- **The Convergence:** The game ends when all realms have fully merged. This is thematic (the fractured power is reassembling) and creates a natural countdown. The number of rounds is roughly determined by realm flow speed, visible to all.
-- **Soul Threshold:** First player to N souls, or highest after all realms merge.
-- **Epoch Structure:** The game is divided into 3 epochs (Separation → Drift → Convergence), each with different rules and scoring. This gives the long game structure and lets you tempo-shift.
+Before designing an artificial catch-up mechanic, playtest the natural systems. You may find they're sufficient. Adding more catch-up on top could make the game feel like it punishes success.
 
 ---
 
-## 4. Comparative Analysis
+## 4. The Biggest Open Design Space: Personal Progression
 
-| Game | What It Shares | What To Learn |
-|------|---------------|---------------|
-| **Chaos in the Old World** | Asymmetric gods competing for area control with unique abilities and alternate win conditions | Keep the game tight: limited actions per turn, clear scoring, distinct victory paths per player concept |
-| **Twilight Imperium** | Grand scope, political manipulation, hidden objectives, long play time | Agendas and political deals keep downtime interesting; every action should ripple outward |
-| **Spirit Island** | Asymmetric powers, cascading effects, planning ahead through slow-to-resolve actions | "Fast powers" vs "slow powers" framework — some effects happen now, others resolve next turn. Could inform your instruction timing |
-| **Cultist Simulator** | Dark, abstract theming; founding religions; managing hidden information; occult/cosmic horror tone | Mechanics as narrative — the *rules themselves* tell the story. Doctrine selection should feel like worldbuilding, not stat selection |
-| **Diplomacy** | Simultaneous orders, no randomness, hidden intentions, betrayal | The power of simple simultaneous action resolution — often the most dramatic moments come from two conflicting orders hitting the same target |
+The GDD says players should have "a personal progression system — gaining something individually from their manipulations." This is flagged as open, and it's important.
 
----
+The risk of NOT having personal progression: the player feels like a stateless cursor that teleports between dominions. Nothing changes about the player themselves — only their empire changes. This can feel hollow in a long game.
 
-## 5. Top Priorities (Suggested Order)
+**Three possible approaches:**
 
-These are the decisions that will unlock the most downstream design clarity:
+**A — Power Accumulation:** Each soul collected (even spent ones) permanently increases the player's personal power level. Higher power makes rites stronger, confrontations easier, and subversion harder. Simple, clear, but might create a runaway leader problem.
 
-| Priority | Question | Why It's Blocking |
-|----------|----------|-------------------|
-| **1** | How does soul routing work? | It's the win condition. Everything feeds into it. Until this is defined, you can't evaluate whether other systems matter. |
-| **2** | What are the 4 player concepts? | Asymmetric design requires knowing the characters before you can design their abilities, affinities, and how they interact with realms. |
-| **3** | What does a turn look like end-to-end? | Without turn structure, you can't evaluate action economy, pacing, or downtime. |
-| **4** | How many realms, and what are their energy systems? | This defines the board, which defines everything spatial. |
-| **5** | What defines a religion mechanically? | This connects player actions to the soul economy and determines how dominions generate points. |
+**B — Forbidden Knowledge:** As the player explores realms, performs rites, and collects relics, they accumulate "knowledge" — understanding of specific realm energies. Knowledge unlocks more powerful rites and better condition options in the instruction system. This ties exploration to capability growth.
+
+**C — Concept Evolution:** The player starts as a generic entity and gradually defines their identity through their actions. If they spend time in the Hunger realm, they gain Hunger-aligned powers. If they sacrifice many souls, they gain sacrifice-related abilities. The player BECOMES their playstyle. This is the most interesting option but the hardest to balance.
+
+**Suggestion:** Option B (Forbidden Knowledge) as the primary system. It naturally encourages exploration (you want to visit different realms to learn their secrets), creates meaningful progression without snowballing (knowledge is useful but not overwhelming), and fits the Berserk/Souls aesthetic perfectly (both settings are full of forbidden, dangerous knowledge that transforms those who seek it).
 
 ---
 
-## 6. One Big Concern
+## 5. Evaluation by System Maturity
 
-The game is currently all **indirect control.** You don't do things — you tell dominions to do things, through instructions, through religions, through influence. This is thematically brilliant (you're an abstract entity, not a general) but mechanically dangerous. If the player feels like they're always programming *other things* to act and never acting *themselves*, it could feel detached and unsatisfying.
+| System | Maturity | Ready for Implementation? |
+|--------|----------|--------------------------|
+| Core loop (visit → instruct → leave) | ✅ High | Needs UX prototype |
+| Realm flow (n-body model) | ✅ High | Needs physics parameters |
+| Dominion/religion split | ✅ High (conceptual) | Religion mechanics need detail |
+| Souls as currency | ✅ High | Needs economy balancing |
+| Instruction system (tiered, flowchart) | 🟡 Medium | Needs UX prototype urgently |
+| Dominion contestation | 🟡 Medium | Needs decay curve + subversion specifics |
+| Rites & powers | 🟡 Medium | Blocked on realm energy definitions |
+| Information/scouting | 🟡 Medium | Mechanics defined, needs balancing |
+| Personal agency (rituals, confrontation) | 🔴 Low | Concept only, no mechanics |
+| Combat | 🔴 Low | Completely undefined |
+| Religion mechanics | 🔴 Low | Only belief tags defined |
+| Missions | 🔴 Low | Structure undefined |
+| Personal progression | 🔴 Low | Concept only |
+| Lore | 🔴 Low | Options presented, not chosen |
 
-> [!WARNING]
-> The player needs at least one system where they have **direct, immediate, personal agency**. Not through a dominion. Not through instructions. Something THEY do, as the entity, that resolves THIS turn.
+---
 
-This could be:
-- **Personal powers** tied to their concept (direct intervention in one location per turn)
-- **Rituals** that the player performs using their own energy (not dominion resources)
-- **Direct confrontation** with another player entity when they're in the same location (an abstract battle of wills)
-- **Realm manipulation** — the player can personally nudge realm flow slightly
+## 6. Suggested Next Steps
 
-Whatever it is, it ensures the player feels like a *being* and not just an operations manager.
+1. **Choose a lore direction** — this will unblock realm design, energy systems, rites, and tone. See the lore suggestions document.
+2. **Define religion mechanics** in detail — spread rules, founding costs, belief tag interactions.
+3. **Define what a turn looks like end-to-end** — action budget, resolution order, timing.
+4. **Prototype the instruction flowchart builder** — even a paper prototype or basic digital mockup would reveal UX problems immediately.
+5. **Sketch the combat system** — keep it simple, but define it.
