@@ -1,6 +1,6 @@
 # Dark Fantasy Realm-Hopping Influence Game — Design Document
 
-> **Status:** Active design — lore finalized, mechanics in progress.
+> **Status:** Active design — lore finalized, core mechanics solidifying.
 > **Last updated:** 2026-03-25
 > **Companion documents:** [Lore (full)](file:///Users/jseymour/jack_code/bg/lore_complete.md) • [Evaluation](file:///Users/jseymour/jack_code/bg/game_design_evaluation.md)
 
@@ -66,14 +66,19 @@ A dominion is a settlement/nation the Ordained controls through its ruler. One o
 
 Religions are sacred oaths — fabricated belief systems that route souls. The second parallel influence system.
 
+- **Founded** by visiting a region and spending an action — the Ordained establishes a new faith
+- Each religion has **belief tags** chosen at founding — these determine soul routing, spread compatibility, AND how followers behave (in combat, in politics, in crisis)
 - **Separate from dominions** — can spread into uncontrolled territory
-- **Self-sustaining** once established — grows organically without visits
-- Creates **long-term vs short-term tension** with dominions
-- Each religion has **belief tags** that route souls (Model A)
+- **Instructable** — like dominions, the Ordained can leave conditional instructions for a religion (different instruction set: where to spread, at what rate, defensive posture, etc.)
+- Spread speed depends on **compatibility** with the local area (realm energy, existing beliefs, population) and player instructions
+- **Overexpansion risk** — spreading too fast introduces instability. Rapid growth can cause religious collapse, schisms, or loss of follower loyalty. Some randomness involved.
+- **Attackable** — other dominions can target and attempt to suppress or dismantle a religion
 - Religion behaviour varies by realm energy (see §4.4)
+- **Multiple religions per player** allowed
 - **Not the only source of souls** — rites, battles, relics also generate souls
+- Religions can have **special actions** — thematic rituals, holy wars, sacred festivals — that fit the lore and have mechanical impact
 
-**Open:** Full mechanical definition, spread speed, belief tag specifics, evolution/splintering.
+**Open:** Specific belief tags, tag count per religion (balancing), religion instruction options, collapse mechanics, special religion actions.
 
 ### 2.5 Souls
 
@@ -118,11 +123,16 @@ Full realm descriptions, inhabitants, and landscapes in [lore_complete.md §4](f
 
 ### 3.4 Realm Merging
 
-All combinations are defined and escalate in power. See [lore_complete.md §7](file:///Users/jseymour/jack_code/bg/lore_complete.md) for the full matrix (10 pairs, 10 triples, 5 quads, 1 full).
+**Additive merge model:** When realms merge, their rules **stack additively**. A zone where Dominion and Entropy overlap applies BOTH sets of rules simultaneously. A triple-merge zone applies all three. This is simpler to understand (players already know each realm's rules) and simpler to code (no 26 unique rule-sets — just combinations of 5 base rule-sets).
 
-**Key principle:** Each higher-order merge is strictly more powerful than its components. Merged zones unlock **new rites** unavailable in either realm alone, creating incentive to position around predicted overlaps.
+**Merge events and content (separate layer):** In addition to stacked rules, each specific merge combination can spawn:
+- **Merge cities/landmarks** — unique locations that appear only when specific realms collide. Stored as separate data, added to the board when the merge occurs.
+- **Merge events** — one-time or recurring events triggered by specific realm combinations.
+- **Visual/aesthetic changes** — each combination has its own visual design. The procedural graph logic may also shift slightly based on which realms are overlapping.
 
-**At the Convergence (full merge),** all energies coexist — the most complex and powerful game state. Convergence-only rites become available, including the Rite of the New Covenant (instant win).
+These are layered ON TOP of the additive rules but don't change the core rule-stacking mechanic.
+
+**At the Convergence (full merge),** all five energies coexist — all rules apply simultaneously. Convergence-only rites become available, including the Rite of the New Covenant (instant win).
 
 ### 3.5 Board Topology
 
@@ -143,12 +153,14 @@ All combinations are defined and escalate in power. See [lore_complete.md §7](f
 
 ## 4. Core Mechanics
 
-### 4.1 Core Loop — Visit, Instruct, Move
+### 4.1 Core Loop — Visit, Instruct, Act, Move
 
-Each turn:
-1. **Set conditional instructions** for the dominion/religion at your location
-2. **Take personal actions** — rites, rituals, relics, confrontations
-3. **Choose next destination** (instant travel)
+Each turn, the player has **2 action points (AP):**
+1. **Set conditional instructions** for the dominion and/or religion at their location (1 AP each)
+2. **Take personal actions** — perform rites, use relics, found a religion, ritual, confrontation (1 AP each)
+3. **Choose next destination** (free — not an action)
+
+Personal actions are **impactful and costly** — rites cost souls, rituals require specific conditions, relics are rare. The 2 AP limit reflects that these actions take time and effort, not that they're trivial. Players will rarely have the resources to spam them even if they could.
 
 All other dominions/religions execute their standing instructions autonomously.
 
@@ -173,8 +185,10 @@ Instructions idle if impossible. Must physically return to modify. Flowchart nod
 | **Mechanism** | Direct ruler control | Belief spread |
 | **Speed** | Immediate | Slow, organic |
 | **Reach** | Only your territory | Anywhere |
-| **Persistence** | Decays without visits | Self-sustaining |
+| **Persistence** | Decays without visits | Self-sustaining but can collapse |
+| **Instructions** | Full conditional flowcharts | Separate instruction set (spread direction, rate, posture) |
 | **Primary use** | Military, territorial | Soul routing, destabilisation |
+| **Risk** | Neglect → subversion | Overexpansion → collapse |
 
 Rival subversion depends on: time since visit, player abilities, establishment method. Following a player to immediately flip dominions is **not viable**.
 
@@ -192,9 +206,9 @@ Each realm's energy affects religions differently:
 
 ### 4.5 Rites & Relics
 
-**Rites:** Realm-tied special actions at rite sites. Cost souls/resources, produce powerful effects. Merge zones unlock **new rites** unavailable in either realm alone.
+**Rites:** Realm-tied special actions at rite sites. Cost souls/resources (1 AP to perform). Powerful effects — these are major actions, not spammable. Merge zones make additional rites available (stacked from component realms).
 
-**Relics:** Medium-to-high-impact persistent items. Found at locations, earned from missions, obtained through sacrifice or pillage. More than 5 total, not common. May have realm affinity.
+**Relics:** Medium-to-high-impact persistent items. Found at locations, earned from missions, obtained through sacrifice or pillage. More than 5 total, not common. May have realm affinity. Using a relic costs 1 AP.
 
 **Open:** Specific rites per realm, relic count, relic rules.
 
@@ -224,15 +238,30 @@ Natural catch-up through overexpansion (more dominions = more neglect = more vul
 ## 5. Turn Structure
 
 **Simultaneous rounds.** Each player per turn:
-1. Review state (realm positions, dominion status, scout reports)
-2. Take personal actions at current location
-3. Choose next destination
+1. **Review** — realm positions, dominion/religion status, scout reports
+2. **Spend 2 AP** — set instructions (1 AP per dominion or religion), perform rites, use relics, found religions, rituals, confrontations
+3. **Choose next destination** (free)
 
-All autonomous dominions/religions execute. Realm flow advances one tick.
+All autonomous dominions/religions execute their conditional instructions. Realm flow advances one tick.
 
 **Co-location:** Multiple Ordained at the same location → direct confrontation possible. Should be interesting, not punishing.
 
-**Open:** Actions per turn, confrontation mechanics, round duration, global events, combat system.
+### 5.1 Combat System
+
+**Mostly deterministic with slight randomness:**
+- Each army has a **strength value** (size + any enhancements)
+- Defender gets a **defensive bonus** (e.g., +20%)
+- The stronger side wins; casualties on both sides proportional to the strength ratio
+- A **small random factor** — not enough to flip the outcome of a lopsided fight, but enough to make close engagements uncertain. Adds tension without removing strategic control.
+
+**Combat modifiers (beyond raw strength):**
+- **Troop improvements** — knowledge, technologies, or rituals that enhance armies before battle (done via dominion instructions or personal actions in prior turns)
+- **Special combat cards** — one-time effects played during combat resolution. Could be earned from rites, relics, or missions. Examples: ambush (negate defender bonus), zealous charge (bonus attack, extra casualties), fortify (double defender bonus). These are limited resources, not always available.
+- **Religion influence** — belief tags affect follower behaviour in war (e.g., a religion with a "sacrifice" tag might make followers fight harder but take more casualties; a "communion" tag might allow reinforcement from adjacent nodes)
+
+> **Note:** Realm energy does NOT directly modify combat as a flat bonus, since both sides in a battle are usually in the same realm. Realm energy instead affects what **preparations** and **special cards** are available prior to and during combat.
+
+**Open:** Exact strength calculations, defensive bonus value, randomness range, combat card list, religion combat effects.
 
 ---
 
@@ -259,7 +288,7 @@ All autonomous dominions/religions execute. Realm flow advances one tick.
 | Hidden information (instructions, missions) | No cheating |
 | Influence decay + soul routing + autonomous dominions | Continuous state tracking |
 | Procedural graph generation | New board every game |
-| 26 merge combination rite/rule tracking | Combinatorial complexity |
+| Additive merge rule stacking + merge event tracking | Combinatorial complexity |
 
 ---
 
@@ -280,10 +309,14 @@ All autonomous dominions/religions execute. Realm flow advances one tick.
 | Rival visits | Yes, effectiveness varies with decay |
 | Soul routing | Model A (belief tags) |
 | Souls spendable | Yes, as rite fuel |
-| Religion system | Separate from dominions, two parallel systems |
+| Religion system | Separate from dominions, instructable, multiple per player |
+| Religion founding | Visit + 1 AP + choose belief tags |
+| Religion risk | Overexpansion → collapse (with randomness) |
+| Merge model | Additive rule stacking + separate merge events/cities |
+| Actions per turn | 2 AP (instructions, rites, relics each cost 1 AP; destination is free) |
+| Combat | Mostly deterministic + slight randomness + special cards |
 | End condition | The Convergence |
 | Instant win | Rite of the New Covenant |
-| All merge combos | Defined (10 pairs, 10 triples, 5 quads, 1 full) |
 | Tone | Dark Souls level |
 | Sundering cause | Unknown in-lore |
 
@@ -296,17 +329,20 @@ All autonomous dominions/religions execute. Realm flow advances one tick.
 | 1 | Player | Personal progression system |
 | 2 | Player | Personal ritual mechanics |
 | 3 | Player | Direct confrontation mechanics |
-| 4 | Turns | Actions per turn / action budget |
-| 5 | Rites | Specific rites per realm and merge zone |
-| 6 | Religion | Full mechanical definition (spread, evolution, tags) |
-| 7 | Combat | Combat system (deterministic? probabilistic?) |
-| 8 | Board | Graph generation parameters |
-| 9 | Missions | Acquisition, structure, count |
-| 10 | Info | Scouting detail level, detection |
-| 11 | Dominion | Establishing method, decay curve, inhabitant types |
-| 12 | Souls | Exchange rate, spent soul economy |
-| 13 | Pacing | Game length in rounds, Convergence timing |
-| 14 | Catch-up | Explicit mechanic beyond natural overexpansion |
+| 4 | Rites | Specific rites per realm |
+| 5 | Religion | Specific belief tags and count per religion |
+| 6 | Religion | Religion instruction options (what can you tell it to do?) |
+| 7 | Religion | Collapse mechanics (what triggers it, what happens) |
+| 8 | Religion | Special religion actions (holy wars, festivals, etc.) |
+| 9 | Combat | Exact strength calc, randomness range, combat card list |
+| 10 | Board | Graph generation parameters |
+| 11 | Board | Merge cities/events per realm combination |
+| 12 | Missions | Acquisition, structure, count |
+| 13 | Info | Scouting detail level, detection |
+| 14 | Dominion | Establishing method, decay curve, inhabitant types |
+| 15 | Souls | Exchange rate, spent soul economy |
+| 16 | Pacing | Game length in rounds, Convergence timing |
+| 17 | Catch-up | Explicit mechanic beyond natural overexpansion |
 
 ---
 
