@@ -1,6 +1,6 @@
 # Dark Fantasy Realm-Hopping Influence Game — Design Document
 
-> **Status:** Active design — lore finalized, core mechanics solidifying.
+> **Status:** Near-prototype — most systems defined, implementation details remain.
 > **Last updated:** 2026-03-25
 > **Companion documents:** [Lore (full)](file:///Users/jseymour/jack_code/bg/lore_complete.md) • [Evaluation](file:///Users/jseymour/jack_code/bg/game_design_evaluation.md)
 
@@ -27,6 +27,9 @@
 3. **Deception** — hidden plans, lying religions, secret missions
 4. **Personal agency** — rituals, confrontations, selfish goals
 
+> [!NOTE]
+> **Toggleable mechanics:** Some systems (e.g., belief tags/doctrines, combat cards, religion special actions) can be toggled on/off. They add complexity when active but the game functions without them. During development, these should be implemented as optional layers that can be enabled/disabled for different complexity levels.
+
 ---
 
 ## 2. Theming & Lore
@@ -45,40 +48,68 @@ A primordial, sacred accord once held five fundamental forces in balance — not
 - Travel **instantaneously** — cost is opportunity (one location per turn), not distance
 - **Visible** to inhabitants — a shimmer, a pressure, an alien presence. Not in any myth or legend. Unprecedented, unexplained, clearly powerful.
 - **Symmetric** for initial design — asymmetric concepts deferred to ideas list
-- Have **personal rituals, selfish motives, and a progression system** (details TBD)
-- Can **confront other Ordained directly** when co-located
-
-**Open:** Personal progression system, ritual mechanics, confrontation mechanics.
+- Have **personal rituals** — direct actions costing souls (see §4.6)
+- Can acquire **limited-use abilities** through rites, relics, and missions over the course of the game
+- Can **confront other Ordained directly** when co-located (see §5.2)
 
 ### 2.3 Dominions
 
 A dominion is a settlement/nation the Ordained controls through its ruler. One of two parallel influence systems (the other being religion).
 
-- Established by visiting a location and influencing its ruler
+- **Established** by visiting an uncontrolled settlement and spending **1 AP** to influence its ruler
 - Direct control when present; conditional instructions when absent
-- Influence decays **slowly** — recently-visited dominions are firmly held
+- Influence decays **slowly** (~3-4% per turn — firmly held for ~7 turns, vulnerable after ~15, autonomous after ~25)
 - **More territory than all players can control** — by design
 - Rivals can visit and attempt subversion (effectiveness depends on decay, abilities, establishment method)
 
-**Open:** Exact decay curve, establishing method, inhabitant types, autonomous behaviour.
+**Open:** Inhabitant types, autonomous behaviour details.
 
 ### 2.4 Religions
 
 Religions are sacred oaths — fabricated belief systems that route souls. The second parallel influence system.
 
-- **Founded** by visiting a region and spending an action — the Ordained establishes a new faith
-- Each religion has **belief tags** chosen at founding — these determine soul routing, spread compatibility, AND how followers behave (in combat, in politics, in crisis)
+- **Founded** by visiting a region and spending 1 AP
+- Each religion chooses **2 belief tags (doctrines)** from a pool of 15 (3 per realm) — these determine soul routing, spread compatibility, AND follower behaviour (combat, politics, crisis)
 - **Separate from dominions** — can spread into uncontrolled territory
-- **Instructable** — like dominions, the Ordained can leave conditional instructions for a religion (different instruction set: where to spread, at what rate, defensive posture, etc.)
+- **Instructable** — the Ordained can leave conditional instructions for a religion (simpler than dominion instructions — see §4.3)
 - Spread speed depends on **compatibility** with the local area (realm energy, existing beliefs, population) and player instructions
-- **Overexpansion risk** — spreading too fast introduces instability. Rapid growth can cause religious collapse, schisms, or loss of follower loyalty. Some randomness involved.
+- **Overexpansion risk** — spreading too fast introduces instability (stability score system, not too harsh). Can cause schisms or loss of follower loyalty.
 - **Attackable** — other dominions can target and attempt to suppress or dismantle a religion
 - Religion behaviour varies by realm energy (see §4.4)
 - **Multiple religions per player** allowed
 - **Not the only source of souls** — rites, battles, relics also generate souls
-- Religions can have **special actions** — thematic rituals, holy wars, sacred festivals — that fit the lore and have mechanical impact
+- Religions can have **special actions** — holy wars, sacred festivals — that fit the lore and have mechanical impact
 
-**Open:** Specific belief tags, tag count per religion (balancing), religion instruction options, collapse mechanics, special religion actions.
+#### Belief Tags (Doctrines) — [TOGGLEABLE]
+
+15 tags, 3 per realm. Each religion picks 2 at founding. Tags from the same realm as the location spread faster.
+
+| Realm | Tag 1 | Tag 2 | Tag 3 |
+|-------|-------|-------|-------|
+| Dominion | **Obedience** — loyal followers, hard to subvert | **Sacrifice** — higher soul yield, population declines faster | **Order** — religion resists mutation, stays exactly as founded |
+| Entropy | **Renewal** — religion regenerates after damage | **Abandon** — fast spread, followers don't fight well | **Adaptation** — religion auto-adjusts to local compatibility |
+| Communion | **Unity** — followers reinforce adjacent nodes | **Empathy** — strong defence, weak attack | **Communion** — religion merges with local beliefs rather than displacing them |
+| Wrath | **Fury** — combat bonus, more casualties | **Defiance** — very hard to suppress/dismantle | **Conquest** — religion spreads automatically into conquered territory |
+| Memory | **Remembrance** — very slow decay, nearly permanent | **Wisdom** — scouting bonus from controlled areas | **Tradition** — existing religions in the area resist being displaced |
+
+#### Religion Instructions
+
+Simpler than dominion flowcharts — more like a sacred text's commandments:
+
+| Action | Effect |
+|--------|--------|
+| **Spread toward [node/direction]** | Religion expands toward a target |
+| **Hold** | Stop spreading, consolidate |
+| **Slow spread / Fast spread** | Rate control — faster = higher collapse risk |
+| **Resist suppression** | Defensive posture against attacks |
+| **Holy war** | Actively oppose a rival religion or dominion |
+| **Sacred festival** | Costs souls, temporarily boosts loyalty and spread |
+
+These can be combined with conditions: "IF enemy religion enters our territory THEN resist suppression."
+
+#### Collapse Mechanics
+
+Each religion has a hidden **stability score** (0-100, starts high). Gradual growth increases it. Fast growth decreases it. Being attacked decreases it. Below ~20, the religion is at risk — each turn below 20 has a chance of fracture (losing outer nodes, tag drift, soul routing disruption for several turns). Not too harsh — recoverable through visiting and performing Rite of Binding. The system discourages reckless expansion, not all expansion.
 
 ### 2.5 Souls
 
@@ -87,9 +118,11 @@ Imprints of the old Covenant on living beings. Released at death.
 - **Win condition:** Most souls at the Convergence wins
 - **Spendable:** Fuel for rites — burning old-order authority to bend reality
 - **Core tension:** Hoard for victory vs. spend for power
-- Gained through: religions, rites, battles, relics, missions
+- Gained through: religions, battles (souls collected from fallen warriors), rites, relics, missions
+- **Numbers should feel like death counts** — inflate values so soul totals feel like the population stakes they represent
+- **Baseline (tuning TBD):** Religions generate souls per turn proportional to coverage. Rites cost moderate amounts. Rite of the New Covenant costs a very large amount plus other requirements. Winning likely requires significant accumulation.
 
-**Open:** Exchange rate, spent soul economy, direct theft.
+**Open:** Exact exchange rate (tuning during prototyping).
 
 ---
 
@@ -206,32 +239,50 @@ Each realm's energy affects religions differently:
 
 ### 4.5 Rites & Relics
 
-**Rites:** Realm-tied special actions at rite sites. Cost souls/resources (1 AP to perform). Powerful effects — these are major actions, not spammable. Merge zones make additional rites available (stacked from component realms).
+**Rites:** Special actions at **specific locations** within realms (rite sites). Each rite site offers rituals tied to its realm's energy. Cost souls + 1 AP. Powerful effects — major actions, not spammable. Merge zones make additional rites available (stacked from component realms). **Realms do NOT affect standard personal rituals** (§4.6) — rite sites are separate from the Ordained's personal abilities.
 
-**Relics:** Medium-to-high-impact persistent items. Found at locations, earned from missions, obtained through sacrifice or pillage. More than 5 total, not common. May have realm affinity. Using a relic costs 1 AP.
+**Relics:** Medium-to-high-impact persistent items. Found at locations, earned from missions, obtained through sacrifice or pillage. More than 5 total, not common. May have realm affinity. Using a relic costs 1 AP. Relics provide **limited-use or persistent abilities** that expand the Ordained's personal action space over time.
 
-**Open:** Specific rites per realm, relic count, relic rules.
+**Open:** Specific rite-site rites per realm (design during prototyping), relic list.
 
-### 4.6 Missions & Goals
+### 4.6 Personal Rituals
 
-Hidden personal objectives. Variable scope (local → realm-spanning → cross-realm). Reward souls/points/relics. Some require soul sacrifice or specific rites.
+The Ordained's own actions — not performed through dominions or religions. These are the Ordained acting as themselves. Each costs **1 AP + souls**.
 
-**Open:** Acquisition method, active mission count, public objectives.
+| Ritual | Soul Cost | Effect |
+|--------|-----------|--------|
+| **Rite of Sight** | Low | Reveal all instructions at your current location (enemy dominions, religions). Immediate intelligence. |
+| **Rite of Binding** | Medium | Strengthen control at your location — reset dominion decay, reinforce against subversion, stabilise a religion's collapse risk. |
+| **Rite of Severance** | Medium | Weaken a rival — accelerate decay on enemy dominion, disrupt enemy religion spread, or sever a graph edge (cutting a travel route). |
+| **Rite of Harvest** | None (destructive) | Sacrifice a population node to immediately collect all its souls. Node depopulated for many turns. Powerful but burns territory. |
 
-### 4.7 Information & Espionage
+Additional limited-use actions are acquired during play through relics, rite sites, and mission rewards — expanding the Ordained's personal toolkit as the game progresses.
+
+### 4.7 Missions & Goals
+
+Hidden personal objectives. Variable scope (local → realm-spanning → cross-realm). Should require **meaningful planning and manipulation** — not trivial to complete.
+
+- 3 missions drawn at game start
+- Missions reward **souls, relics, information, or special abilities** (not just points)
+- Can discard and redraw 1 mission at a soul cost
+- Examples: "Control a dominion in 3 realms simultaneously," "Have your religion dominant in The Crucible," "Perform 3 different realm rites in one game"
+
+> [!NOTE]
+> **Development note:** The mission system is functional but basic. Should be expanded with more complex, multi-step missions that reward deeper strategic planning. Priority for post-prototype improvement.
+
+### 4.8 Information & Espionage
 
 **Visible:** Dominion ownership, general religion spread.
 **Hidden:** Instructions, missions, influence levels.
 
 **Espionage mechanics:**
-1. **Scouting instructions** — order your dominion to scout a target; receive results on next visit. Costs an action slot + has delay.
-2. **Rite/relic abilities** — one-time intelligence reveals.
+1. **Scouting instructions** — order your dominion to scout a target; receive results on next visit. Default reveals **top-level directive and army size** (not full flowchart).
+2. **Special abilities** — certain rites, relics, or acquired abilities can reveal the **full instruction flowchart** of an enemy dominion. These are rare and valuable.
+3. **Rite of Sight** (personal ritual) — reveals everything at your current location immediately.
 
-**Open:** Scouting detail level, detection, counter-espionage.
+### 4.9 Catch-Up
 
-### 4.8 Catch-Up
-
-Natural catch-up through overexpansion (more dominions = more neglect = more vulnerability). Explicit catch-up TBD.
+**No explicit catch-up mechanic.** Natural catch-up through overexpansion is sufficient — more dominions = more neglect = more vulnerability. A player with fewer, tightly controlled dominions may outperform a sprawling empire.
 
 ---
 
@@ -244,24 +295,35 @@ Natural catch-up through overexpansion (more dominions = more neglect = more vul
 
 All autonomous dominions/religions execute their conditional instructions. Realm flow advances one tick.
 
-**Co-location:** Multiple Ordained at the same location → direct confrontation possible. Should be interesting, not punishing.
+### 5.1 Co-Location & Confrontation
 
-### 5.1 Combat System
+When multiple Ordained are at the same location, each chooses: **confront or retreat**.
+
+- **Retreat:** You leave the location (displaced to an adjacent node). You **cannot take any actions** this turn. Safe, but you lose your entire turn.
+- **Confront:** Both confronting Ordained make a secret **soul bid** (any amount). Higher bid wins. The **loser cannot take any actions** this turn and is expelled to a random adjacent node. The winner keeps their bid and acts normally.
+- If only one confronts and the other retreats, the confronter wins by default (no bid needed) and acts normally.
+- **Modifiers:** Combat cards, relics, and area effects can influence confrontation (bid multipliers, expulsion prevention, etc.)
+- If neither confronts, they **coexist** and both act normally.
+
+This makes confrontation a high-stakes power move — you risk resources and your entire turn.
+
+### 5.2 Combat System
 
 **Mostly deterministic with slight randomness:**
 - Each army has a **strength value** (size + any enhancements)
 - Defender gets a **defensive bonus** (e.g., +20%)
 - The stronger side wins; casualties on both sides proportional to the strength ratio
-- A **small random factor** — not enough to flip the outcome of a lopsided fight, but enough to make close engagements uncertain. Adds tension without removing strategic control.
+- A **small random factor** — not enough to flip the outcome of a lopsided fight, but enough to make close engagements uncertain
+- **Souls are collected from combat** — fallen warriors release souls, claimable by whoever controls the area's religion
 
 **Combat modifiers (beyond raw strength):**
-- **Troop improvements** — knowledge, technologies, or rituals that enhance armies before battle (done via dominion instructions or personal actions in prior turns)
-- **Special combat cards** — one-time effects played during combat resolution. Could be earned from rites, relics, or missions. Examples: ambush (negate defender bonus), zealous charge (bonus attack, extra casualties), fortify (double defender bonus). These are limited resources, not always available.
-- **Religion influence** — belief tags affect follower behaviour in war (e.g., a religion with a "sacrifice" tag might make followers fight harder but take more casualties; a "communion" tag might allow reinforcement from adjacent nodes)
+- **Troop improvements** — knowledge, rituals, or technologies that enhance armies (done via dominion instructions or personal actions in prior turns)
+- **Special combat cards** [TOGGLEABLE] — one-time effects played during combat. Earned from rites, relics, or missions. Examples: ambush, zealous charge, fortify, feigned retreat, divine intervention, scorched earth. Limited resources.
+- **Religion influence** — belief tags affect follower behaviour in war (Fury = combat bonus, Sacrifice = higher soul yield from casualties, Unity = reinforcement from adjacent nodes, etc.)
 
-> **Note:** Realm energy does NOT directly modify combat as a flat bonus, since both sides in a battle are usually in the same realm. Realm energy instead affects what **preparations** and **special cards** are available prior to and during combat.
+> **Note:** Realm energy does NOT directly modify combat as a flat bonus (both sides are in the same realm). Instead, realm energy determines what **preparations and cards** are available.
 
-**Open:** Exact strength calculations, defensive bonus value, randomness range, combat card list, religion combat effects.
+**Open:** Exact strength values, randomness range, full combat card list (design during prototyping).
 
 ---
 
@@ -273,7 +335,9 @@ All autonomous dominions/religions execute their conditional instructions. Realm
 
 **Escalation:** Early (isolated, local) → Mid (access points, cross-realm) → Late (collisions, chaos, full merge).
 
-**Open:** Personal power growth, game length in rounds, Convergence timing predictability.
+**Game length:** ~30-40 rounds. The n-body simulation is tuned so convergence happens around round 35 ± 5.
+
+**Personal growth:** The Ordained grow through acquiring relics, unlocking rite-site abilities, and completing missions — not through a separate progression track. Their toolkit expands organically as the game progresses.
 
 ---
 
@@ -297,7 +361,7 @@ All autonomous dominions/religions execute their conditional instructions. Realm
 | Decision | Resolution |
 |----------|-----------|
 | Player count | 4 |
-| Game length | Long, high complexity |
+| Game length | Long (~30-40 rounds), high complexity |
 | Lore cosmology | The Covenant / The Sundering |
 | Player identity | The Ordained — fallen sacred agents, selfish |
 | Player visibility | Visible to inhabitants, not in any myth |
@@ -307,14 +371,25 @@ All autonomous dominions/religions execute their conditional instructions. Realm
 | Board nodes/edges | Cities/landmarks, weighted travel routes |
 | Instruction format | Conditional flowcharts, tiered complexity |
 | Rival visits | Yes, effectiveness varies with decay |
-| Soul routing | Model A (belief tags) |
-| Souls spendable | Yes, as rite fuel |
+| Soul routing | Model A (belief tags / doctrines) |
+| Souls spendable | Yes, as rite fuel. Collected from combat too. |
+| Belief tags | 15 total (3/realm), choose 2 per religion [TOGGLEABLE] |
 | Religion system | Separate from dominions, instructable, multiple per player |
 | Religion founding | Visit + 1 AP + choose belief tags |
-| Religion risk | Overexpansion → collapse (with randomness) |
+| Religion instructions | 6 base actions (spread, hold, rate, resist, holy war, festival) |
+| Religion risk | Stability score system, overexpansion → collapse (not too harsh) |
+| Dominion establishing | 1 AP at uncontrolled settlement |
+| Dominion decay | ~3-4%/turn (firm ~7 turns, vulnerable ~15, autonomous ~25) |
 | Merge model | Additive rule stacking + separate merge events/cities |
-| Actions per turn | 2 AP (instructions, rites, relics each cost 1 AP; destination is free) |
-| Combat | Mostly deterministic + slight randomness + special cards |
+| Actions per turn | 2 AP (instructions, rites, relics each cost 1 AP; destination free) |
+| Personal rituals | 4 base (Sight, Binding, Severance, Harvest) + acquired abilities |
+| Confrontation | Confront/retreat choice, soul bid, loser loses turn |
+| Combat | Mostly deterministic + slight randomness + special cards [TOGGLEABLE] |
+| Combat souls | Souls collected from fallen warriors |
+| Scouting | Default = directive + army size. Special abilities for full flowchart. |
+| Missions | 3 at start, reward souls/relics/abilities, discard/redraw for cost |
+| Catch-up | None explicit — natural overexpansion is sufficient |
+| Personal growth | Through relics/rites/missions, no separate progression track |
 | End condition | The Convergence |
 | Instant win | Rite of the New Covenant |
 | Tone | Dark Souls level |
@@ -324,25 +399,17 @@ All autonomous dominions/religions execute their conditional instructions. Realm
 
 ## 9. Open Design Questions
 
+> Only implementation-detail and tuning items remain.
+
 | # | Category | Question |
 |---|----------|----------|
-| 1 | Player | Personal progression system |
-| 2 | Player | Personal ritual mechanics |
-| 3 | Player | Direct confrontation mechanics |
-| 4 | Rites | Specific rites per realm |
-| 5 | Religion | Specific belief tags and count per religion |
-| 6 | Religion | Religion instruction options (what can you tell it to do?) |
-| 7 | Religion | Collapse mechanics (what triggers it, what happens) |
-| 8 | Religion | Special religion actions (holy wars, festivals, etc.) |
-| 9 | Combat | Exact strength calc, randomness range, combat card list |
-| 10 | Board | Graph generation parameters |
-| 11 | Board | Merge cities/events per realm combination |
-| 12 | Missions | Acquisition, structure, count |
-| 13 | Info | Scouting detail level, detection |
-| 14 | Dominion | Establishing method, decay curve, inhabitant types |
-| 15 | Souls | Exchange rate, spent soul economy |
-| 16 | Pacing | Game length in rounds, Convergence timing |
-| 17 | Catch-up | Explicit mechanic beyond natural overexpansion |
+| 1 | Combat | Exact strength values, randomness range, combat card list |
+| 2 | Rites | Specific rite-site rites per realm |
+| 3 | Board | Graph generation parameters (nodes, edges, density) |
+| 4 | Board | Merge cities/events per realm combination |
+| 5 | Dominion | Inhabitant types, autonomous behaviour details |
+| 6 | Souls | Exact exchange rate / economy numbers |
+| 7 | Relics | Relic list, realm affinities, acquisition rules |
 
 ---
 
@@ -354,40 +421,45 @@ At game start, one realm is secretly designated as the one whose force broke the
 ### 10.2 Sixth Realm — The Absence
 A void-realm where the Covenant once resided. Not a standard realm — behaves differently (may not drift/merge like others). Energy of **Negation** — cancels other energies. Too dangerous for stable holdings, powerful for specific disruption. Could house the instant-win objective.
 
-### 10.3 Dominion & Control
+### 10.3 Personal Progression System
+If playtesting shows the Ordained feel static: add a **Forbidden Knowledge** track — explore different realms to unlock stronger rites. Or a **Corruption** system — spending souls permanently changes the Ordained's capabilities.
+
+### 10.4 Advanced Mission System
+Current missions are functional but basic. Future improvement: multi-step missions requiring chains of actions across multiple realms and turns. Missions with branching outcomes. Missions that interact with each other. Secret objectives that can be partially revealed to bluff other players.
+
+### 10.5 Dominion & Control
 - **Stability-based decay resistance** — how you leave affects subversion difficulty
 - **Partial subversion** — corrupt instructions, not full takeover
 - **Supply chains** — economic production, supply lines between cities
 
-### 10.4 Religion
-- **Doctrine system** — composed doctrines (2-3 from a pool) affecting spread, compatibility, routing
-- **Religion evolution/splintering** — unattended religions mutate
+### 10.6 Religion
+- **Religion evolution/splintering** — unattended religions mutate doctrinally
 - **Holy sites** — nodes that amplify spread or bonus souls
 
-### 10.5 Espionage
-- **Observing** — spend a turn to learn everything about a location (high info, high opportunity cost)
-- **Information networks** — permanent espionage infrastructure (expensive, detectable)
+### 10.7 Espionage
+- **Observing** — spend a turn to learn everything about a location
+- **Information networks** — permanent espionage infrastructure
 - **Counter-espionage** — detect scouts, plant false information
 - **Misinformation** — fake instructions to mislead scouts
 
-### 10.6 Player Identity
+### 10.8 Player Identity
 - **Asymmetric concepts** — each Ordained embodies a different abstract concept with unique abilities
 - **Concept-realm affinity** — resonance with certain realms for bonus effectiveness
 
-### 10.7 Realm & World
+### 10.9 Realm & World
 - **Player realm influence** — spend souls to nudge realm trajectories
 - **World events** — realm-scale random/triggered events
 
-### 10.8 Economy
+### 10.10 Economy
 - **Portable items** — carried between locations (logistics gameplay)
 - **Technology/knowledge** — realm-specific advances transferable cross-realm
 - **Soul flavours** — different soul types from different realms/religions
 
-### 10.9 Endgame & Victory
+### 10.11 Endgame & Victory
 - **Epoch structure** — 3 phases with different rules/scoring
 - **Alternative victory conditions** — territorial dominance, religious hegemony
 - **Model B soul routing** — hierarchical afterlife with contested claims
 
-### 10.10 Social & Political
+### 10.12 Social & Political
 - **Binding pacts** — mechanically enforced temporary agreements
 - **Tribute systems** — vassal-like dominion relationships
