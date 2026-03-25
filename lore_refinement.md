@@ -1,150 +1,193 @@
-# Lore Refinement — The Severed Covenant (Mythological Reframe)
-
-> Taking Option D's structural ideas — reality governed by binding laws, a shattered agreement, players as former enforcers — and recasting all terminology from legal/courtroom language into dark mythology.
+# Lore Refinement v2 — Players, Sundering, and Realm Options
 
 ---
 
-## The Core Cosmology
+## 1. The Players — Renamed and Selfish
 
-### The Covenant
+### Name Options
 
-Before the realms, there was a single world governed by the **Covenant** — not a contract or a law, but an **ancient, primordial accord** between the great powers of existence. Think of it less as a legal document and more as the way the Norse gods swore oaths on Yggdrasil, or the way cosmic forces in mythology are bound by sacred promises that even gods cannot break. The Covenant was the **sacred grammar of reality** — the invisible structure that held all things in balance.
+The Wardens concept — fallen guardians of the Covenant — but with a cooler, more mythological name and a clearer selfish edge:
 
-The powers bound by the Covenant were not gods (they had no worshippers, no personalities, no names). They were fundamental **forces** — aspects of existence that simply *were*. Dominion, Entropy, Communion, Wrath, Memory. They coexisted because the Covenant made coexistence possible. Without it, each force would consume or repel the others.
+| Name | Meaning / Feel | Tone |
+|------|---------------|------|
+| **The Ordained** | "Set apart by sacred authority" — implies they were chosen/consecrated, but now their ordination serves only themselves | Dark religious, archaic |
+| **The Anathant** | Fabricated from "anathema" (cursed) + "-ant" (one who does) — "the ones who became cursed" | Alien, literary, memorable |
+| **The Harrowed** | "Tormented, ravaged" — implies they were damaged by the Sundering and now act from that wound | Dark Souls energy, tragic |
+| **The Prelates** | "High-ranking sacred officials" — but with a mythological rather than Catholic connotation | Authoritative, ancient |
+| **The Remnant** | They are what remains of the old order | Simple, evocative, collective |
+| **The Edicts** | They ARE living commandments — sacred laws given form | Abstract, unique, conceptual |
 
-### The Sundering
+**My recommendation:** **The Ordained** or **The Anathant**. The Ordained feels the most naturally mythological while being uncommon. The Anathant is the most unique and would be entirely owned by this game.
 
-One of the powers **broke the Covenant**. This is the central mythological event — the Sundering. The reason is lost (or deliberately erased). Perhaps the violation was an act of ambition. Perhaps it was inevitable — an inherent flaw in the Covenant, a clause that contradicted itself. Perhaps it was an act of mercy, or desperation, or madness.
+### Selfish Motivation
 
-When the Covenant broke, reality could not hold together. The forces tore apart into separate realms, each one crystallising around a single power. Where once there was one world with all forces in balance, now there are fragments — each a distorted place where one force dominates unchecked.
+The Ordained were once selfless — instruments of the Covenant's balance. When the Covenant shattered, they did not simply lose purpose. They were **freed from purpose**. For the first time, they could want. And what they want is simple: **to never serve again**.
 
-The realms drift through the void like shards of a shattered vessel, still pulled toward each other by the ghost of the Covenant — the memory of wholeness. This is the source of the n-body gravitational pull. **The Convergence is the Covenant trying to reassemble itself**, blindly, imperfectly, inevitably.
+Each Ordained seeks to accumulate enough power (souls, influence, territory) that when the Convergence reassembles reality, **they will be the one defining its new order** — not serving it. They don't want to restore the Covenant. They want to **replace it with themselves**. Every dominion they build, every religion they found, every soul they harvest is a piece of the new order — one that has them at its centre.
 
-### The Players — Three Possible Framings
+They are selfish because they tasted freedom when everything else lost its structure, and they will destroy anyone who threatens to take that freedom away — including each other.
 
-The players need to feel mythological, not bureaucratic. Here are three options for what the players are — all preserve the "former enforcers of the cosmic order" concept but frame it differently:
+### Visibility to Inhabitants
 
----
-
-#### Framing 1: The Wardens
-
-The players are **Wardens** — ancient entities who existed to uphold the Covenant. Not judges or lawyers — more like the Einherjar or Valkyries of Norse myth, or the Archons of Gnostic traditions. They were the Covenant's instruments: when a force strayed from the balance, the Wardens intervened. They were feared and revered. Not rulers — **guardians of the sacred order**.
-
-When the Covenant shattered, they lost their purpose. The forces no longer answer to them. The inhabitants of the realms don't remember them. They are **fallen guardians in a world that no longer has anything to guard**. Now they wander the fragments, using the remnants of their authority — their understanding of oaths, of binding, of sacred law — to manipulate mortals into serving them. They build dominions and religions not out of duty, but out of the cold need to matter again.
-
-**Tone:** Tragic, fallen nobility. Think of the Lords of Cinder in Dark Souls — once great, now diminished, clinging to fragments of a dead age.
-
----
-
-#### Framing 2: The Oathbound
-
-The players are **the Oathbound** — beings who were forged BY the Covenant itself. They are not separate from it; they are living pieces of the agreement. Each one embodies a **clause**, a sacred law, a binding principle. When the Covenant shattered, they didn't just lose their purpose — they were **broken**, like bones snapping when the body that holds them is destroyed.
-
-Now they exist in a state of partial ruin. They remember the Covenant — they can still feel its ghost, like a phantom limb. They can still invoke fragments of its power, but each invocation costs them (souls — the currency of the old order). They build religions because religions are **oaths made by mortals** — echoes of the Covenant, imperfect copies of the sacred law that once held everything together. Every religion a player founds is an attempt to recreate a piece of the Covenant, twisted to serve them.
-
-**Tone:** Broken instruments. Like the weapons in Berserk that remember the battles they fought. The players are not tragic heroes — they are damaged tools that have learned to use themselves.
+The Ordained are **visible** to inhabitants — but clearly not of their world. They manifest as figures surrounded by a faint distortion — a shimmer in the air, a wrongness in the light, a presence that makes people instinctively kneel or flee. They are not in any myths or legends (the Sundering erased the old world's memory). To inhabitants, an Ordained appears as an **unprecedented, unexplained phenomenon** — a being of obvious power with no context. This makes their arrival at a dominion an event — something inhabitants react to with awe, fear, or confusion.
 
 ---
 
-#### Framing 3: The Hollow Thrones
+## 2. The Sundering Mechanic
 
-The players are **Thrones** — not beings who sat on thrones, but the thrones themselves. In the old cosmology, each force of existence had a Throne — a point of governance, a seat of authority through which the Covenant channelled its will. The Thrones were where power met law, where raw force was shaped into purpose. They were sacred positions, not individuals.
+### Core idea
+- At the start of each game, **one realm is secretly designated** as the one whose force broke the Covenant
+- The guilty force is **hidden at game start** and **gradually revealed** through game events
+- The guilty realm becomes **corrupted** as its secret is unveiled, gaining special (destabilising) effects
+- Each force has a **different reason** for having broken the Covenant, giving each game a different narrative flavour
 
-When the Covenant shattered, the Thrones were emptied. The forces fled into their own realms. But the Thrones persisted — hollow, purposeless, hungry. Over the aeons, the Thrones developed awareness. Consciousness born from absence: they know what they are supposed to contain, and they are empty. They wander the realms trying to fill themselves — with dominions, with worship, with souls. Every soul absorbed is a tiny restoration of the authority they once held.
+### Revelation Timeline
+- **Early game:** No information. All realms appear normal.
+- **Mid game:** Hints begin appearing — strange events in one realm, anomalies, corruption markers. Observant players will suspect which realm is guilty.
+- **Late game:** The guilty realm fully manifests its corruption. Its energy becomes unstable and powerful, its inhabitants become erratic, and unique mechanics activate.
 
-**Tone:** Cosmic horror, existential emptiness. Things that should not be alive but are. Very Bloodborne — entities defined by what they lack, hungry for something they can never fully reclaim.
+### Corruption Effects (per realm)
 
----
+When a realm is revealed as the one that broke the Covenant, it gains unique effects that change the game's dynamics:
 
-### Souls — Reframed
+| Guilty Realm | Why It Broke the Covenant | Corruption Effect |
+|---|---|---|
+| **Dominion** | The Covenant constrained its authority — it wanted to rule without limit, not share governance with other forces | **Tyrannical Expansion:** Dominions in this realm become aggressively expansionist on their own. Uncontrolled dominions in this realm conquer neighbours autonomously. The Ordained who controls the most territory here gains bonus souls, but loses control faster. |
+| **Entropy** | The Covenant was permanence — an eternal law. Entropy cannot tolerate anything that does not change. It broke the Covenant because the Covenant's existence was an affront to its nature. | **Accelerated Decay:** Everything in this realm decays faster — dominions, religions, even the realm's graph structure. Nodes dissolve and reform. Souls are generated at double rate but are harder to claim. The realm itself is slowly consuming itself. |
+| **Communion** | The Covenant separated the forces — gave each its own domain. Communion wanted to dissolve all boundaries, to merge everything into one. It broke the Covenant to destroy separation itself. | **Forced Merging:** This realm aggressively pulls other realms toward it, accelerating the Convergence. Dominions here bleed into each other — control becomes shared or contested. Religions merge spontaneously. Individual identity erodes. |
+| **Wrath** | The Covenant was a cage. Wrath does not tolerate cages. It broke the Covenant in a moment of pure, purposeless fury — not to achieve something, but because the act of breaking was its nature. | **Endless Conflict:** Permanent war erupts across this realm. All dominions are in constant military conflict. Armies grow spontaneously. The realm generates massive power through conflict but is nearly impossible to stabilise. Any player here must fight constantly. |
+| **Memory** | Memory remembered something it shouldn't have — a flaw in the Covenant, a hidden clause, an original sin. It broke the Covenant not out of ambition but because it knew the Covenant was already broken. It merely made the truth visible. | **The Weight of Truth:** This realm begins surfacing ancient knowledge — revealing hidden game information (other players' missions, instructions, soul counts). The realm becomes omniscient but paralysing — inhabitants who know too much become passive, harder to command. |
 
-In all three framings, souls work the same way mechanically but carry different flavour:
-
-**What souls ARE:** When the Covenant existed, every living being was born under its protection — bound by its laws, sustained by its order. That binding left a **mark** on every living thing — a thread connecting them to the structure of reality. This mark is what we call a soul. It is not consciousness or personality — it is the **imprint of the old order** on a living being's existence.
-
-**Why they matter:** When a being dies, the mark (soul) is released. Under the Covenant, it would have returned to the structure, reinforcing the whole. Now, with the Covenant shattered, loose souls drift — and the players can **claim them**. Each soul absorbed is a fragment of the old order's authority, making the player more powerful, more real, more capable of imposing their will on reality.
-
-**Why spending them makes sense:** To perform a rite, you are invoking a fragment of the Covenant — using old laws to bend reality. This requires fuel: the soul-marks, which are literally pieces of the old order's power. Spending souls is burning the evidence of the Covenant to temporarily recreate its effects.
-
-### Religions — Reframed
-
-Religions are not "legal codes" — they are **sacred oaths**. When a player founds a religion, they are teaching mortal inhabitants a set of beliefs that function as **binding vows** — promises the inhabitants make about the nature of reality. These vows are pale echoes of the Covenant, and they work because reality still *remembers* what oaths feel like. When a believer dies, their soul-mark follows the path laid by their vows — drawn to the player who taught them those beliefs.
-
-Different doctrines are different **tenets** — sacred principles that shape the religion's character. Not laws or regulations — more like the commandments of ancient religions, or the taboos of tribal cultures, or the cosmic prohibitions of mythology. "Thou shalt not suffer change." "All things must be consumed to be renewed." "Bonds between beings are sacred above all."
-
----
-
-## Realm Sketches — Reframed
-
-Each realm is the domain of one of the great forces, unbound from the Covenant's balance. Without the other forces to check it, each force has grown extreme — a realm where one principle dominates to the point of distortion.
-
-### Realm of Dominion — The Eternal Hierarchy
-A realm of absolute order, rigid caste systems, and unbreakable authority. Massive citadels, labyrinthine bureaucracies of faith, throne rooms within throne rooms. The force of Dominion — unchecked — has created a world where everything has a place, and nothing may change its place. Inhabitants obey because obedience is woven into the realm's nature.
-
-**Energy:** Authority. Power flows downward from rulers. Strengthens hierarchy, leadership, control. Rites performed here can enforce obedience, lock down dominions against subversion, and establish unbreakable orders.
-
-**Strategic profile:** The safest realm to hold territory in (strong defences, loyal subjects) but the hardest to expand in (change is resisted). Religions here are rigid and spread slowly but are nearly impossible to dislodge once established.
-
-### Realm of Entropy — The Ever-Dying Land
-A realm where nothing persists. Great civilisations rise and collapse within generations. Forests grow and rot in days. The ground itself shifts. The force of Entropy — unchecked — has created a world in constant flux, where decay is not destruction but *transformation*. Death here is not an ending but a transition.
-
-**Energy:** Transformation. Everything is changing, always. Rites performed here can accelerate change — topple rulers, dissolve borders, mutate religions, transform armies. Souls are released faster here (higher mortality = higher soul generation) but harder to claim (nothing stays still long enough to build lasting religious loyalty).
-
-**Strategic profile:** High risk, high reward. Rapid expansion is possible but nothing you build will last without constant attention. The best realm for generating souls quickly, but the worst for stable dominions.
-
-### Realm of Communion — The Interwoven
-A realm where everything is connected. Borders are suggestions, identity is fluid, thoughts bleed between minds. The force of Communion — unchecked — has dissolved individuality into collective consciousness. Cities blur into each other. Religions don't just spread — they *merge* and absorb.
-
-**Energy:** Connection. Creates bonds between things — people, places, ideas. Rites performed here can link dominions across distances, spread religion rapidly, merge populations, or establish communication networks. But the connections go both ways — influence can flow back toward you from your subjects.
-
-**Strategic profile:** The best realm for religion (beliefs spread fast through the interconnection) but dangerous for dominions (your subjects might be influenced by neighbouring entities just as easily). Information flows freely here — harder to keep secrets.
-
-### Realm of Wrath — The Crucible
-A realm of conflict,  passion, and violent creation. Not evil — Wrath here is the fire that forges, the storm that clears, the war that births nations. The force of Wrath — unchecked — has created a world where everything is contested, nothing is given, and strength is the only currency. Inhabitants are warlike, fractious, and fiercely independent.
-
-**Energy:** Force. Raw, destructive, creative power. Rites performed here involve combat, destruction, sacrifice — and the results are powerful but unsubtle. Armies recruited here are strong. Religions founded on Wrath doctrines spread through conquest, not conversion. Souls claimed through Wrath tend to be won in battle, not in peaceful death.
-
-**Strategic profile:** The best realm for military strength and aggressive expansion. Poor for stable religion (the inhabitants are too independent to follow doctrine for long). High soul generation through constant warfare, but the souls are harder to route (no one worships quietly here).
-
-### Realm of Memory — The Archive
-A realm where nothing is forgotten. Every event is preserved, every word echoes forever, every deed leaves a permanent scar on reality. The force of Memory — unchecked — has created a world crushed under the weight of its own past. Ancient ruins are not ruins — they are still alive, still functioning, preserved perfectly from aeons ago. The inhabitants are haunted, not by ghosts, but by the **literal persistence** of every moment that ever was.
-
-**Energy:** Preservation. Things endure here beyond their natural span. Rites performed here can preserve a dominion's state indefinitely, recall old alliances or broken religions, access "memories" of the Covenant itself (gaining knowledge of how the old order worked). But the weight of Memory also makes change nearly impossible — new religions struggle to take root when every old belief is still actively remembered.
-
-**Strategic profile:** The most defensible realm (everything persists, including your control). But the hardest to penetrate as an invader (the realm remembers who belongs and who doesn't). Rich in knowledge — relics of the old Covenant can be found here, and rites that access ancient power are most potent.
-
-### Possible 6th Realm — The Absence (The Void)
-The place where the Covenant itself once resided. Not a realm built around a force, but a realm built around **nothing** — the space left behind when the binding principle was destroyed. Here, reality is thin. The rules of other realms don't apply. Forces bleed through unpredictably. This is the most dangerous and most potent place in the game.
-
-**Energy:** Negation. Cancels and disrupts other energies. Rites performed here can nullify effects, break bindings, dissolve religions, sever connections. But Negation also threatens the player — staying too long in the Absence erodes your own authority.
-
-**Strategic profile:** A wildcard realm. Too dangerous for stable holdings, but a powerful place to visit for specific purposes — disabling enemy rites, breaking through defences, or performing the most forbidden rituals. Could be the location of the instant-win objective (performing a rite at the heart of the Absence to forge a new Covenant).
+### Impact on gameplay
+- Adds **asymmetric world state** per game without requiring asymmetric players
+- Creates a **mystery subplot** that rewards attentive players
+- Changes the Convergence dynamics — the guilty realm merging with others spreads its corruption
+- Gives experienced players a reason to monitor realm behaviour early
 
 ---
 
-## Questions to Converge On
+## 3. Realm Options
 
-### On the players:
+The challenge: each realm benefits a key mechanic, and **all pair merges must be defined, balanced, and feel natural**. With 5 realms, there are 10 unique pairs. With 6, there are 15.
 
-1. **Which player framing resonates most?** Wardens (fallen guardians), Oathbound (broken living fragments of the Covenant), or Hollow Thrones (empty seats of power that became alive)? Or a blend?
+I've created 3 realm sets to compare. For each, I show the pair-merge effects.
 
-2. **How much do the inhabitants know about the players?** Are the players completely invisible, operating through proxies? Or are they perceived as something — strange prophets, spectral visitors, dreams? In Berserk, the God Hand are known to some as myth, unknown to most. In Dark Souls, the Lords are historical figures whose names are known even if their current state isn't.
+### ⚔ Option 1 — The Original Five
 
-### On the Sundering:
+**Dominion • Entropy • Communion • Wrath • Memory**
 
-3. **Should the cause be known?** If the reason for the Sundering is known, it creates a specific narrative. If it's lost/unknown, it creates mystery and allows different religions to have different explanations (which is very mythological). If it was deliberate by a specific force, that force's realm might be different (guilty? defiant? corrupted?).
+Each realm maps to a core game mechanic:
+| Realm | Core Mechanic Benefited |
+|-------|------------------------|
+| Dominion | Dominion control & defence |
+| Entropy | Soul generation & change |
+| Communion | Religion spread & connection |
+| Wrath | Combat & military |
+| Memory | Information & preservation |
 
-4. **Which force broke the Covenant?** If you want a known cause, the choice matters:
-   - **Entropy** broke it — because Entropy cannot abide by permanent law. This makes Entropy the "villain" of the mythos, giving it narrative weight.
-   - **Wrath** broke it — out of fury at being constrained. Makes Wrath feel primal and dangerous.
-   - **No specific force** — the Covenant was always unstable, containing its own contradiction. The Sundering was inevitable. This is the most Dark Souls approach (the First Flame fading is not anyone's fault — it's entropy).
+#### Pair Merges
 
-### On the realms:
+| Merge | Name | Effect |
+|-------|------|--------|
+| Dominion + Entropy | **Impermanent Thrones** | Rulers rise and fall rapidly. Dominions are powerful but their leadership changes frequently — instructions execute faster but decay amplifies. High turnover = high soul flow. |
+| Dominion + Communion | **The Theocracy** | Authority and connection fuse. Religions become state-enforced — spreading religion IS expanding your dominion. Extremely powerful combo for soul routing but vulnerable from within (connected subjects could turn collectively). |
+| Dominion + Wrath | **The Conquerors** | Military hierarchy. Armies are disciplined and powerful. Expansion is fast and orderly. But conquered populations resist — religions struggle to take root because obedience is forced, not believed. Low passive soul routing. |
+| Dominion + Memory | **The Eternal Court** | Nothing changes, nothing is forgotten. The most stable territories in the game — nearly impossible to subvert, but nearly impossible to reform. Old instructions persist indefinitely. Ancient rites become available. |
+| Entropy + Communion | **The Contagion** | Change spreads through connection. Religions mutate as they spread, becoming increasingly unstable but fast. Borders shift constantly. The most chaotic merge — territory is meaningless but influence is everywhere. |
+| Entropy + Wrath | **The Furnace** | Destruction and rebirth in constant cycle. Armies are consumed and rebuilt each turn. Souls are generated at extreme rates but everything is aflame. The most aggressive, high-risk zone in the game. |
+| Entropy + Memory | **The Palimpsest** | Change written over preservation. Old structures remain visible beneath new ones. Rites here can access "previous states" of the game — seeing what was before, unmaking recent changes. Powerful but disorienting. |
+| Communion + Wrath | **The Crusade** | Connection through conflict. Religions spread by conquest. Armies fight with religious fervour. The most effective zone for forced religious conversion — but the religions born here are aggressive and hard to control. |
+| Communion + Memory | **The Ancestral Sea** | Everything is connected AND everything is remembered. Perfect information zone — all dominions, religions, and instructions within this zone are visible to everyone present. No secrets. Strategy becomes pure positioning. |
+| Wrath + Memory | **The Grudge** | Every battle is remembered, every wrong is recorded. Conflicts here never end — past wars reignite. Armies carry old hatreds. Extremely dangerous but ancient battle-rites become available, unlocking powerful combat abilities. |
 
-5. **Do these 5-6 realms feel right?** Dominion, Entropy, Communion, Wrath, Memory, and possibly the Absence. Are any missing? Any feel redundant? Would you swap any? Some alternatives: instead of Communion you could have Creation, or instead of Memory you could have Fate.
+---
 
-6. **How "alive" should the realms feel?** Are they just landscapes with rules, or do the forces themselves have a kind of residual will — making the realms feel like sleeping entities? (In Dark Souls, the domains of the Lords feel *alive* with the Lord's nature even when the Lord is diminished.)
+### 🌀 Option 2 — The Altered Five
 
-### On tone:
+Swapping Communion → **Creation** and Memory → **Fate**
 
-7. **How dark?** On a scale from "Dark Souls" (melancholic, faded grandeur, the tragedy of entropy) to "Berserk" (cruel, visceral, the horror of power structures that exploit the weak) to "Bloodborne" (unknowable, alien, the vertigo of understanding too much) — where does this sit?
+**Dominion • Entropy • Creation • Wrath • Fate**
+
+| Realm | Core Mechanic Benefited |
+|-------|------------------------|
+| Dominion | Dominion control & defence |
+| Entropy | Soul generation & change |
+| Creation | Religion founding & expansion |
+| Wrath | Combat & military |
+| Fate | Prediction & planning (instruction robustness) |
+
+#### Pair Merges
+
+| Merge | Name | Effect |
+|-------|------|--------|
+| Dominion + Entropy | **Impermanent Thrones** | Same as Option 1 |
+| Dominion + Creation | **The Grand Design** | Authority creates. Dominions here can build new nodes (founding cities) and create new edges (building roads). The most expansionist merge — you literally reshape the graph. |
+| Dominion + Wrath | **The Conquerors** | Same as Option 1 |
+| Dominion + Fate | **The Destined Reign** | Control reinforced by inevitability. Instructions here are more robust — conditions trigger more reliably, orders rarely fail. Dominions feel "fated" to succeed. Powerful but predictable — other players can read your strategy more easily. |
+| Entropy + Creation | **The Genesis Storm** | Constant destruction and rebirth of STRUCTURES, not just armies. New nodes and edges spontaneously appear and dissolve. The graph itself is alive. Chaotic but full of opportunity — new rite sites emerge unpredictably. |
+| Entropy + Wrath | **The Furnace** | Same as Option 1 |
+| Entropy + Fate | **The Unravelling** | Change meets predetermination. The future becomes visible BUT unstable — you can see what will happen but the prediction keeps shifting. Players get very accurate short-term predictions but long-term fate is in flux. |
+| Creation + Wrath | **The Forge** | War creates. Conflict here produces something — conquered nodes upgrade, destroyed armies leave behind relics, battle-sites become rite sites. War is productive, not just destructive. |
+| Creation + Fate | **The Prophecy** | What is created was always meant to be. Religions founded here spread with a sense of inevitability — inhabitants feel the religion is "destined" and resist conversion away from it. Very stable religion zone. |
+| Wrath + Fate | **The Inevitable War** | Conflict that was always coming. Battles here are predetermined — the stronger force always wins (no randomness). Strategy is purely about positioning and timing. Removes uncertainty from combat but makes it brutally efficient. |
+
+---
+
+### 🔮 Option 3 — The Deeper Five
+
+**Dominion • Entropy • Communion • Wrath • Absence**
+
+Replaces Memory with The Absence (void/negation) as a base realm rather than optional.
+
+| Realm | Core Mechanic Benefited |
+|-------|------------------------|
+| Dominion | Dominion control & defence |
+| Entropy | Soul generation & change |
+| Communion | Religion spread & connection |
+| Wrath | Combat & military |
+| Absence | Disruption, nullification, relic/rite access |
+
+#### Pair Merges
+
+| Merge | Name | Effect |
+|-------|------|--------|
+| Dominion + Entropy | **Impermanent Thrones** | Same as Option 1 |
+| Dominion + Communion | **The Theocracy** | Same as Option 1 |
+| Dominion + Wrath | **The Conquerors** | Same as Option 1 |
+| Dominion + Absence | **The Hollow Crown** | Authority over nothing. Dominions here exert powerful control but the population fades — fewer inhabitants, fewer souls, but each soul is worth more. Quality over quantity. Rites of authority available nowhere else. |
+| Entropy + Communion | **The Contagion** | Same as Option 1 |
+| Entropy + Wrath | **The Furnace** | Same as Option 1 |
+| Entropy + Absence | **The Erasure** | Change that removes rather than transforms. Nodes can be permanently deleted from the graph. Populations shrink. Religions dissolve. The most destructive merge — a weapon, not a territory. |
+| Communion + Wrath | **The Crusade** | Same as Option 1 |
+| Communion + Absence | **The Silent Network** | Connection through emptiness. Invisible links between locations — perfect for espionage, allowing scouting without detection. But the connection is hollow — religion spreads but followers don't truly believe, making soul routing unreliable. |
+| Wrath + Absence | **The Annihilation** | Destruction without creation. Nothing replaces what is destroyed. The most dangerous zone in the game — anything that enters may not come out. But immense soul liberation (mass death = mass soul release). |
+
+---
+
+## 4. Comparison
+
+| | Option 1 (Original) | Option 2 (Altered) | Option 3 (Deeper) |
+|---|---|---|---|
+| **Merge variety** | Good — each merge feels distinct | Very good — Fate and Creation add new verbs (build, predict) | Good but skewed dark — Absence merges trend destructive |
+| **Mechanical coverage** | Defence, change, religion, combat, information | Defence, change, building, combat, planning | Defence, change, religion, combat, disruption |
+| **Missing verb** | Building/creation, prediction | Connection (lost Communion), information | Information, prediction |
+| **Tone** | Balanced dark fantasy | Slightly more constructive/strategic | Very dark — multiple merges destroy things |
+| **Balance risk** | Low — merge effects are varied | Medium — Fate merges may feel similar to each other | High — Absence merges could be too punishing |
+| **My recommendation** | ★★★★☆ Solid, complete | ★★★★☆ Most strategic depth | ★★★☆☆ Too destructive for balance |
+
+> [!TIP]
+> **My suggestion: Option 1 as the base, with a 6th realm being either Fate or the Absence.** Option 1's five realms cover the mechanical space well, and each merge is distinct. Adding Fate as a 6th would give prediction/planning depth, while adding Absence would give a dangerous wildcard. Either way, 6 realms → 15 pair merges → rich but manageable design space. You could also have 5+1 structure where the 6th realm (Absence/Fate) behaves differently — maybe it's smaller, or it doesn't drift the same way.
+
+---
+
+## 5. Questions For You
+
+1. **Player name:** Does "The Ordained" or "The Anathant" resonate? Or another from the list? Or want more options?
+
+2. **Does the selfish motivation click?** "Freed from purpose, never want to serve again, want to define the new reality with themselves at the centre."
+
+3. **Sundering mechanic:** Does the random-guilty-realm with progressive corruption appeal? Any of the 5 corruption effects feel off?
+
+4. **Realm set:** Option 1 as base? Add a 6th? Or swap any realms?
+
+5. **Merge depth:** The pair merges I've sketched are flavour + one key mechanical effect each. Should these be deeper (multiple mechanics per merge)? Or is one signature effect per merge the right level?
