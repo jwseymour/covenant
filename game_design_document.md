@@ -1,7 +1,8 @@
 # Dark Fantasy Realm-Hopping Influence Game — Design Document
 
-> **Status:** Active design — core systems taking shape, lore pending.
-> **Last updated:** 2026-03-24
+> **Status:** Active design — lore finalized, mechanics in progress.
+> **Last updated:** 2026-03-25
+> **Companion documents:** [Lore (full)](file:///Users/jseymour/jack_code/bg/lore_complete.md) • [Evaluation](file:///Users/jseymour/jack_code/bg/game_design_evaluation.md)
 
 ---
 
@@ -9,476 +10,348 @@
 
 **Genre:** Digital-only board game. Dudes-on-a-map with mutable rules, hidden information, and indirect control.
 
-**Setting:** Dark fantasy across multiple realms of existence. Aesthetic inspiration: **Berserk** (manga), **Dark Souls**, **Bloodborne** — the lore, tone, and player identities should feel abstract, idea-based, and never generic. No standard fantasy archetypes.
+**Setting:** Dark fantasy. Five shattered realms drifting through the void, each crystallised around a fundamental force freed by the Sundering of the Covenant. Tone: **Dark Souls** — melancholic, faded grandeur, the tragedy of a broken sacred order.
 
-**Player fantasy:** You are a singular, powerful entity — something between a parasite and a god — that moves between shifting realms, manipulating rulers, founding deceptive religions, performing forbidden rituals, and routing souls through your grasp. You are selfish. Your dominions and religions are tools. The inhabitants are resources. The other players are threats to be outmanoeuvred, sabotaged, or confronted.
+**Player fantasy:** You are one of **the Ordained** — a sacred entity, once an instrument of the Covenant, now freed and selfish. You move between shifting realms, manipulating rulers, founding deceptive religions, performing forbidden rites, and harvesting souls. Your dominions and religions are tools. The inhabitants are resources. The other Ordained are threats to be outmanoeuvred, sabotaged, or confronted. You will never serve again.
 
-**Win condition:** Point-based, with multiple scoring avenues:
-- **Souls** — the primary currency. Inhabitants' beliefs at death determine whose soul pool they feed. Souls can also be **spent** as a cost for powerful actions, creating a tension between hoarding (for points) and spending (for power).
-- **Missions/goals** — personal objectives that reward points on completion.
-- **Possible instant win** — completing a rare, difficult, lore-related objective ends the game immediately. Details pending lore development.
+**Win condition:**
+- **Souls** — primary currency and scoring. Hoard for victory or spend for power.
+- **Missions** — hidden personal objectives.
+- **Instant win** — performing the **Rite of the New Covenant** at the Convergence (massive soul cost, specific relic/position requirements).
 
-**Player count:** 4
+**Player count:** 4 · **Game length:** Long, high complexity
 
-**Key design pillars:**
-1. **Orchestration** — managing multiple dominions and religions simultaneously across multiple realms, through conditional instructions that play out in your absence
-2. **Prediction** — reading realm flow, anticipating rivals, and writing instructions robust enough to survive the unexpected
-3. **Deception & hidden information** — your plans, instructions, and missions are secret; your religions are lies; your dominions are fronts
-4. **Personal agency** — your character is not just a manager; they have their own rituals, confrontations, and selfish goals
-
-**Game length:** Long — high complexity is a goal, not something to minimise
+**Design pillars:**
+1. **Orchestration** — managing dominions and religions across realms through conditional instructions
+2. **Prediction** — reading realm flow, anticipating rivals, writing robust instructions
+3. **Deception** — hidden plans, lying religions, secret missions
+4. **Personal agency** — rituals, confrontations, selfish goals
 
 ---
 
 ## 2. Theming & Lore
 
-### 2.1 The World
+> Full lore in [lore_complete.md](file:///Users/jseymour/jack_code/bg/lore_complete.md). Summary below.
 
-**Cosmology seed:** There was an original, singular power. It fractured into many fragments, each becoming the foundational energy of a different realm. Each realm's nature — its physics, its magic, its inhabitants — is shaped by the character of its fragment. The realms were once unified; the game tracks their slow, gravitational drift back toward each other, culminating in the Convergence.
+### 2.1 The Covenant and the Sundering
 
-**Separate soul system:** Souls exist as a distinct metaphysical layer, separate from the power fragments. The precise relationship between souls and the power fragments is a key lore question — see [Lore Suggestions Document](file:///Users/jseymour/jack_code/bg/lore_suggestions.md).
+A primordial, sacred accord once held five fundamental forces in balance — not a written law but the invisible grammar of reality. The forces (Dominion, Entropy, Communion, Wrath, Memory) coexisted because the Covenant made coexistence possible. One force **broke the Covenant** — the reason is lost. Reality fractured into five realms, each dominated by one unchecked force. The realms now drift through the void, gravitationally drawn back toward each other. The game tracks their convergence.
 
-**Aesthetic tone:** Inspired by **Berserk, Dark Souls, Bloodborne** — abstract, conceptual, never generic fantasy. The world should feel ancient, unknowable, and slightly wrong. Religions should feel like cosmic lies. Rituals should feel transgressive. The "dark" in dark fantasy comes from the moral void at the centre of the game — the players are not heroes, they are exploiters.
+### 2.2 The Ordained (Players)
 
-**Open lore questions:**
-- `[OPEN]` What caused the original power to split?
-- `[OPEN]` What is the relationship between power fragments and souls?
-- `[OPEN]` Are there existing histories/cultures in the realms, or are they procedurally generated at game start?
-- `[OPEN]` What are the specific identities of the ~5 realms?
+**Nature:** Entities consecrated by the Covenant to maintain cosmic balance. When the Covenant shattered, they lost their purpose and discovered freedom. Now they seek to accumulate enough power to define reality's new order on **their own terms**.
 
-### 2.2 The Players
+**Key traits:**
+- Travel **instantaneously** — cost is opportunity (one location per turn), not distance
+- **Visible** to inhabitants — a shimmer, a pressure, an alien presence. Not in any myth or legend. Unprecedented, unexplained, clearly powerful.
+- **Symmetric** for initial design — asymmetric concepts deferred to ideas list
+- Have **personal rituals, selfish motives, and a progression system** (details TBD)
+- Can **confront other Ordained directly** when co-located
 
-**Nature:** Souls that interacted with the original power before or during its fracture. This contact made them fundamentally different from ordinary souls — they gained awareness, will, and the ability to move between realms. They are not gods (they have no inherent worshippers), not mortals (they have no physical form), and not ghosts (they have agency). They are something in between — parasitic intelligences that latch onto civilisations and steer them.
-
-**Movement:** Players travel **instantaneously** to any location across any realm. The cost of movement is not distance — it is **opportunity**. You can only attend one dominion or location per turn. Every turn you spend somewhere is a turn you are not spending everywhere else.
-
-**Asymmetry:** Not a priority for initial design. The game should work with symmetric players first. Asymmetric concepts and abilities can be layered on later if the core loop supports it. This is on the ideas list.
-
-**Personal agency — the player is NOT just a manager:**
-- Players have their own **selfish motives** beyond dominion control. They use dominions and religions as tools to achieve personal goals — obtaining specific relics, performing rituals, sacrificing souls, weakening rivals.
-- Players can perform **personal rituals** using their own energy/resources (not dominion resources). These are direct, immediate actions that resolve on the turn they are performed.
-- When multiple players choose the same location on the same turn, **direct confrontation** can occur — an abstract battle of wills between the entities themselves.
-- Players should have a **personal progression system** — gaining something individually from their manipulations, beyond just accumulating souls and territory.
-
-**Open questions:**
-- `[OPEN]` What is the personal progression system? (Power growth? Unlocking abilities? Accumulating forbidden knowledge?)
-- `[OPEN]` What do personal rituals look like mechanically?
-- `[OPEN]` How does direct confrontation between players work?
-- `[OPEN]` Do players have a visible identity to inhabitants, or are they always hidden?
+**Open:** Personal progression system, ritual mechanics, confrontation mechanics.
 
 ### 2.3 Dominions
 
-**Definition:** A dominion is a group of inhabitants (a city, a nation, a settlement) that a player has established control over, primarily by influencing its ruler. Dominions are one of the two parallel systems for influencing the world (the other being religion).
+A dominion is a settlement/nation the Ordained controls through its ruler. One of two parallel influence systems (the other being religion).
 
-**Dominion control:**
-- A player establishes control over a dominion by visiting a location and influencing its ruler
-- When the player is present, they have direct control — they can issue any instruction
-- When the player leaves, the dominion follows its last set of conditional instructions
-- There is **more land/dominions available than all players can fully control** — this is by design, creating a landscape of contested, uncontested, and neglected territories
+- Established by visiting a location and influencing its ruler
+- Direct control when present; conditional instructions when absent
+- Influence decays **slowly** — recently-visited dominions are firmly held
+- **More territory than all players can control** — by design
+- Rivals can visit and attempt subversion (effectiveness depends on decay, abilities, establishment method)
 
-**Influence decay:**
-- When a player leaves a dominion, their influence decays **slowly over time**
-- A dominion left in a stable position with minimal instructions is harder to subvert than one left mid-expansion or mid-war
-- Eventually, if left too long, a dominion may become fully autonomous (uncontrolled) or vulnerable to rival takeover
-- The decay is slow enough that players cannot simply follow each other around flipping dominions — a recently-visited dominion is firmly under control
-
-**Open questions:**
-- `[OPEN]` What is the exact decay curve? (Slow linear for now)
-- `[OPEN]` How does a player initially establish a dominion? (Visit + influence action? Must it be uncontrolled first?)
-- `[OPEN]` Are there different types of inhabitants within a dominion? (Rulers, soldiers, commoners, priests)
-- `[OPEN]` What autonomous actions does an uncontrolled dominion take?
+**Open:** Exact decay curve, establishing method, inhabitant types, autonomous behaviour.
 
 ### 2.4 Religions
 
-**Definition:** Religions are the second parallel system for influencing the world. Unlike dominions (which require direct control over a ruler), religions spread through populations based on doctrine content and are the primary mechanism for routing souls.
+Religions are sacred oaths — fabricated belief systems that route souls. The second parallel influence system.
 
-**Key characteristics:**
-- Religions are **separate from dominions** — a religion can spread into a dominion that a player doesn't control
-- A player does NOT need to set up their religion in their own dominion — existing religions may already be present, and a player's dominion may follow a different player's religion
-- Religions can be **grown in the background** — a player can establish a religion in a less-contested realm and let it spread organically while focusing their attention elsewhere
-- This creates a **long-term vs short-term tension**: dominions give immediate control, religions give slow-burning influence and soul routing
-- **Players are lying** — every religion is a fabrication designed to route souls. The "doctrines" are engineered for mechanical advantage, not spiritual truth
+- **Separate from dominions** — can spread into uncontrolled territory
+- **Self-sustaining** once established — grows organically without visits
+- Creates **long-term vs short-term tension** with dominions
+- Each religion has **belief tags** that route souls (Model A)
+- Religion behaviour varies by realm energy (see §4.4)
+- **Not the only source of souls** — rites, battles, relics also generate souls
 
-**Religion and war:**
-- A religion spread into enemy-controlled territory can destabilise it, creating civil unrest or divided loyalties
-- This is a non-military way to undermine a rival's dominion
-- Conversely, a rival spreading their religion into YOUR dominion is a threat you must manage
-
-**Soul routing (Model A — Belief Tags):**
-- Each religion has a set of **belief tags** that define its doctrine
-- When an inhabitant dies, their belief tags route the soul to the player whose soul-collection aligns with those tags
-- Simple, clear, and directly connected to religion creation
-- Religions are NOT the only way to get souls — special actions, relics, events, and rituals may also generate or capture souls
-
-**Open questions:**
-- `[OPEN]` What defines a religion mechanically beyond belief tags? (Organisational structure? Holy sites? Clergy?)
-- `[OPEN]` How fast do religions spread organically?
-- `[OPEN]` Can religions evolve or splinter without player intervention?
-- `[OPEN]` What are the specific belief tags and how many does a religion have?
-- `[OPEN]` How are souls contested when multiple religions claim similar tags?
+**Open:** Full mechanical definition, spread speed, belief tag specifics, evolution/splintering.
 
 ### 2.5 Souls
 
-**Victory currency AND spendable resource:**
-- Souls are the primary way to win the game (most souls at the Convergence)
-- However, souls can also be **spent** on powerful actions — rituals, acquiring relics, activating realm-specific powers
-- This creates a core tension: **hoard souls for victory vs. spend souls for power**
-- The player who spends freely may fall behind on points but gain capabilities that let them earn MORE souls later
-- Alternative soul acquisition: besides religion, players can gain souls through special actions, relics, realm events, and possibly confrontations
+Imprints of the old Covenant on living beings. Released at death.
 
-**Open questions:**
-- `[OPEN]` What is the exchange rate? How many souls does a typical action cost vs. how many does a religion generate per turn?
-- `[OPEN]` Are spent souls gone forever, or do they re-enter the economy?
-- `[OPEN]` Can souls be stolen directly from another player?
+- **Win condition:** Most souls at the Convergence wins
+- **Spendable:** Fuel for rites — burning old-order authority to bend reality
+- **Core tension:** Hoard for victory vs. spend for power
+- Gained through: religions, rites, battles, relics, missions
+
+**Open:** Exchange rate, spent soul economy, direct theft.
 
 ---
 
 ## 3. Board & World Structure
 
-### 3.1 Realms
+### 3.1 The Five Realms
 
-**Count:** ~5 realms, possibly slightly more. Fixed number — this allows lore, energy systems, and abilities to be tightly designed and coherent. A possible **lite version** with a subset of realms (e.g., 3) could serve as a shorter, introductory game mode.
+Five realms, each crystallised around one fundamental force freed by the Sundering. Fixed count — tightly designed with lore-coherent identities.
 
-**Power fragments:** Each realm is powered by a different fragment of the original power. The fragment determines:
-- The realm's **energy/magic system** — what kinds of actions and powers are available there
-- The realm's **aesthetic and inhabitants** — how the realm looks, feels, and what civilisations exist
-- How the realm **interacts with other realms** when they overlap — which energies complement, conflict, or transform each other
+| Realm | Force | Energy | Strategic Profile |
+|-------|-------|--------|-------------------|
+| **The Eternal Hierarchy** | Dominion | Authority — control, defence, obedience | Safest to hold, hardest to break into. Slow expansion, rigid religions. |
+| **The Ever-Dying Land** | Entropy | Transformation — change, decay, rebirth | High risk/reward. Fast soul generation, nothing persists. |
+| **The Interwoven** | Communion | Connection — bonds, spread, transparency | Best for religion. Secrets are hard to keep. |
+| **The Crucible** | Wrath | Force — combat, passion, conquest | Best for military. Religions struggle, souls won in battle. |
+| **The Archive** | Memory | Preservation — persistence, knowledge, weight | Most defensible. Rich in Covenant relics. Hard to penetrate. |
 
-**Realm flow — the n-body gravity model:**
-- Realms move through a shared space like bodies in a gravitational simulation
-- Movement is **slow and visually smooth**, creating a flowing, organic feel
-- **Short-term predictable, long-term chaotic** — the exact property of n-body gravity systems. Players can see the predicted trajectories as lines that widen and fade the further into the future they project
-- Realms attract and repel each other based on their energy systems — some pairs are drawn together (complementary), others drift apart (antagonistic)
-- This is NOT just circular orbits — it should look like complex gravitational interplay, with close passes, temporary captures, and eventual mergers
-- The flow is **purely environmental** — players cannot move the realms themselves
+Full realm descriptions, inhabitants, and landscapes in [lore_complete.md §4](file:///Users/jseymour/jack_code/bg/lore_complete.md).
 
-**Two levels of realm interaction:**
-1. **Access points** — when realms pass close to each other, limited connections form between their subgraphs. Travel between realms is possible at these points, but the energy systems remain separate. Access points are temporary and shift as realms move.
-2. **Overlap / Collision** — when realms collide deeply enough, they **permanently merge** in that area. Energies blend, rules combine, new cross-realm edges form (or nodes combine). Over time, more collisions occur until the Convergence — where all realms are jumbled together.
+### 3.2 Realm Flow — N-Body Gravity
 
-**Visualisation:**
-- **Macro view (separate perspective):** Shows all realms as floating bodies in space with their predicted trajectories. Players use this view to predict when access points will form and when collisions will occur. Select a realm to zoom in.
-- **Micro view (in-realm):** Shows the graph of cities/landmarks, dominion ownership, religion spread, troop positions, and local details of a specific realm.
-- Possibly **3D** to better represent the spatial relationships between realms (the n-body model naturally exists in 3D space).
+- Realms drift like bodies in a gravitational simulation
+- **Short-term predictable, long-term chaotic** — trajectory lines widen and fade into the future
+- Some realms attract (complementary forces), others repel
+- Purely environmental — players cannot move realms
 
-**Open questions:**
-- `[OPEN]` How many realms exactly? 5? 6? 7?
-- `[OPEN]` What are the specific energy systems and how do they complement/conflict?
-- `[OPEN]` What happens to the energy system at overlap zones? Both apply? They merge into something new?
-- `[OPEN]` How fast should the simulation run relative to game turns?
+### 3.3 Two Levels of Interaction
 
-### 3.2 Board Topology
+1. **Access points** — temporary cross-realm edges when realms pass close. Travel possible, energies separate.
+2. **Overlap / Collision** — permanent merge. Energies blend, new rites unlock, nodes combine or gain edges.
 
-**Graph structure:**
-- Each realm is a **procedurally generated subgraph**
-- **Nodes** = cities or key landmarks within a realm
-- **Edges** = travel routes between nodes, with **weighted movement costs** for troop/army movement
-- The graph should feel organic, not gridlike — varying density, hub-and-spoke patterns, natural chokepoints
+### 3.4 Realm Merging
 
-**Realm merging on the graph:**
-- When an access point forms: new **temporary edges** connect nodes from different realm subgraphs. Travel is possible but energies don't blend.
-- When overlap/collision occurs: either nodes **combine** (two cities merge into one hybrid city, with rules from both realms) or **permanent new edges** form between nearby nodes. Both can happen depending on the specifics of the overlap.
+All combinations are defined and escalate in power. See [lore_complete.md §7](file:///Users/jseymour/jack_code/bg/lore_complete.md) for the full matrix (10 pairs, 10 triples, 5 quads, 1 full).
 
-**Key locations:**
-- Some nodes are **special sites** — rite sites, relic locations, ancient landmarks
-- These give reasons to expand or invade — you want control of specific nodes for their strategic value, not just territory for territory's sake
+**Key principle:** Each higher-order merge is strictly more powerful than its components. Merged zones unlock **new rites** unavailable in either realm alone, creating incentive to position around predicted overlaps.
 
-**Open questions:**
-- `[OPEN]` How is the graph generated? What parameters control density, connectivity, special sites?
-- `[OPEN]` What determines whether nodes combine vs gain edges during overlap?
-- `[OPEN]` How many nodes per realm?
+**At the Convergence (full merge),** all energies coexist — the most complex and powerful game state. Convergence-only rites become available, including the Rite of the New Covenant (instant win).
+
+### 3.5 Board Topology
+
+- Procedurally generated graph per realm
+- **Nodes** = cities/landmarks · **Edges** = weighted travel routes
+- **Rite sites and relic locations** at special nodes — concrete reasons to expand
+- Merging: access points create temporary edges; collisions create permanent edges or combine nodes
+
+**Open:** Graph generation parameters, nodes per realm, combine vs. edge-add rules.
+
+### 3.6 Visualisation
+
+- **Macro view:** Realms as bodies in space with predicted trajectories
+- **Micro view:** In-realm graph with dominions, religions, armies, rite sites
+- Possibly **3D** for spatial clarity
 
 ---
 
 ## 4. Core Mechanics
 
-### 4.1 Player Presence & Instruction-Setting (Core Loop)
+### 4.1 Core Loop — Visit, Instruct, Move
 
-**The core loop:** Each turn, the player is physically present at one location. They can:
-1. **Set conditional instructions** for the dominion/religion at that location
-2. Perform **personal actions** (rituals, confrontations, use relics, observe)
-3. Choose their **next destination** for the following turn (instant travel)
+Each turn:
+1. **Set conditional instructions** for the dominion/religion at your location
+2. **Take personal actions** — rites, rituals, relics, confrontations
+3. **Choose next destination** (instant travel)
 
-Meanwhile, all their other dominions and religions execute their previously-set conditional instructions autonomously.
+All other dominions/religions execute their standing instructions autonomously.
 
-**Conditional instructions — tiered complexity:**
+### 4.2 Conditional Instructions — Tiered Complexity
 
-The instruction system supports a **range of complexity**, balanced so that simpler instructions are still effective:
-- **Basic tier:** Simple, high-level directives — "Defend borders," "Expand north," "Recruit soldiers," "Spread religion." These are good defaults and sufficient for many situations.
-- **Advanced tier:** Conditional flowcharts — "IF borders are attacked THEN defend, ELSE expand toward [selected node]." Adds responsiveness. Provides a moderate edge.
-- **Expert tier:** Multi-branch decision trees with compound conditions — "IF [realm overlap detected nearby] AND [army size > threshold] THEN advance into overlap zone, ELIF [enemy religion spreading] THEN establish counter-religion, ELSE consolidate." Provides a small additional edge, not a decisive advantage.
+| Tier | Description | Edge |
+|------|-------------|------|
+| **Basic** | High-level directives: "Defend," "Expand north," "Spread religion" | Good baseline |
+| **Advanced** | Conditional flowcharts: "IF attacked THEN defend ELSE expand toward [node]" | Moderate |
+| **Expert** | Multi-branch decision trees with compound conditions | Small additional |
 
-**The interface supports all tiers:**
-- **Visual flowchart builder** — drag-and-connect blocks for conditions and actions. This is the primary interface.
-- **Map interaction** — click on nodes/areas on the map to auto-populate the flowchart (e.g., click a node to set it as an expansion target). This makes spatial instructions intuitive.
-- **Code mode (optional)** — for players who prefer it, raw conditional logic can be written directly. This offers maximum control but is NOT required.
+**Interface:** Visual flowchart builder (primary) + map-click auto-population + optional code mode.
 
-**Instruction limitations:**
-- When instructions become impossible or irrelevant, the dominion **idles** — it does not act autonomously or improvise
-- To modify instructions, the player must **physically return** — no remote updates
-- The number of instruction nodes in a flowchart may be limited (to prevent overly complex programs)
+Instructions idle if impossible. Must physically return to modify. Flowchart node count may be limited.
 
-**Open questions:**
-- `[OPEN]` What is the max number of flowchart nodes per dominion?
-- `[OPEN]` What conditions are available? (Border status, army size, religion spread, realm proximity, resource levels?)
-- `[OPEN]` What actions are available in instructions? (Move troops, recruit, defend, expand, spread religion, build, trade?)
+**Open:** Max flowchart nodes, available conditions/actions.
 
-### 4.2 Dominion Control & Contestation
+### 4.3 Dominion Control & Contestation
 
-**Two parallel control systems:**
-The game has two fundamentally different ways to influence the world:
-
-| | Dominion Control | Religion |
+| | Dominion | Religion |
 |---|---|---|
-| **How it works** | Direct control of a ruler through personal presence | Spread beliefs through populations |
-| **Speed** | Immediate when present | Slow, organic spread |
-| **Reach** | Only where you have a dominion | Can spread into territory you don't control |
-| **Persistence** | Decays without visits | Self-sustaining once established |
-| **Primary use** | Military, economic, territorial | Soul routing, destabilisation, long-term influence |
-| **Key tension** | Requires frequent attention | Requires initial setup, then grows on its own |
+| **Mechanism** | Direct ruler control | Belief spread |
+| **Speed** | Immediate | Slow, organic |
+| **Reach** | Only your territory | Anywhere |
+| **Persistence** | Decays without visits | Self-sustaining |
+| **Primary use** | Military, territorial | Soul routing, destabilisation |
 
-**Dominion contestation:**
-- Rival players CAN visit your dominion and attempt to subvert/influence it
-- Effectiveness of subversion depends on:
-  - **Time since original player's last visit** — recently-visited dominions are firmly held
-  - **Abilities of both players** — some players may be better at subversion or resistance
-  - **How the dominion was established** — a stable, contented dominion is harder to flip than one left mid-crisis
-- Decay is slow enough that **following a player and immediately flipping their dominions is not viable** — there must be meaningful neglect before subversion becomes possible
+Rival subversion depends on: time since visit, player abilities, establishment method. Following a player to immediately flip dominions is **not viable**.
 
-**Open questions:**
-- `[OPEN]` Can a player partially subvert a dominion (e.g., corrupt some of the instructions without fully taking over)?
-- `[OPEN]` Is subversion visible to the original owner?
-- `[OPEN]` How many turns of neglect before a dominion becomes vulnerable?
+### 4.4 Realm Energies & Religions
 
-### 4.3 Rites & Powers (Realm-Tied Actions)
+Each realm's energy affects religions differently:
 
-**Replacing the "items" concept:** Instead of portable items as logistics, the secondary action system is **rites and powers tied to realm energy systems.** The realm you are in determines what special actions are available.
+| Realm | Religion Behaviour |
+|-------|-------------------|
+| Dominion | Rigid, state-enforced. Slow to spread, impossible to uproot. |
+| Entropy | Fast-spreading but mutating. Unstable, prolific. |
+| Communion | Wildfire spread through connection. Absorbs competing beliefs into hybrids. |
+| Wrath | Spread through conquest. Fierce but undisciplined. |
+| Memory | Ancient religions endure forever. New ones struggle against the weight of every belief that ever existed. |
 
-**Rites and powers:**
-- Certain locations in each realm are **rite sites** — ancient landmarks or places of power where special actions can be performed
-- The type of rite available depends on the **realm's energy system** — each realm offers different categories of special actions
-- When realms overlap, the combined energies may **unlock new rites** that neither realm could provide alone — this is a key incentive for exploiting overlap zones
-- Rites can have **costs** (souls, dominion resources, turns of presence) and **powerful effects** (realm-scale manipulation, mass religion spread, army empowerment, soul harvesting)
+### 4.5 Rites & Relics
 
-**Relics:**
-- A smaller number of **high-impact relics** exist in the game world (more than 3-5 but not common)
-- Relics are found at specific locations, earned from completing missions, obtained by sacrificing souls, or pillaged from conquered sites
-- Relics provide powerful, persistent abilities
-- Relics give a **concrete reason to expand** — you want to control the node that holds a relic, not just accumulate territory
-- Relics may have **realm affinity** — a relic from one realm might be especially powerful when used in a compatible realm
+**Rites:** Realm-tied special actions at rite sites. Cost souls/resources, produce powerful effects. Merge zones unlock **new rites** unavailable in either realm alone.
 
-**Open questions:**
-- `[OPEN]` What specific rites does each realm offer?
-- `[OPEN]` How many relics per realm?
-- `[OPEN]` Can relics be traded, stolen, or destroyed?
-- `[OPEN]` What does a rite site look like on the graph?
+**Relics:** Medium-to-high-impact persistent items. Found at locations, earned from missions, obtained through sacrifice or pillage. More than 5 total, not common. May have realm affinity.
 
-### 4.4 Realm Interaction & Rule Mutation
+**Open:** Specific rites per realm, relic count, relic rules.
 
-**Per-realm rules:**
-- Different realms have different rules that affect both players and inhabitants
-- These differences stem from the realm's energy system — e.g., a realm of stagnation might make armies slow but defences powerful; a realm of hunger might make expansion fast but territory unstable
-- The energy system also determines what rites are available and how religions behave locally
+### 4.6 Missions & Goals
 
-**Overlap rule blending:**
-- When realms overlap, both sets of rules apply in the overlap zone — or they merge into something hybrid
-- This creates unique tactical environments that are **temporary or permanent** depending on whether it was an access point or a full collision
-- Skilled players exploit these rule interactions — positioning dominions and armies to take advantage of specific overlaps
+Hidden personal objectives. Variable scope (local → realm-spanning → cross-realm). Reward souls/points/relics. Some require soul sacrifice or specific rites.
 
-**Open questions:**
-- `[OPEN]` What are the actual per-realm rule differences? These need to be defined alongside the realm identities and energy systems
-- `[OPEN]` How are conflicting rules resolved in overlap zones?
+**Open:** Acquisition method, active mission count, public objectives.
 
-### 4.5 Missions & Goals
+### 4.7 Information & Espionage
 
-**Personal missions:**
-- Players receive missions that reward points (and possibly relics/souls) on completion
-- Missions are **hidden** — other players don't know what you're working toward
-- Mission scope varies — from local objectives ("Control this specific city") to realm-spanning goals ("Have your religion be the dominant faith in Realm X") to cross-realm objectives ("Control nodes in 3 different realms simultaneously")
-- Missions give structure and direction without dictating strategy
-- Some missions might involve **sacrificing souls** or **performing specific rites** — tying into the spend-vs-hoard tension
+**Visible:** Dominion ownership, general religion spread.
+**Hidden:** Instructions, missions, influence levels.
 
-**Open questions:**
-- `[OPEN]` How are missions acquired? Drawn at game start? Earned over time? Chosen from a selection?
-- `[OPEN]` How many active missions can a player have?
-- `[OPEN]` Are there shared/public objectives in addition to hidden ones?
+**Espionage mechanics:**
+1. **Scouting instructions** — order your dominion to scout a target; receive results on next visit. Costs an action slot + has delay.
+2. **Rite/relic abilities** — one-time intelligence reveals.
 
-### 4.6 Information & Espionage
+**Open:** Scouting detail level, detection, counter-espionage.
 
-**Default visibility:**
-- You can see **who controls which dominions** across all realms — ownership is public
-- You can see the **general spread of religions** — which areas follow which faith
-- You **cannot see:**
-  - What conditional instructions any player has set at any dominion
-  - What missions other players hold
-  - Exact influence/loyalty levels at enemy dominions
+### 4.8 Catch-Up
 
-**Gaining information (simplified espionage):**
-Rather than a complex information network system, espionage is handled through two lighter mechanics:
-
-1. **Scouting instructions:** When setting instructions for your dominion, one available action is **"Scout [target]"** — ordering your dominion to gather intelligence on a nearby enemy dominion or religion. The next time you visit that dominion, you receive the scouted information (enemy instructions, influence level, etc.). This ties espionage to the core loop naturally — it costs a dominion action slot and has a delay.
-
-2. **Abilities/relics:** Specific relics or rite-site powers may grant one-time intelligence boosts — "reveal the instructions at [target dominion]" or "reveal a player's current mission." These are limited resources, not a permanent surveillance network.
-
-**Open questions:**
-- `[OPEN]` What exactly does scouting reveal? (Full instruction flowchart? Just the general directive? Army composition?)
-- `[OPEN]` Can a player detect that they've been scouted?
-- `[OPEN]` Is counter-espionage possible? (Setting traps, planting false instructions?)
-
-### 4.7 Catch-Up Mechanic
-
-**Natural catch-up through overexpansion:** The core loop already has a built-in catch-up element — a player with many dominions can only visit one per turn, meaning most are drifting toward autonomy. The player with fewer, more tightly controlled dominions may be more efficient.
-
-**Additional catch-up mechanisms (to be designed):**
-- `[OPEN]` Should there be explicit catch-up beyond the natural one? (e.g., bonus actions, cheaper rite costs, favourable events for trailing players)
+Natural catch-up through overexpansion (more dominions = more neglect = more vulnerability). Explicit catch-up TBD.
 
 ---
 
 ## 5. Turn Structure
 
-**Simultaneous rounds:**
-- All 4 players take their actions at the same time each round
-- Each player, on their turn:
-  1. **Reviews** the current state — realm positions, dominion status, religion spread, incoming reports from scouts
-  2. **Takes personal actions** at their current location — set/update instructions for the local dominion, perform rites, use relics, perform rituals, set scouting orders
-  3. **Chooses their next destination** — where they will teleport to at the start of the next round
-- **All autonomous dominions and religions execute** their conditional instructions simultaneously
-- **Realm flow updates** — the n-body simulation advances one tick, realms drift, access points form or dissolve, collisions occur
+**Simultaneous rounds.** Each player per turn:
+1. Review state (realm positions, dominion status, scout reports)
+2. Take personal actions at current location
+3. Choose next destination
 
-**Co-location:**
-- If multiple players choose the same destination, they are **all present at that location** during the round
-- This enables **direct confrontation** between player entities — an abstract battle of wills
-- The specifics of co-location interaction are TBD but it should be mechanically interesting, not punishing (players shouldn't avoid each other out of fear)
-- Co-location might also enable **negotiation, threats, or temporary pacts** (though all unenforceable — this is a game of deception)
+All autonomous dominions/religions execute. Realm flow advances one tick.
 
-**Simultaneous action conflict:**
-- When multiple autonomous dominions issue conflicting orders (e.g., two armies advancing on the same node), conflicts are resolved through a combat system
-- `[OPEN]` Combat system details — is it deterministic (strength comparison), probabilistic (weighted random), or influenced by realm energy?
+**Co-location:** Multiple Ordained at the same location → direct confrontation possible. Should be interesting, not punishing.
 
-**Open questions:**
-- `[OPEN]` How many personal actions per turn? (One? Multiple with an action point budget?)
-- `[OPEN]` How does direct confrontation between players work?
-- `[OPEN]` How long is a round in-world time?
-- `[OPEN]` Should there be global events between rounds?
+**Open:** Actions per turn, confrontation mechanics, round duration, global events, combat system.
 
 ---
 
 ## 6. Progression & Pacing
 
-**The Convergence:**
-- The game ends when all realms have **fully merged** through gravitational collision — the fractured power is reassembling
-- This is visible from the start — players can see the n-body simulation trending toward merger — but the exact timing depends on the chaotic flow
-- Scoring happens at the Convergence: the player with the **most souls** wins (plus mission bonuses)
+**The Convergence** — game ends when all realms fully merge. Most souls wins.
 
-**Possible instant win:**
-- A rare, extremely difficult lore-related objective that, if completed, ends the game immediately with that player winning
-- This should require multi-realm coordination, significant soul expenditure, relic acquisition, and long-term planning
-- Its existence adds paranoia — if a player seems to be pursuing something unusual, they might be going for the instant win
-- `[OPEN]` What is this objective? Must be tied to the lore (e.g., "reassemble a fragment of the original power" or "perform the Convergence rite before it happens naturally")
+**Instant win** — Rite of the New Covenant at the Convergence zone. Massive cost, specific requirements.
 
-**Escalation:**
-- **Early game:** Realms are separated. Players establish initial dominions and religions in their starting realms. Actions are local, planning is long-range.
-- **Mid game:** Access points form as realms drift close. Cross-realm expansion begins. Religion spread becomes a strategic weapon. Relics become contested.
-- **Late game:** Collisions cause permanent merging. The board becomes interconnected and chaotic. Every player's dominions and religions are intermixed. Rule blending creates novel tactical situations.
+**Escalation:** Early (isolated, local) → Mid (access points, cross-realm) → Late (collisions, chaos, full merge).
 
-**Open questions:**
-- `[OPEN]` Do players grow in personal power over the game? If so, how?
-- `[OPEN]` How many rounds does a typical game last?
-- `[OPEN]` Is the Convergence's exact timing knowable, or only approximate?
+**Open:** Personal power growth, game length in rounds, Convergence timing predictability.
 
 ---
 
 ## 7. Digital-Only Affordances
 
-These are mechanics that are **only possible** because this is a video game:
-
-| Feature | Why It Requires Digital |
-|---------|----------------------|
-| Conditional instruction flowchart builder | Complex branching logic couldn't be tracked manually |
-| N-body realm flow simulation | Real-time chaotic physics simulation with trajectory prediction |
-| 3D realm visualisation with macro/micro views | Dynamic spatial representation impossible on a flat board |
-| Per-realm rule variation, automatically enforced | Too many conditional rules for players to remember and enforce |
-| Hidden instructions and missions | Guarantee of no cheating or accidental reveals |
-| Influence decay tracking per dominion | Continuous, per-turn state tracking across all dominions |
-| Autonomous dominion behaviour | NPC decision-making for unattended dominions |
-| Soul routing calculations | Cross-referencing religion tags with soul destinations each turn |
-| Scouting with delayed results | Async information delivery tied to player visits |
+| Feature | Why Digital |
+|---------|-----------|
+| Conditional instruction flowcharts | Complex branching logic |
+| N-body realm simulation + trajectory prediction | Real-time chaotic physics |
+| 3D macro/micro views | Dynamic spatial representation |
+| Per-realm rule enforcement + merge tracking | Too many conditional rules |
+| Hidden information (instructions, missions) | No cheating |
+| Influence decay + soul routing + autonomous dominions | Continuous state tracking |
 | Procedural graph generation | New board every game |
+| 26 merge combination rite/rule tracking | Combinatorial complexity |
 
 ---
 
-## 8. Open Design Questions (Summary)
+## 8. Resolved Decisions
 
-> Ordered roughly by priority — earliest questions unlock the most downstream decisions.
-
-| # | Category | Question | Status |
-|---|----------|----------|--------|
-| 1 | Lore | What is the specific lore/cosmology? (See lore doc) | `[OPEN]` |
-| 2 | Realms | How many realms and what are their energy systems? | `[OPEN]` ~5 |
-| 3 | Souls | What are the specific belief tags for soul routing? | `[OPEN]` Model A confirmed |
-| 4 | Turns | What personal actions can a player take per turn? | `[OPEN]` |
-| 5 | Rites | What specific rites does each realm offer? | `[OPEN]` |
-| 6 | Player | What is the personal progression system? | `[OPEN]` |
-| 7 | Player | How does direct confrontation work? | `[OPEN]` |
-| 8 | Religion | What defines a religion mechanically beyond belief tags? | `[OPEN]` |
-| 9 | Board | How is the graph procedurally generated? | `[OPEN]` |
-| 10 | Combat | What is the combat system? | `[OPEN]` |
-| 11 | Missions | How are missions acquired and structured? | `[OPEN]` |
-| 12 | Info | What does scouting reveal specifically? | `[OPEN]` |
-| 13 | Instant win | What is the instant win objective? | `[OPEN]` |
-| 14 | Pacing | How many rounds in a typical game? | `[OPEN]` |
-| — | Scope | Player count | ✅ 4 |
-| — | Scope | Game length | ✅ Long |
-| — | Board | Node/edge definition | ✅ Cities/landmarks, weighted travel routes |
-| — | Core loop | Instruction format | ✅ Conditional flowcharts, tiered complexity |
-| — | Core loop | Rival dominion visits | ✅ Yes, effectiveness varies with decay |
-| — | Realms | Realm flow model | ✅ N-body gravity simulation |
-| — | Realms | Realm count type | ✅ Fixed |
-| — | Souls | Routing model | ✅ Model A (belief tags) |
-| — | Souls | Spendable? | ✅ Yes, as cost for actions |
-| — | Religion | Separate from dominions? | ✅ Yes, two parallel systems |
-| — | Endgame | End condition | ✅ The Convergence |
+| Decision | Resolution |
+|----------|-----------|
+| Player count | 4 |
+| Game length | Long, high complexity |
+| Lore cosmology | The Covenant / The Sundering |
+| Player identity | The Ordained — fallen sacred agents, selfish |
+| Player visibility | Visible to inhabitants, not in any myth |
+| Realm count | 5 (fixed) |
+| Realm identities | Dominion, Entropy, Communion, Wrath, Memory |
+| Realm flow model | N-body gravity simulation |
+| Board nodes/edges | Cities/landmarks, weighted travel routes |
+| Instruction format | Conditional flowcharts, tiered complexity |
+| Rival visits | Yes, effectiveness varies with decay |
+| Soul routing | Model A (belief tags) |
+| Souls spendable | Yes, as rite fuel |
+| Religion system | Separate from dominions, two parallel systems |
+| End condition | The Convergence |
+| Instant win | Rite of the New Covenant |
+| All merge combos | Defined (10 pairs, 10 triples, 5 quads, 1 full) |
+| Tone | Dark Souls level |
+| Sundering cause | Unknown in-lore |
 
 ---
 
-## 9. Ideas List — Future / Optional Mechanics
+## 9. Open Design Questions
 
-> These are ideas that are interesting but may add too much complexity for the initial design. They are preserved here for potential inclusion later.
+| # | Category | Question |
+|---|----------|----------|
+| 1 | Player | Personal progression system |
+| 2 | Player | Personal ritual mechanics |
+| 3 | Player | Direct confrontation mechanics |
+| 4 | Turns | Actions per turn / action budget |
+| 5 | Rites | Specific rites per realm and merge zone |
+| 6 | Religion | Full mechanical definition (spread, evolution, tags) |
+| 7 | Combat | Combat system (deterministic? probabilistic?) |
+| 8 | Board | Graph generation parameters |
+| 9 | Missions | Acquisition, structure, count |
+| 10 | Info | Scouting detail level, detection |
+| 11 | Dominion | Establishing method, decay curve, inhabitant types |
+| 12 | Souls | Exchange rate, spent soul economy |
+| 13 | Pacing | Game length in rounds, Convergence timing |
+| 14 | Catch-up | Explicit mechanic beyond natural overexpansion |
 
-### 9.1 Dominion & Control
-- **Stability-based decay resistance:** How you leave a dominion affects how hard it is to subvert. A dominion left in a stable, contented state with minimal orders is harder to flip than one left mid-crisis. Currently simplified to uniform slow decay.
-- **Partial subversion:** Instead of fully flipping a dominion, a rival could corrupt specific instructions, plant misinformation, or turn a single unit rather than the whole dominion.
-- **Supply chains:** Dominions could have economic production and require supply lines between cities. Would add a logistics layer but significantly increases complexity.
+---
 
-### 9.2 Religion
-- **Doctrine system:** Instead of simple belief tags, religions could have composed doctrines (2-3 chosen from a larger pool) that affect spread speed, realm compatibility, and soul routing. Adds strategic depth to religion creation.
-- **Religion evolution/splintering:** Unattended religions could mutate over time — doctrines shifting, sects forming, heresies emerging. The player would need to revisit and "reform" to keep control.
-- **Holy sites:** Specific nodes that amplify a religion's spread or provide bonus souls. Worth controlling but not required.
+## 10. Ideas List — Future / Optional Mechanics
 
-### 9.3 Espionage & Information
-- **Observing:** Instead of setting instructions at a dominion, the player can choose to spend their turn **observing** — learning everything about that location (enemy instructions, hidden units, influence levels). Costs a full turn of instruction-setting. High information but high opportunity cost.
-- **Information networks:** A more permanent espionage infrastructure — placing agents in enemy dominions that provide ongoing intelligence. Expensive to set up, detectable, and can be dismantled. Provides persistent information flow rather than one-off scouting.
-- **Counter-espionage:** Detecting and dismantling enemy scouts or agents. Setting traps that feed false information.
-- **Misinformation:** Setting fake instructions that enemy scouts would discover, misleading rivals about your plans.
+### 10.1 The Sundering Mechanic
+At game start, one realm is secretly designated as the one whose force broke the Covenant. Slowly revealed through mid-game events. The guilty realm becomes **corrupted** with unique destabilising effects. Each force has a different reason and different corruption. Adds asymmetric world state per game without asymmetric players, plus a mystery subplot rewarding attentive play.
 
-### 9.4 Player Identity
-- **Asymmetric player concepts:** Each player represents a different abstract concept (Entropy, Hunger, Stillness, Severance, etc.) with unique abilities, motives, and goals. Adds replayability and thematic depth. Requires careful balancing.
-- **Concept-realm affinity:** Each player concept resonates with certain realms — they are more effective there, gain bonus abilities, or have easier influence. Creates natural starting positions and preferred territories.
+### 10.2 Sixth Realm — The Absence
+A void-realm where the Covenant once resided. Not a standard realm — behaves differently (may not drift/merge like others). Energy of **Negation** — cancels other energies. Too dangerous for stable holdings, powerful for specific disruption. Could house the instant-win objective.
 
-### 9.5 Realm & World
-- **Player realm influence:** Players could have limited ability to nudge realm flow — spending souls to slightly accelerate or deflect a realm's trajectory. Would make the Convergence itself a contested event.
-- **World events:** Random or triggered events that affect entire realms — plagues, wars, magical phenomena. Could provide catch-up mechanics or create crises that all players must react to.
+### 10.3 Dominion & Control
+- **Stability-based decay resistance** — how you leave affects subversion difficulty
+- **Partial subversion** — corrupt instructions, not full takeover
+- **Supply chains** — economic production, supply lines between cities
 
-### 9.6 Economy & Items
-- **Portable items:** Instead of realm-tied rites, collectible items that can be carried between locations. Creates logistics gameplay but overlaps with existing systems.
-- **Technology/knowledge:** Inhabitants in certain realms could develop unique technologies or magical knowledge that, when brought to other realms, provides advantages. A reason to expand cross-realm.
-- **Soul economy depth:** Souls as a complex currency with different "flavours" based on the realm or religion of origin. Different rites require different soul types.
+### 10.4 Religion
+- **Doctrine system** — composed doctrines (2-3 from a pool) affecting spread, compatibility, routing
+- **Religion evolution/splintering** — unattended religions mutate
+- **Holy sites** — nodes that amplify spread or bonus souls
 
-### 9.7 Endgame & Victory
-- **Epoch structure:** The game divided into 3 phases (Separation → Drift → Convergence) with different rules and scoring per epoch. Adds structure to the long game.
-- **Alternative victory conditions:** Beyond souls and instant win — territorial dominance, religious hegemony, ritual completion as separate paths to victory.
-- **Model B soul routing:** Hierarchical afterlife system where multiple players can claim overlapping criteria for souls. More complex but creates interesting contestation.
+### 10.5 Espionage
+- **Observing** — spend a turn to learn everything about a location (high info, high opportunity cost)
+- **Information networks** — permanent espionage infrastructure (expensive, detectable)
+- **Counter-espionage** — detect scouts, plant false information
+- **Misinformation** — fake instructions to mislead scouts
 
-### 9.8 Social & Political
-- **Binding pacts:** Formal agreements between players that are mechanically enforced (for a limited time). Both players benefit, but there's a cost to breaking the pact.
-- **Tribute systems:** Weaker dominions paying tribute to stronger ones in exchange for protection. Creates vassal-like relationships.
+### 10.6 Player Identity
+- **Asymmetric concepts** — each Ordained embodies a different abstract concept with unique abilities
+- **Concept-realm affinity** — resonance with certain realms for bonus effectiveness
+
+### 10.7 Realm & World
+- **Player realm influence** — spend souls to nudge realm trajectories
+- **World events** — realm-scale random/triggered events
+
+### 10.8 Economy
+- **Portable items** — carried between locations (logistics gameplay)
+- **Technology/knowledge** — realm-specific advances transferable cross-realm
+- **Soul flavours** — different soul types from different realms/religions
+
+### 10.9 Endgame & Victory
+- **Epoch structure** — 3 phases with different rules/scoring
+- **Alternative victory conditions** — territorial dominance, religious hegemony
+- **Model B soul routing** — hierarchical afterlife with contested claims
+
+### 10.10 Social & Political
+- **Binding pacts** — mechanically enforced temporary agreements
+- **Tribute systems** — vassal-like dominion relationships
