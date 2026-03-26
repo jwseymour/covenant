@@ -3,29 +3,8 @@
  * as the client mock data but using proper types.
  */
 
+import { generatePredictions } from '@shattered-covenant/shared';
 import type { RealmId, RealmState, Vec3 } from '@shattered-covenant/shared';
-
-function generateTrajectory(
-  pos: Vec3,
-  vel: Vec3,
-  steps: number = 20,
-): { position: Vec3; turnsAhead: number; confidence: number }[] {
-  const points: { position: Vec3; turnsAhead: number; confidence: number }[] = [];
-  for (let i = 1; i <= steps; i++) {
-    const t = i * 0.5;
-    const gravityPull = 0.002 * i;
-    points.push({
-      position: {
-        x: pos.x + vel.x * t - pos.x * gravityPull,
-        y: pos.y + vel.y * t - pos.y * gravityPull,
-        z: pos.z + vel.z * t - pos.z * gravityPull,
-      },
-      turnsAhead: i,
-      confidence: Math.max(0.05, 1.0 - i * 0.045),
-    });
-  }
-  return points;
-}
 
 export function createMockRealmStatesServer(): Record<RealmId, RealmState> {
   const radius = 12;
@@ -39,20 +18,29 @@ export function createMockRealmStatesServer(): Record<RealmId, RealmState> {
 
   const states: Partial<Record<RealmId, RealmState>> = {};
 
-  for (const { id, angleOffset, zOffset, vel } of realmData) {
+  for (const { id, angleOffset, zOffset } of realmData) {
     const pos: Vec3 = {
       x: radius * Math.cos(angleOffset),
       y: radius * Math.sin(angleOffset),
       z: zOffset,
     };
+    
+    // Quasi-random chaotic initial velocity
+    const randomVel: Vec3 = {
+      x: (Math.random() - 0.5) * 1.2, 
+      y: (Math.random() - 0.5) * 1.2,
+      z: (Math.random() - 0.5) * 0.6,
+    };
+
     states[id] = {
       realmId: id,
       position: pos,
-      velocity: vel,
+      velocity: randomVel,
       mass: 1.0,
-      trajectoryPrediction: generateTrajectory(pos, vel),
+      trajectoryPrediction: [],
     };
   }
 
-  return states as Record<RealmId, RealmState>;
+  // Generate physics-accurate trajectories starting from turn 0
+  return generatePredictions(states as Record<RealmId, RealmState>, 0, 35);
 }

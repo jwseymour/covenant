@@ -1,0 +1,346 @@
+/**
+ * Religion Panel styles — founding UI, tag picker, instructions, stability.
+ */
+
+.religion-panel {
+  border-top: 1px solid rgba(196, 162, 101, 0.12);
+  padding-top: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.religion-panel__label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-xs);
+}
+
+.religion-panel__found-btn {
+  width: 100%;
+  background: rgba(139, 92, 246, 0.08);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 11px;
+  color: #a78bfa;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  font-family: var(--font-body);
+}
+
+.religion-panel__found-btn:hover {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+/* Founder Panel */
+.religion-panel__founder,
+.religion-panel__instructions {
+  background: rgba(12, 12, 18, 0.95);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.religion-panel__founder-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #a78bfa;
+  font-family: var(--font-display);
+}
+
+.religion-panel__close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 6px;
+}
+
+.religion-panel__close:hover {
+  color: #f87171;
+}
+
+.religion-panel__name-input {
+  width: 100%;
+  background: rgba(10, 10, 15, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 6px 8px;
+  color: var(--text-primary);
+  font-size: 12px;
+  font-family: var(--font-body);
+  outline: none;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+}
+
+.religion-panel__name-input:focus {
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.religion-panel__tag-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+/* Tag Groups */
+.religion-panel__tag-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.religion-panel__tag-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.religion-panel__tag-realm {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.religion-panel__tag-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-align: left;
+  font-family: var(--font-body);
+  transition: all 0.12s ease;
+}
+
+.religion-panel__tag-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.religion-panel__tag-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.religion-panel__tag-btn--selected {
+  background: rgba(139, 92, 246, 0.12);
+  border-color: rgba(139, 92, 246, 0.35);
+  color: #a78bfa;
+}
+
+.religion-panel__tag-btn--matching {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.religion-panel__tag-name {
+  font-weight: 600;
+  min-width: 65px;
+}
+
+.religion-panel__tag-desc {
+  font-size: 9px;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.religion-panel__tag-match {
+  font-size: 8px;
+  color: var(--gold-dim);
+  flex-shrink: 0;
+}
+
+.religion-panel__confirm-btn {
+  width: 100%;
+  margin-top: 8px;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: #a78bfa;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.religion-panel__confirm-btn:hover:not(:disabled) {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.5);
+}
+
+.religion-panel__confirm-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Instructions */
+.religion-panel__instr-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.religion-panel__instr-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+  padding: 5px 8px;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-align: left;
+  font-family: var(--font-body);
+  transition: all 0.12s ease;
+}
+
+.religion-panel__instr-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.religion-panel__instr-btn--selected {
+  background: rgba(139, 92, 246, 0.12);
+  border-color: rgba(139, 92, 246, 0.3);
+  color: #a78bfa;
+}
+
+.religion-panel__instr-label {
+  font-weight: 600;
+  min-width: 55px;
+}
+
+.religion-panel__instr-desc {
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+/* Religion List */
+.religion-panel__list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.religion-panel__religion {
+  padding: 6px 8px;
+  background: rgba(139, 92, 246, 0.04);
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  border-radius: 4px;
+}
+
+.religion-panel__rel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.religion-panel__rel-name {
+  font-size: 11px;
+  color: #a78bfa;
+  font-weight: 600;
+}
+
+.religion-panel__rel-nodes {
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+.religion-panel__rel-tags {
+  display: flex;
+  gap: 4px;
+  margin-top: 3px;
+}
+
+.religion-panel__rel-tag {
+  font-size: 9px;
+  color: #a78bfa;
+  background: rgba(139, 92, 246, 0.08);
+  padding: 1px 6px;
+  border-radius: 2px;
+  border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+/* Stability */
+.religion-panel__stability-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.religion-panel__stability-bar {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  margin-top: 2px;
+  overflow: hidden;
+}
+
+.religion-panel__stability-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.5s ease, background-color 0.5s ease;
+}
+
+.religion-panel__stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3px;
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+.religion-panel__disrupted {
+  color: #f87171;
+  font-weight: 600;
+  font-size: 8px;
+  text-transform: uppercase;
+}
+
+.religion-panel__set-instr-btn {
+  width: 100%;
+  margin-top: 4px;
+  background: rgba(139, 92, 246, 0.06);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 3px;
+  padding: 4px 8px;
+  font-size: 10px;
+  color: #a78bfa;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.15s ease;
+}
+
+.religion-panel__set-instr-btn:hover {
+  background: rgba(139, 92, 246, 0.12);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.religion-panel__empty {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 4px 0;
+}

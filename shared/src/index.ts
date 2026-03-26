@@ -273,7 +273,8 @@ export {
   tickAllDominions,
   generateDominionId,
   DOMINION_DECAY_RATE,
-  INITIAL_INFLUENCE,
+  getInitialInfluenceInfo,
+  getSubversionMinGap,
   VULNERABLE_THRESHOLD,
   AUTONOMOUS_THRESHOLD,
   ESTABLISH_AP_COST,
@@ -297,7 +298,115 @@ export {
   createConditionalInstructions,
 } from './logic/instruction-executor.js';
 
+export {
+  RITUAL_COSTS,
+  canAffordRitual,
+  performRiteOfSight,
+  performRiteOfBinding,
+  performRiteOfSeverance,
+  performRiteOfHarvest,
+} from './logic/ritual-logic.js';
+
+export {
+  SITE_RITES,
+  executeSiteRite,
+} from './logic/rite-site-logic.js';
+
+export {
+  INITIAL_RELICS,
+  claimRelic,
+  useRelic,
+} from './logic/relic-logic.js';
+
 export type {
   InstructionEvent,
   ExecutionResult,
 } from './logic/instruction-executor.js';
+
+export {
+  foundReligion,
+  tickReligion,
+  tickAllReligions,
+  spreadReligion,
+  updateStability,
+  checkFracture,
+  calculateSoulsGenerated,
+  getSoulYieldModifier,
+  executeReligionInstructions,
+  resolveHolyWars,
+  generateReligionId,
+  BELIEF_TAG_DEFINITIONS,
+  getRealmSpreadMultiplier,
+  getRealmStabilityModifier,
+  getRealmDecayResistance,
+  INITIAL_STABILITY,
+  FRACTURE_THRESHOLD,
+  SACRED_FESTIVAL_COST,
+} from './logic/religion-logic.js';
+
+export type {
+  ReligionEvent,
+  ReligionTickResult,
+} from './logic/religion-logic.js';
+
+export {
+  computeReligionSoulIncome,
+  computeCombatSoulIncome,
+  createSoulLedger,
+  applyIncome,
+  spendSouls,
+  processAllSoulIncome,
+  getSoulStandings,
+  STARTING_SOUL_BALANCE,
+  BASE_SOULS_PER_NODE,
+  RITE_OF_SIGHT_COST,
+  RITE_OF_BINDING_COST,
+  RITE_OF_SEVERANCE_COST,
+  RITE_OF_HARVEST_COST,
+  SACRED_FESTIVAL_SOUL_COST,
+  SOULS_PER_COMBAT_CASUALTY,
+  MISSION_DISCARD_COST,
+} from './logic/soul-routing.js';
+
+export {
+  tickRealmStates,
+  generatePredictions,
+  detectInteractions,
+  calculateAcceleration,
+  GRAVITY_G,
+  DAMPING_FACTOR,
+  REALM_RADIUS,
+  ACCESS_POINT_DIST,
+  OVERLAP_DIST,
+  PREDICTION_TURNS,
+  ATTRACTION_MATRIX,
+  vecAdd,
+  vecSub,
+  vecMult,
+  vecLength,
+  vecNormalize,
+  vecDist,
+} from './logic/realm-flow.js';
+
+export type {
+  SoulStanding,
+} from './logic/soul-routing.js';
+
+export {
+  resolveConfrontations,
+} from './logic/confrontation-logic.js';
+
+export type {
+  ConfrontationEvent,
+} from './logic/confrontation-logic.js';
+
+export {
+  drawInitialMissions,
+  drawSingleMission,
+  checkPlayerMissions,
+  generateMissionId,
+  MISSION_LIBRARY,
+} from './logic/mission-logic.js';
+
+export * from './logic/merge-logic.js';
+export * from './logic/combat-logic.js';

@@ -603,7 +603,14 @@ export function generateRealmGraph(realmId: RealmId, seed: number = 42): RealmGr
       depopulated: false,
       depopulationTurnsRemaining: 0,
       availableRiteIds: nodeType === 'rite_site' ? [`${realmId}-rite-${i}`] : undefined,
-      relicId: nodeType === 'relic_location' ? `${realmId}-relic-${i}` : undefined,
+      relicId: nodeType === 'relic_location' ? (
+        realmId === 'dominion' ? 'relic_crown_of_authority' :
+        realmId === 'entropy' ? 'relic_chalice_of_entropy' :
+        realmId === 'communion' ? 'relic_woven_strand' :
+        realmId === 'wrath' ? 'relic_blade_of_wrath' :
+        realmId === 'memory' ? 'relic_tome_of_memory' :
+        'relic_neutral_gem'
+      ) : undefined,
       relicClaimed: false,
     };
   });

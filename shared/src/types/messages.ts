@@ -72,6 +72,7 @@ export interface StartGameMessage {
 export interface SubmitTurnMessage {
     type: typeof MessageType.SUBMIT_TURN;
     actions: unknown[];
+    confrontationStance?: { stance: 'confront' | 'coexist' | 'retreat'; bid: number };
 }
 
 export interface PingMessage {

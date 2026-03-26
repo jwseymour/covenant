@@ -96,4 +96,18 @@ export interface Player {
 
   /** Whether this player has submitted actions for the current turn. */
   hasSubmittedTurn: boolean;
+
+  // ─── Intelligence ──────────────────────────────────────────
+
+  /**
+   * Private intelligence gathered through scouting or Rites of Sight.
+   * GDD §4.8. Not public info.
+   */
+  intel: Array<{
+    turn: number;
+    nodeId: NodeId;
+    type: 'dominion' | 'religion';
+    targetId: string;
+    revealedInstructions: unknown;
+  }>;
 }

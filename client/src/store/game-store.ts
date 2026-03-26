@@ -38,7 +38,7 @@ interface GameStore {
     startGame: () => void;
     leaveGame: () => void;
     refreshGameList: () => void;
-    submitTurn: (actions: M2TurnAction[]) => void;
+    submitTurn: (actions: M2TurnAction[], confrontationStance?: { stance: 'confront'|'coexist'|'retreat', bid: number }) => void;
     setSelectedNodeId: (nodeId: NodeId | null) => void;
     setPlayerName: (name: string) => void;
 }
@@ -159,8 +159,8 @@ export const useGameStore = create<GameStore>((set) => {
             gameWs.send({ type: MessageType.LIST_GAMES });
         },
 
-        submitTurn: (actions: M2TurnAction[]) => {
-            gameWs.send({ type: MessageType.SUBMIT_TURN, actions });
+        submitTurn: (actions: M2TurnAction[], confrontationStance?: any) => {
+            gameWs.send({ type: MessageType.SUBMIT_TURN, actions, confrontationStance });
         },
 
         setSelectedNodeId: (nodeId: NodeId | null) => {

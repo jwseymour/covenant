@@ -491,6 +491,39 @@ export function MicroView({ realmId, graph: externalGraph, onBack, onNodeSelect,
           ctx.globalAlpha = 1;
         }
       }
+      // Draw religion overlays (coloured halo rings — distinct from solid dominion fills)
+      if (curGameState) {
+        for (const rel of Object.values(curGameState.religions)) {
+          if (rel.foundedRealmId !== realmId) continue;
+          const ownerPlayer = curGameState.players[rel.founderId];
+          // Use purple-shifted hue for religions (distinct from gold dominion)
+          const baseHue = ownerPlayer ? 270 : 280;
+          const relColour = `hsl(${baseHue}, 60%, 65%)`;
+
+          for (const [nodeId, followerPct] of Object.entries(rel.followersByNode)) {
+            const rNode = nodeMap.get(nodeId);
+            if (!rNode) continue;
+            const [rx, ry] = worldToScreen(rNode.position.x, rNode.position.y, curTransform, w, h);
+            const rri = 14 * Math.min(curTransform.scale * 0.8, 2.5);
+
+            ctx.globalAlpha = 0.15 + (followerPct / 100) * 0.4;
+
+            if (rel.fractured) {
+              // Dashed halo for fractured religions
+              ctx.setLineDash([4, 4]);
+            }
+
+            ctx.beginPath();
+            ctx.arc(rx, ry, rri + 6, 0, Math.PI * 2);
+            ctx.strokeStyle = relColour;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            ctx.setLineDash([]);
+            ctx.globalAlpha = 1;
+          }
+        }
+      }
 
       // Draw nodes
       for (const node of graph.nodes) {

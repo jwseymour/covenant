@@ -10,14 +10,13 @@ import type { Dominion, DominionId, DominionPublicView } from '../types/dominion
 import type { PlayerId } from '../types/player.js';
 import type { NodeId } from '../types/graph.js';
 import type { RealmId } from '../types/realm.js';
+import type { GameState } from '../types/game-state.js';
+import { getActiveRealms } from './merge-logic.js';
 
 // ─── Constants ──────────────────────────────────────────────────
 
 /** Influence decay rate per turn (3.5% — midpoint of GDD's ~3-4%). */
 export const DOMINION_DECAY_RATE = 0.035;
-
-/** Initial influence when establishing a dominion. */
-export const INITIAL_INFLUENCE = 100;
 
 /** Influence threshold below which a dominion becomes vulnerable to subversion. */
 export const VULNERABLE_THRESHOLD = 60; // ~15 turns of decay
@@ -28,8 +27,27 @@ export const AUTONOMOUS_THRESHOLD = 30; // ~25 turns of decay
 /** AP cost to establish a dominion. GDD §2.3: "1 AP". */
 export const ESTABLISH_AP_COST = 1;
 
-/** Minimum influence gap required for subversion success. */
-export const SUBVERSION_MIN_INFLUENCE_GAP = 15;
+export function getInitialInfluenceInfo(activeRealms: Set<RealmId> | RealmId): { influence: number; armyBonus: number } {
+  const realms = typeof activeRealms === 'string' ? new Set([activeRealms]) : activeRealms;
+  let influence = 100;
+  let armyBonus = 0;
+
+  if (realms.has('entropy')) influence += 20;
+  if (realms.has('wrath')) { influence -= 20; armyBonus += 20; }
+
+  return { influence, armyBonus };
+}
+
+export function getSubversionMinGap(activeRealms: Set<RealmId> | RealmId): number {
+  const realms = typeof activeRealms === 'string' ? new Set([activeRealms]) : activeRealms;
+  let gap = 15;
+
+  if (realms.has('memory')) gap += 15;
+  if (realms.has('dominion')) gap += 10;
+  if (realms.has('communion')) gap -= 5;
+  
+  return gap;
+}
 
 // ─── Dominion Creation ──────────────────────────────────────────
 
@@ -49,18 +67,20 @@ export function createDominion(
   nodeId: NodeId,
   realmId: RealmId,
   currentTurn: number,
+  activeRealms: Set<RealmId>
 ): Dominion {
+  const info = getInitialInfluenceInfo(activeRealms);
   return {
     id: generateDominionId(),
     ownerId,
     realmId,
     primaryNodeId: nodeId,
     controlledNodeIds: [nodeId],
-    influence: INITIAL_INFLUENCE,
+    influence: info.influence,
     decayRate: DOMINION_DECAY_RATE * 100, // Store as percentage for readability
     lastVisitedTurn: currentTurn,
     establishedTurn: currentTurn,
-    armyStrength: 100,
+    armyStrength: 100 + info.armyBonus,
     armyBaseSize: 80,
     troopQualityModifier: 1.0,
     instructions: null,
@@ -76,23 +96,24 @@ export function createDominion(
  * - Entropy realm: faster decay (nothing persists)
  * - Memory realm: slowest decay (everything endures)
  */
-function getRealmDecayMultiplier(realmId: RealmId): number {
-  switch (realmId) {
-    case 'dominion': return 0.7;
-    case 'entropy':  return 1.5;
-    case 'memory':   return 0.5;
-    case 'communion': return 1.1;
-    case 'wrath':    return 1.0;
-    default: return 1.0;
-  }
+function getRealmDecayMultiplier(activeRealms: Set<RealmId> | RealmId): number {
+  const realms = typeof activeRealms === 'string' ? new Set([activeRealms]) : activeRealms;
+  let mult = 1.0;
+  
+  if (realms.has('entropy')) mult *= 1.5;
+  if (realms.has('communion')) mult *= 1.1;
+  if (realms.has('dominion')) mult *= 0.7;
+  if (realms.has('memory')) mult *= 0.5;
+
+  return mult;
 }
 
 /**
  * Apply influence decay to a dominion for one turn.
  * GDD §2.3: "Influence decays slowly (~3-4% per turn)"
  */
-export function applyInfluenceDecay(dominion: Dominion): Dominion {
-  const realmMultiplier = getRealmDecayMultiplier(dominion.realmId);
+export function applyInfluenceDecay(dominion: Dominion, activeRealms: Set<RealmId>): Dominion {
+  const realmMultiplier = getRealmDecayMultiplier(activeRealms);
   const effectiveDecay = DOMINION_DECAY_RATE * realmMultiplier;
   const newInfluence = Math.max(0, dominion.influence * (1 - effectiveDecay));
 
@@ -106,10 +127,11 @@ export function applyInfluenceDecay(dominion: Dominion): Dominion {
  * Reset dominion decay — called when the player visits.
  * GDD §4.6: Rite of Binding also does this.
  */
-export function refreshDominion(dominion: Dominion, currentTurn: number): Dominion {
+export function refreshDominion(dominion: Dominion, currentTurn: number, activeRealms: Set<RealmId>): Dominion {
+  const defaultMax = getInitialInfluenceInfo(activeRealms).influence;
   return {
     ...dominion,
-    influence: Math.min(INITIAL_INFLUENCE, dominion.influence + 20),
+    influence: Math.min(defaultMax, dominion.influence + 20),
     lastVisitedTurn: currentTurn,
   };
 }
@@ -134,6 +156,7 @@ export function attemptSubversion(
   dominion: Dominion,
   subverterId: PlayerId,
   subverterInfluence: number,
+  activeRealms: Set<RealmId>
 ): { success: boolean; dominion: Dominion; reason: string } {
   if (dominion.ownerId === subverterId) {
     return { success: false, dominion, reason: 'Cannot subvert own dominion' };
@@ -147,10 +170,11 @@ export function attemptSubversion(
   }
 
   const influenceGap = subverterInfluence - dominion.influence;
-  if (influenceGap < SUBVERSION_MIN_INFLUENCE_GAP) {
+  const requiredGap = getSubversionMinGap(activeRealms);
+  if (influenceGap < requiredGap) {
     return {
       success: false, dominion,
-      reason: `Influence gap (${influenceGap.toFixed(0)}) too small (need ${SUBVERSION_MIN_INFLUENCE_GAP})`,
+      reason: `Influence gap (${influenceGap.toFixed(0)}) too small (need ${requiredGap} in the Realm of ${dominion.realmId})`,
     };
   }
 
@@ -202,10 +226,12 @@ export function createPublicView(dominion: Dominion): DominionPublicView {
 /** Apply all per-turn effects to all dominions. */
 export function tickAllDominions(
   dominions: Record<DominionId, Dominion>,
+  state: GameState
 ): Record<DominionId, Dominion> {
   const updated: Record<DominionId, Dominion> = {};
   for (const [id, dominion] of Object.entries(dominions)) {
-    updated[id as DominionId] = applyInfluenceDecay(dominion);
+    const activeRealms = getActiveRealms(state, dominion.realmId);
+    updated[id as DominionId] = applyInfluenceDecay(dominion, activeRealms);
   }
   return updated;
 }

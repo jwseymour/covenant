@@ -6,8 +6,9 @@
  * showing decreasing prediction confidence.
  */
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import * as THREE from 'three';
+import { Html } from '@react-three/drei';
 import type { RealmId, RealmState } from '@shattered-covenant/shared';
 import { REALM_VISUALS } from './realm-visuals';
 
@@ -73,9 +74,11 @@ export function TrajectoryLine({ realmId, state, visible }: TrajectoryLineProps)
 /**
  * TrajectoryDots — uncertainty dots along the trajectory
  * that get larger and more transparent further out.
+ * Includes hover tooltips for turns ahead.
  */
 export function TrajectoryDots({ realmId, state, visible }: TrajectoryLineProps) {
   const config = REALM_VISUALS[realmId];
+  const [hoveredDot, setHoveredDot] = useState<number | null>(null);
 
   if (!visible || state.trajectoryPrediction.length === 0) return null;
 
@@ -88,14 +91,46 @@ export function TrajectoryDots({ realmId, state, visible }: TrajectoryLineProps)
         <mesh
           key={i}
           position={[point.position.x, point.position.y, point.position.z]}
+          onPointerEnter={(e) => { e.stopPropagation(); setHoveredDot(i); }}
+          onPointerLeave={() => setHoveredDot(null)}
+          onClick={(e) => { e.stopPropagation(); setHoveredDot(hoveredDot === i ? null : i); }}
         >
-          <sphereGeometry args={[0.06 + (1 - point.confidence) * 0.15, 8, 8]} />
-          <meshBasicMaterial
-            color={config.accent}
-            transparent
-            opacity={point.confidence * 0.4}
-            depthWrite={false}
-          />
+          {/* Slightly larger invisible hitbox for easier targeting */}
+          <sphereGeometry args={[0.3, 8, 8]} />
+          <meshBasicMaterial visible={false} />
+          
+          {/* Visible dot */}
+          <mesh>
+            <sphereGeometry args={[0.06 + (1 - point.confidence) * 0.15, 8, 8]} />
+            <meshBasicMaterial
+              color={hoveredDot === i ? '#ffffff' : config.accent}
+              transparent
+              opacity={hoveredDot === i ? 0.8 : point.confidence * 0.4}
+              depthWrite={false}
+            />
+          </mesh>
+
+          {/* Tooltip */}
+          {hoveredDot === i && (
+            <Html distanceFactor={15} zIndexRange={[100, 0]}>
+              <div
+                style={{
+                  background: 'rgba(10, 10, 15, 0.9)',
+                  border: `1px solid ${config.accent}`,
+                  color: config.accent,
+                  padding: '4px 8px',
+                  borderRadius: '4px',
+                  fontSize: '11px',
+                  fontFamily: 'monospace',
+                  whiteSpace: 'nowrap',
+                  pointerEvents: 'none',
+                  transform: 'translate3d(-50%, -150%, 0)',
+                }}
+              >
+                In {point.turnsAhead} turn{point.turnsAhead !== 1 ? 's' : ''}
+              </div>
+            </Html>
+          )}
         </mesh>
       ))}
     </group>

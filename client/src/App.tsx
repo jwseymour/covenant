@@ -11,6 +11,7 @@ import { MacroView } from './renderer/MacroView';
 import { MicroView } from './renderer/MicroView';
 import { REALM_VISUALS, REALM_IDS } from './renderer/realm-visuals';
 import { TurnPanel } from './TurnPanel';
+import { SoulCounter } from './SoulCounter';
 import { generateAllRealmGraphs } from '@shattered-covenant/shared';
 import type { RealmId, NodeId, M2TurnAction } from '@shattered-covenant/shared';
 import './styles/lobby.css';
@@ -53,6 +54,21 @@ export function App() {
             setSelectedRealm(null);
         }
     }, [screen]);
+
+    // Snap selection and realm to player's current location on turn start
+    useEffect(() => {
+        if (gameState && playerId && screen === 'game') {
+            const player = gameState.players[playerId];
+            if (player && player.currentNodeId) {
+                setSelectedNodeId(player.currentNodeId);
+                if (player.currentRealmId) {
+                    setSelectedRealm(player.currentRealmId);
+                }
+            }
+        }
+        // Exclude viewMode and setSelectedNodeId so shifting views doesn't override manual navigation
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [gameState?.turnNumber, playerId, screen]);
 
     const handleRealmSelect = useCallback((realmId: RealmId | null) => setSelectedRealm(realmId), []);
 
@@ -102,7 +118,11 @@ export function App() {
                 {/* Game Viewport */}
                 <div className={`game-viewport ${transitioning ? 'viewport-transition' : ''}`}>
                     {viewMode === 'macro' ? (
-                        <MacroView onRealmSelect={handleRealmSelect} />
+                        <MacroView
+                            realmStates={gameState?.realmStates}
+                            interactions={gameState?.realmInteractions}
+                            onRealmSelect={handleRealmSelect}
+                        />
                     ) : (
                         selectedRealm && (
                             <MicroView
@@ -117,6 +137,11 @@ export function App() {
                     )}
                 </div>
 
+                {/* Soul Counter — fixed overlay */}
+                {isInGame && playerId && gameState && (
+                    <SoulCounter gameState={gameState} playerId={playerId} />
+                )}
+
                 {/* Sidebar */}
                 <aside className="info-panel">
                     {/* Turn Panel — only when in game */}
@@ -126,6 +151,7 @@ export function App() {
                             playerId={playerId}
                             onSubmitTurn={handleSubmitTurn}
                             selectedNodeId={selectedNodeId}
+                            selectedRealm={selectedRealm}
                         />
                     )}
 

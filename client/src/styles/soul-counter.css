@@ -1,0 +1,186 @@
+/**
+ * SoulCounter styles — dark fantasy soul display.
+ */
+
+.soul-counter {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  font-family: var(--font-display, 'Cinzel', serif);
+}
+
+.soul-counter__main {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(12, 12, 18, 0.9);
+  border: 1px solid rgba(196, 162, 101, 0.3);
+  border-radius: 20px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  font-family: inherit;
+}
+
+.soul-counter__main:hover {
+  background: rgba(12, 12, 18, 0.95);
+  border-color: rgba(196, 162, 101, 0.5);
+  box-shadow: 0 0 12px rgba(196, 162, 101, 0.1);
+}
+
+.soul-counter__icon {
+  font-size: 16px;
+  color: #c4a265;
+  filter: drop-shadow(0 0 3px rgba(196, 162, 101, 0.4));
+}
+
+.soul-counter__balance {
+  font-size: 16px;
+  font-weight: 700;
+  color: #e8d5a3;
+  letter-spacing: 0.02em;
+  min-width: 30px;
+  text-align: center;
+}
+
+.soul-counter__income {
+  font-size: 11px;
+  color: #4ade80;
+  font-weight: 600;
+}
+
+.soul-counter__toggle {
+  font-size: 10px;
+  color: rgba(196, 162, 101, 0.4);
+  margin-left: 2px;
+}
+
+/* Expanded Details */
+.soul-counter__details {
+  margin-top: 4px;
+  background: rgba(12, 12, 18, 0.95);
+  border: 1px solid rgba(196, 162, 101, 0.2);
+  border-radius: 8px;
+  padding: 10px 12px;
+  backdrop-filter: blur(8px);
+  min-width: 220px;
+}
+
+/* Win condition row */
+.soul-counter__win-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(196, 162, 101, 0.08);
+}
+
+.soul-counter__win-label {
+  font-size: 10px;
+  color: #c4a265;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.soul-counter__win-turns {
+  font-size: 10px;
+  color: #e8d5a3;
+  font-weight: 600;
+}
+
+/* Stat grid */
+.soul-counter__stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.soul-counter__stat {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 4px;
+}
+
+.soul-counter__stat-label {
+  font-size: 9px;
+  color: rgba(196, 162, 101, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.soul-counter__stat-value {
+  font-size: 11px;
+  color: #e8d5a3;
+  font-weight: 600;
+}
+
+.soul-counter__stat-value--earned { color: #4ade80; }
+.soul-counter__stat-value--spent { color: #f87171; }
+.soul-counter__stat-value--income { color: #4ade80; }
+
+/* Income breakdown */
+.soul-counter__breakdown {
+  border-top: 1px solid rgba(196, 162, 101, 0.08);
+  padding-top: 6px;
+  margin-bottom: 6px;
+}
+
+.soul-counter__breakdown-label {
+  font-size: 9px;
+  color: rgba(196, 162, 101, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.soul-counter__breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.soul-counter__breakdown-name {
+  font-size: 10px;
+  color: #a78bfa;
+  flex: 1;
+}
+
+.soul-counter__breakdown-meta {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0 6px;
+}
+
+.soul-counter__breakdown-amount {
+  font-size: 10px;
+  color: #4ade80;
+  font-weight: 600;
+}
+
+/* Ritual costs */
+.soul-counter__costs {
+  border-top: 1px solid rgba(196, 162, 101, 0.08);
+  padding-top: 6px;
+}
+
+.soul-counter__costs-label {
+  font-size: 9px;
+  color: rgba(196, 162, 101, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.soul-counter__cost-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 1px 0;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.4);
+}

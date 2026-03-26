@@ -137,10 +137,10 @@ export class GameRoom {
 
   // ─── Turn Submission ────────────────────────────────────────
 
-  submitTurn(playerId: PlayerId, actions: M2TurnAction[]): void {
+  submitTurn(playerId: PlayerId, actions: M2TurnAction[], confrontationStance?: any): void {
     if (!this.state) return;
 
-    const submission: M2TurnSubmission = { playerId, actions };
+    const submission: M2TurnSubmission = { playerId, actions, confrontationStance };
     this.pendingSubmissions.set(playerId, submission);
 
     if (this.state.players[playerId]) {
@@ -183,9 +183,29 @@ export class GameRoom {
 
   // ─── State Filtering ────────────────────────────────────────
 
-  private filterStateForPlayer(state: GameState, _playerId: PlayerId): GameState {
-    // Full state for M2 — proper filtering added with espionage mechanics
-    return state;
+  private filterStateForPlayer(state: GameState, playerId: PlayerId): GameState {
+    // GDD §4.8: Soul counts, instructions, and missions are hidden from other players.
+    const filteredPlayers = { ...state.players };
+
+    for (const [pid, player] of Object.entries(filteredPlayers)) {
+      if (pid === playerId) continue; // Self always sees full info
+
+      // Hide soul ledger details from other players
+      filteredPlayers[pid as PlayerId] = {
+        ...player,
+        soulLedger: {
+          ...player.soulLedger,
+          balance: 0,       // Hidden
+          totalEarned: 0,    // Hidden
+          totalSpent: 0,     // Hidden
+          currentTurnIncome: [], // Hidden
+          history: [],       // Hidden
+        },
+        missions: [],        // Hidden per GDD §4.8
+      };
+    }
+
+    return { ...state, players: filteredPlayers };
   }
 
   // ─── Helpers ────────────────────────────────────────────────

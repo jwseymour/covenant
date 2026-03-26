@@ -42,6 +42,8 @@ export interface ExecutionResult {
   dominion: Dominion;
   /** Events generated during execution. */
   events: InstructionEvent[];
+  /** Combat intents generated when expanding into rival territory. */
+  combatIntents?: { attackerId: DominionId; defenderId: DominionId; targetNodeId: NodeId }[];
 }
 
 // ─── Constants ──────────────────────────────────────────────────
@@ -263,6 +265,7 @@ function executeAction(
   state: GameState,
 ): ExecutionResult {
   const events: InstructionEvent[] = [];
+  const combatIntents: { attackerId: DominionId; defenderId: DominionId; targetNodeId: NodeId }[] = [];
   let dom = { ...dominion, controlledNodeIds: [...dominion.controlledNodeIds] };
 
   switch (action.type) {
@@ -442,7 +445,7 @@ function executeAction(
     }
   }
 
-  return { dominion: dom, events };
+  return { dominion: dom, events, combatIntents };
 }
 
 // ─── Flowchart Walker ───────────────────────────────────────────
@@ -503,7 +506,7 @@ export function executeDominionInstructions(
   state: GameState,
 ): ExecutionResult {
   if (!dominion.instructions) {
-    return { dominion, events: [] };
+    return { dominion, events: [], combatIntents: [] };
   }
 
   const action = resolveFlowchart(dominion.instructions, dominion, graph, state);
@@ -517,8 +520,9 @@ export function executeDominionInstructions(
 export function executeAllDominionInstructions(
   dominions: Record<DominionId, Dominion>,
   state: GameState,
-): { dominions: Record<DominionId, Dominion>; events: InstructionEvent[] } {
+): { dominions: Record<DominionId, Dominion>; events: InstructionEvent[]; combatIntents: { attackerId: DominionId; defenderId: DominionId; targetNodeId: NodeId }[] } {
   const allEvents: InstructionEvent[] = [];
+  const allIntents: { attackerId: DominionId; defenderId: DominionId; targetNodeId: NodeId }[] = [];
   const updated = { ...dominions };
 
   for (const [id, dom] of Object.entries(dominions)) {
@@ -532,9 +536,12 @@ export function executeAllDominionInstructions(
     const result = executeDominionInstructions(dom, graph, stateWithUpdated);
     updated[id as DominionId] = result.dominion;
     allEvents.push(...result.events);
+    if (result.combatIntents) {
+       allIntents.push(...result.combatIntents);
+    }
   }
 
-  return { dominions: updated, events: allEvents };
+  return { dominions: updated, events: allEvents, combatIntents: allIntents };
 }
 
 // ─── Instruction Builders (helpers for the UI) ──────────────────

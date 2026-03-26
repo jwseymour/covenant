@@ -120,6 +120,7 @@ function makeGameState(
         combatCards: [],
         missions: [],
         hasSubmittedTurn: false,
+        intel: [],
       },
     },
     turnOrder: ['player-1'],

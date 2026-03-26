@@ -1,0 +1,147 @@
+.ritual-panel {
+  margin-top: 12px;
+  border-top: 1px solid #333;
+  padding-top: 12px;
+}
+
+.ritual-panel__toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  background-color: #1a1a1a;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Crimson Pro', serif;
+}
+
+.ritual-panel__toggle:hover:not(:disabled) {
+  background-color: #2a2a2a;
+  border-color: #8b5cf6;
+}
+
+.ritual-panel__toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ritual-panel__content {
+  background-color: rgba(26, 26, 26, 0.95);
+  border: 1px solid #8b5cf6;
+  border-radius: 4px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ritual-panel__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: #c4b5fd;
+  border-bottom: 1px solid #444;
+  padding-bottom: 8px;
+  font-family: 'Crimson Pro', serif;
+}
+
+.ritual-panel__close {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+}
+
+.ritual-panel__close:hover {
+  color: #fff;
+}
+
+.ritual-panel__desc {
+  font-size: 11px;
+  color: #a3a3a3;
+  font-style: italic;
+}
+
+.ritual-panel__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ritual-panel__btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1f1f1f;
+  border: 1px solid #444;
+  padding: 8px;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.ritual-panel__btn:hover:not(:disabled) {
+  border-color: #a78bfa;
+  background-color: #2d2b3b;
+}
+
+.ritual-panel__btn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: #333;
+}
+
+.ritual-panel__btn-name {
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.ritual-panel__btn-cost {
+  font-size: 11px;
+  color: #fbbf24;
+}
+
+.ritual-panel__divider {
+  height: 1px;
+  background-color: #444;
+}
+
+.ritual-panel__severance {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ritual-panel__severance-title {
+  color: #f87171;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ritual-panel__severance-desc {
+  font-size: 11px;
+  color: #a3a3a3;
+}
+
+.ritual-panel__select {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.ritual-panel__no-targets {
+  font-size: 11px;
+  color: #666;
+  font-style: italic;
+  padding: 4px 0;
+}

@@ -11,22 +11,34 @@
  */
 
 import { useState, useCallback, useEffect } from 'react';
-import type { NodeId, M2TurnAction, GameState, PlayerId, DominionInstructionSet } from '@shattered-covenant/shared';
+import type { NodeId, RealmId, M2TurnAction, GameState, PlayerId, DominionInstructionSet } from '@shattered-covenant/shared';
+import { RITUAL_COSTS, SITE_RITES } from '@shattered-covenant/shared';
 import { REALM_VISUALS } from './renderer/realm-visuals';
 import { InstructionBuilder } from './InstructionBuilder';
+import { ReligionPanel } from './ReligionPanel';
+import { RitualPanel } from './RitualPanel';
+import { SiteAndRelicPanel } from './SiteAndRelicPanel';
+import { MissionPanel } from './MissionPanel';
+import { RelicInventoryPanel } from './RelicInventoryPanel';
+import { ConfrontationPanel, type ConfrontationStance } from './ConfrontationPanel';
+import { ActiveRulesPanel } from './ActiveRulesPanel';
+import { ErrorBoundary } from './ErrorBoundary';
+import { getActiveRealms } from '@shattered-covenant/shared';
 
 interface TurnPanelProps {
   gameState: GameState;
   playerId: PlayerId;
   onSubmitTurn: (actions: M2TurnAction[]) => void;
   selectedNodeId: NodeId | null;
+  selectedRealm: RealmId | null;
 }
 
-export function TurnPanel({ gameState, playerId, onSubmitTurn, selectedNodeId }: TurnPanelProps) {
+export function TurnPanel({ gameState, playerId, onSubmitTurn, selectedNodeId, selectedRealm }: TurnPanelProps) {
   const [pendingActions, setPendingActions] = useState<M2TurnAction[]>([]);
   const [submitted, setSubmitted] = useState(false);
   const [showInstructionBuilder, setShowInstructionBuilder] = useState(false);
   const [instructionTargetDom, setInstructionTargetDom] = useState<string | null>(null);
+  const [confrontationStance, setConfrontationStance] = useState<ConfrontationStance | null>(null);
 
   const player = gameState.players[playerId];
   if (!player) return null;
@@ -35,12 +47,28 @@ export function TurnPanel({ gameState, playerId, onSubmitTurn, selectedNodeId }:
   useEffect(() => {
     setSubmitted(false);
     setPendingActions([]);
+    setConfrontationStance(null);
   }, [gameState.turnNumber]);
 
   // AP accounting — count AP-costing actions
-  const apUsed = pendingActions.filter((a) =>
-    a.kind === 'establish_dominion' || a.kind === 'subvert_dominion' || a.kind === 'set_instructions'
-  ).length;
+  const apUsed = pendingActions.reduce((total, a) => {
+    switch (a.kind) {
+      case 'establish_dominion':
+      case 'subvert_dominion':
+      case 'set_instructions':
+      case 'found_religion':
+      case 'set_religion_instructions':
+      case 'claim_relic':
+      case 'use_relic':
+        return total + 1;
+      case 'perform_ritual':
+        return total + (RITUAL_COSTS[a.ritualType]?.ap || 0);
+      case 'perform_site_rite':
+        return total + (SITE_RITES[a.riteId]?.apCost || 0);
+      default:
+        return total;
+    }
+  }, 0);
   const apRemaining = 2 - apUsed;
 
   // Check if the selected node has an existing dominion
@@ -48,7 +76,20 @@ export function TurnPanel({ gameState, playerId, onSubmitTurn, selectedNodeId }:
     ? Object.values(gameState.dominions).find((d) => d.primaryNodeId === selectedNodeId)
     : null;
 
+  const pendingDominionAction = pendingActions.find(
+    (a) => a.kind === 'establish_dominion' && a.nodeId === selectedNodeId
+  );
+  
+  const hasOwnDominionOrPending = (nodeHasDominion && nodeHasDominion.ownerId === playerId) || !!pendingDominionAction;
+  const resolvedDominionId = (nodeHasDominion && nodeHasDominion.ownerId === playerId) 
+      ? nodeHasDominion.id 
+      : (pendingDominionAction ? `PENDING_DOMINION_${selectedNodeId}` : null);
+
   const currentRealm = player.currentRealmId;
+  const activeRealms = getActiveRealms(gameState, currentRealm);
+
+  const isCurrentLocation = selectedNodeId === player.currentNodeId;
+  const isCoLocated = Object.values(gameState.players).some(p => p.id !== playerId && p.currentNodeId === player.currentNodeId);
 
   const addAction = useCallback((action: M2TurnAction) => {
     setPendingActions((prev) => [...prev, action]);
@@ -59,9 +100,15 @@ export function TurnPanel({ gameState, playerId, onSubmitTurn, selectedNodeId }:
   }, []);
 
   const handleSubmit = useCallback(() => {
-    onSubmitTurn(pendingActions.length > 0 ? pendingActions : [{ kind: 'pass' }]);
+    if (isCoLocated && !confrontationStance) return;
+    
+    // Instead of passing it via `actions`, `onSubmitTurn` usually takes just the `actions` array right now!
+    // Wait... `M2TurnSubmission` requires `{ actions: [...], confrontationStance }`. But `TurnPanelProps` only has `onSubmitTurn: (actions: M2TurnAction[]) => void;`. 
+    // I will pass pass the stance in standard, or modify onSubmitTurn signature. Let's just emit a special action for now or patch `App.tsx`'s onSubmitTurn to accept stance.
+    // Wait, the easiest is to add it via a special faux-action, or just pass it to the callback:
+    (onSubmitTurn as any)(pendingActions.length > 0 ? pendingActions : [{ kind: 'pass' }], confrontationStance);
     setSubmitted(true);
-  }, [pendingActions, onSubmitTurn]);
+  }, [pendingActions, onSubmitTurn, isCoLocated, confrontationStance]);
 
   // Open instruction builder for a dominion
   const openInstructionBuilder = useCallback((domId: string) => {
@@ -93,8 +140,11 @@ export function TurnPanel({ gameState, playerId, onSubmitTurn, selectedNodeId }:
       case 'visit_dominion': return `↻ Visit dominion`;
       case 'subvert_dominion': return `⚔ Subvert dominion`;
       case 'set_instructions': return `📜 Set instructions (${action.instructions.tier})`;
+      case 'found_religion': return `✦ Found religion "${action.name}"`;
+      case 'set_religion_instructions': return `📜 Set commandments`;
       case 'pass': return 'Pass';
     }
+    return 'Unknown Action';
   };
 
   // Get instruction summary for a dominion
@@ -131,6 +181,38 @@ export function TurnPanel({ gameState, playerId, onSubmitTurn, selectedNodeId }:
           <span className="turn-panel__ap-max">/ 2</span>
         </div>
       </div>
+      
+      {/* Confrontation Warning Panel */}
+      {isCoLocated && !submitted && (
+        <ConfrontationPanel 
+          gameState={gameState}
+          playerId={playerId}
+          stance={confrontationStance}
+          onChange={setConfrontationStance}
+        />
+      )}
+
+      {/* Secret Missions Panel */}
+      <MissionPanel gameState={gameState} playerId={playerId} />
+
+      {/* Active Rules Panel (Merge Zones) */}
+      {selectedRealm && <ActiveRulesPanel gameState={gameState} homeRealmId={selectedRealm} />}
+
+      {/* Religion Stability Warning Panel */}
+      {(() => {
+        const criticalReligions = Object.values(gameState.religions).filter(r => r.founderId === playerId && r.stability < 35);
+        if (criticalReligions.length === 0) return null;
+        return (
+          <div className="turn-panel__section" style={{ backgroundColor: '#451a1a', border: '1px solid #dc2626', color: '#fca5a5', padding: '10px', margin: '0 0 16px 0', borderRadius: '4px' }}>
+             <strong style={{ fontSize: '13px' }}>⚠️ CRISIS WARNING:</strong>
+             <ul style={{ margin: '8px 0 0 16px', padding: 0, fontSize: '12px' }}>
+               {criticalReligions.map(r => (
+                  <li key={r.id} style={{ marginBottom: '4px' }}>"{r.name}" Stability: {r.stability.toFixed(1)}%. Imminent fracture and doctrine drift risk.</li>
+               ))}
+             </ul>
+          </div>
+        );
+      })()}
 
       {/* Player Location */}
       <div className="turn-panel__section">
@@ -148,8 +230,15 @@ export function TurnPanel({ gameState, playerId, onSubmitTurn, selectedNodeId }:
         <div className="turn-panel__section">
           <div className="turn-panel__label">Actions</div>
           <div className="turn-panel__actions">
+            {/* Action at Current Location ONLY */}
+            {!isCurrentLocation && selectedNodeId && (
+              <div style={{ color: '#ffb366', fontSize: '11px', marginBottom: '8px' }}>
+                Actions can only be performed at your current location ({player.currentNodeId.split('-').slice(-1)}).
+              </div>
+            )}
+
             {/* Establish Dominion */}
-            {selectedNodeId && !nodeHasDominion && apRemaining > 0 && (
+            {isCurrentLocation && !nodeHasDominion && apRemaining > 0 && (
               <button
                 className="turn-panel__action-btn"
                 onClick={() => addAction({
@@ -164,7 +253,7 @@ export function TurnPanel({ gameState, playerId, onSubmitTurn, selectedNodeId }:
             )}
 
             {/* Visit Own Dominion */}
-            {selectedNodeId && nodeHasDominion && nodeHasDominion.ownerId === playerId && (
+            {isCurrentLocation && nodeHasDominion && nodeHasDominion.ownerId === playerId && (
               <button
                 className="turn-panel__action-btn"
                 onClick={() => addAction({ kind: 'visit_dominion', dominionId: nodeHasDominion.id })}
@@ -173,18 +262,18 @@ export function TurnPanel({ gameState, playerId, onSubmitTurn, selectedNodeId }:
               </button>
             )}
 
-            {/* Set Instructions for Own Dominion */}
-            {selectedNodeId && nodeHasDominion && nodeHasDominion.ownerId === playerId && apRemaining > 0 && (
+            {/* Set Instructions for Own Dominion (or Pending) */}
+            {isCurrentLocation && hasOwnDominionOrPending && resolvedDominionId && apRemaining > 0 && (
               <button
                 className="turn-panel__action-btn turn-panel__action-btn--instructions"
-                onClick={() => openInstructionBuilder(nodeHasDominion.id)}
+                onClick={() => openInstructionBuilder(resolvedDominionId)}
               >
                 📜 Set Instructions (1 AP)
               </button>
             )}
 
             {/* Subvert Enemy Dominion */}
-            {selectedNodeId && nodeHasDominion && nodeHasDominion.ownerId !== playerId && apRemaining > 0 && (
+            {isCurrentLocation && nodeHasDominion && nodeHasDominion.ownerId !== playerId && apRemaining > 0 && (
               <button
                 className="turn-panel__action-btn turn-panel__action-btn--hostile"
                 onClick={() => addAction({ kind: 'subvert_dominion', dominionId: nodeHasDominion.id })}
@@ -194,12 +283,12 @@ export function TurnPanel({ gameState, playerId, onSubmitTurn, selectedNodeId }:
             )}
 
             {/* Set Destination */}
-            {selectedNodeId && selectedNodeId !== player.currentNodeId && (
+            {selectedNodeId && !isCurrentLocation && selectedRealm && (
               <button
                 className="turn-panel__action-btn turn-panel__action-btn--move"
                 onClick={() => addAction({
                   kind: 'set_destination',
-                  realmId: currentRealm,
+                  realmId: selectedNodeId.split('-')[0] as RealmId,
                   nodeId: selectedNodeId,
                 })}
               >
@@ -244,6 +333,8 @@ export function TurnPanel({ gameState, playerId, onSubmitTurn, selectedNodeId }:
           <button
             className="turn-panel__submit-btn"
             onClick={handleSubmit}
+            disabled={isCoLocated && !confrontationStance}
+            style={{ opacity: isCoLocated && !confrontationStance ? 0.5 : 1, cursor: isCoLocated && !confrontationStance ? 'not-allowed' : 'pointer' }}
           >
             {pendingActions.length > 0 ? 'Submit Turn' : 'Pass Turn'}
           </button>
@@ -295,6 +386,46 @@ export function TurnPanel({ gameState, playerId, onSubmitTurn, selectedNodeId }:
             })}
           </div>
         </div>
+      )}
+
+      {/* Religions */}
+      {!showInstructionBuilder && (
+        <ReligionPanel
+          gameState={gameState}
+          playerId={playerId}
+          selectedNodeId={selectedNodeId}
+          addAction={addAction}
+          apRemaining={apRemaining}
+        />
+      )}
+
+      {/* Relic Inventory */}
+      {!showInstructionBuilder && (
+        <RelicInventoryPanel
+          gameState={gameState}
+          playerId={playerId}
+          addAction={addAction}
+          apRemaining={apRemaining}
+        />
+      )}
+
+      {/* Rites and Rituals */}
+      {!showInstructionBuilder && isCurrentLocation && (
+        <ErrorBoundary fallback={<div style={{padding: '8px', color: '#ff6b6b'}}>Ritual/Rite Panel Crashed!</div>}>
+          <SiteAndRelicPanel
+            gameState={gameState}
+            playerId={playerId}
+            addAction={addAction}
+            apRemaining={apRemaining}
+          />
+          <RitualPanel
+            gameState={gameState}
+            playerId={playerId}
+            addAction={addAction}
+            apRemaining={apRemaining}
+            activeRealms={activeRealms}
+          />
+        </ErrorBoundary>
       )}
 
       {/* Turn Events */}

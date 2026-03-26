@@ -220,7 +220,7 @@ function handleMessage(playerId: PlayerId, ws: WebSocket, message: ClientMessage
         case MessageType.SUBMIT_TURN: {
             if (!client.currentGameId) break;
             const room = gameRooms.get(client.currentGameId);
-            room?.submitTurn(playerId, message.actions as M2TurnAction[]);
+            room?.submitTurn(playerId, message.actions as M2TurnAction[], message.confrontationStance);
             break;
         }
 
