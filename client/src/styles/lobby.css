@@ -1,0 +1,321 @@
+/**
+ * Lobby + Waiting Room styles.
+ */
+
+.lobby {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at center, #0e1018 0%, #060608 100%);
+  padding: 48px 24px;
+  font-family: var(--font-body);
+  color: var(--text-primary);
+}
+
+.lobby__hero {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.lobby__title {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 20px rgba(196, 162, 101, 0.3);
+  margin: 0 0 12px 0;
+}
+
+.lobby__subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 0;
+}
+
+/* Name Input */
+.lobby__name-section {
+  width: 100%;
+  max-width: 380px;
+  margin-bottom: 16px;
+}
+
+.lobby__label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.lobby__name-input {
+  width: 100%;
+  background: var(--void-surface);
+  border: 1px solid var(--void-border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.lobby__name-input:focus {
+  border-color: var(--gold-dim);
+}
+
+.lobby__name-input::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Create Button */
+.lobby__create-btn {
+  width: 100%;
+  max-width: 380px;
+  background: rgba(196, 162, 101, 0.12);
+  border: 1px solid rgba(196, 162, 101, 0.35);
+  border-radius: 8px;
+  padding: 14px 20px;
+  color: var(--gold);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  transition: all 0.2s ease;
+  margin-bottom: 28px;
+}
+
+.lobby__create-btn:hover {
+  background: rgba(196, 162, 101, 0.22);
+  border-color: var(--gold);
+  box-shadow: 0 0 16px rgba(196, 162, 101, 0.15);
+}
+
+/* Section */
+.lobby__section {
+  width: 100%;
+  max-width: 500px;
+}
+
+.lobby__section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.lobby__section-header h3 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.lobby__refresh-btn {
+  background: none;
+  border: 1px solid var(--void-border);
+  border-radius: 4px;
+  padding: 4px 8px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.15s ease;
+}
+
+.lobby__refresh-btn:hover {
+  color: var(--gold);
+  border-color: var(--gold-dim);
+}
+
+.lobby__empty {
+  text-align: center;
+  padding: 24px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-style: italic;
+  border: 1px dashed rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+}
+
+/* Game List */
+.lobby__game-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Game Card */
+.game-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--void-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  transition: all 0.2s ease;
+}
+
+.game-card:hover:not(.game-card--disabled) {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(196, 162, 101, 0.2);
+}
+
+.game-card--disabled {
+  opacity: 0.5;
+}
+
+.game-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.game-card__id {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold-dim);
+  letter-spacing: 0.04em;
+}
+
+.game-card__status {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.game-card__status--waiting {
+  background: rgba(74, 222, 128, 0.1);
+  color: #4ade80;
+}
+
+.game-card__status--in_progress {
+  background: rgba(251, 191, 36, 0.1);
+  color: #fbbf24;
+}
+
+.game-card__details {
+  display: flex;
+  gap: 16px;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.game-card__join-btn {
+  width: 100%;
+  background: rgba(196, 162, 101, 0.08);
+  border: 1px solid rgba(196, 162, 101, 0.2);
+  border-radius: 4px;
+  padding: 6px 12px;
+  color: var(--gold-dim);
+  cursor: pointer;
+  font-size: 12px;
+  font-family: var(--font-body);
+  transition: all 0.15s ease;
+}
+
+.game-card__join-btn:hover {
+  background: rgba(196, 162, 101, 0.16);
+  color: var(--gold);
+  border-color: var(--gold-dim);
+}
+
+/* Waiting Room */
+.waiting-room {
+  width: 100%;
+  max-width: 400px;
+}
+
+.waiting-room__game-id {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.waiting-room__id-value {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+}
+
+.waiting-room__players {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.waiting-room__player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--void-border);
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.waiting-room__player--empty {
+  opacity: 0.3;
+  border-style: dashed;
+}
+
+.waiting-room__player-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--void-border);
+  flex-shrink: 0;
+}
+
+.waiting-room__host-badge {
+  margin-left: auto;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  background: rgba(196, 162, 101, 0.1);
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+.waiting-room__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.waiting-room__leave-btn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 10px 16px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 13px;
+  font-family: var(--font-body);
+  transition: all 0.15s ease;
+}
+
+.waiting-room__leave-btn:hover {
+  border-color: rgba(248, 113, 113, 0.3);
+  color: #f87171;
+}
