@@ -67,7 +67,6 @@ export function App() {
             }
         }
         // Exclude viewMode and setSelectedNodeId so shifting views doesn't override manual navigation
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gameState?.turnNumber, playerId, screen]);
 
     const handleRealmSelect = useCallback((realmId: RealmId | null) => setSelectedRealm(realmId), []);

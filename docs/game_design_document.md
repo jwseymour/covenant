@@ -2,7 +2,7 @@
 
 > **Status:** Near-prototype — most systems defined, implementation details remain.
 > **Last updated:** 2026-03-25
-> **Companion documents:** [Lore (full)](file:///Users/jseymour/jack_code/bg/lore_complete.md) • [Evaluation](file:///Users/jseymour/jack_code/bg/game_design_evaluation.md)
+> **Companion documents:** [Lore (full)](lore/lore_complete.md) • [Evaluation](game_design_evaluation.md)
 
 ---
 
@@ -34,7 +34,7 @@
 
 ## 2. Theming & Lore
 
-> Full lore in [lore_complete.md](file:///Users/jseymour/jack_code/bg/lore_complete.md). Summary below.
+> Full lore in [lore_complete.md](lore/lore_complete.md). Summary below.
 
 ### 2.1 The Covenant and the Sundering
 
@@ -140,7 +140,7 @@ Five realms, each crystallised around one fundamental force freed by the Sunderi
 | **The Crucible** | Wrath | Force — combat, passion, conquest | Best for military. Religions struggle, souls won in battle. |
 | **The Archive** | Memory | Preservation — persistence, knowledge, weight | Most defensible. Rich in Covenant relics. Hard to penetrate. |
 
-Full realm descriptions, inhabitants, and landscapes in [lore_complete.md §4](file:///Users/jseymour/jack_code/bg/lore_complete.md).
+Full realm descriptions, inhabitants, and landscapes in [lore_complete.md §4](lore/lore_complete.md).
 
 ### 3.2 Realm Flow — N-Body Gravity
 

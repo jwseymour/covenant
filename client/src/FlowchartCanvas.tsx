@@ -22,7 +22,6 @@ import type {
   InstructionCondition,
   CompoundCondition,
   LogicalOperator,
-  DominionAction,
   NodeId,
 } from '@shattered-covenant/shared';
 import './styles/flowchart-builder.css';

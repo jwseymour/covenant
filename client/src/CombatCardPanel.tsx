@@ -26,13 +26,6 @@ const CARD_ICONS: Record<string, string> = {
   shield_wall: '🛡',
 };
 
-const RARITY_COLORS: Record<string, string> = {
-  common: '#9ca3af',
-  uncommon: '#34d399',
-  rare: '#818cf8',
-  legendary: '#fbbf24',
-};
-
 export function CombatCardPanel({ gameState, playerId, onPlayCard }: CombatCardPanelProps) {
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
 

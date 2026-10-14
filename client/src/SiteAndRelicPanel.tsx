@@ -1,4 +1,4 @@
-import type { GameState, PlayerId, NodeId, M2TurnAction } from '@shattered-covenant/shared';
+import type { GameState, PlayerId, M2TurnAction } from '@shattered-covenant/shared';
 import { SITE_RITES } from '@shattered-covenant/shared';
 import './styles/ritual-panel.css'; // Reusing similar styles
 
