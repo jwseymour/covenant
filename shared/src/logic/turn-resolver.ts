@@ -36,10 +36,11 @@ import { performRiteOfSight, performRiteOfBinding, performRiteOfHarvest, perform
 import { executeSiteRite } from './rite-site-logic.js';
 import { claimRelic, useRelic, INITIAL_RELICS } from './relic-logic.js';
 import { executeMergeRite, getActiveRealms, type MergeRiteType } from './merge-logic.js';
-import { processAllSoulIncome, spendSouls, STARTING_SOUL_BALANCE } from './soul-routing.js';
+import { processAllSoulIncome, spendSouls, STARTING_SOUL_BALANCE, MISSION_DISCARD_COST } from './soul-routing.js';
 import { tickRealmStates, detectInteractions } from './realm-flow.js';
 import { resolveConfrontations } from './confrontation-logic.js';
 import { checkPlayerMissions, drawInitialMissions, drawSingleMission } from './mission-logic.js';
+import { deliverScoutReports } from './state-filter.js';
 import type { DominionInstructionSet, ReligionInstructionSet } from '../types/instruction.js';
 
 // ─── Turn Action Types (simplified for Milestone 2) ─────────────
@@ -321,7 +322,7 @@ export function resolveTurn(
           const mIdx = player.missions.findIndex(m => m.id === action.missionId);
           if (mIdx >= 0) {
             // Deduct cost (e.g. 50 souls)
-            const cost = 50; // MISSION_DISCARD_COST
+            const cost = MISSION_DISCARD_COST;
             if (player.soulLedger.balance >= cost) {
                player.soulLedger.balance -= cost;
                player.soulLedger.history.push({ turn: state.turnNumber, purpose: 'Discarded Mission', amount: cost });
@@ -472,6 +473,10 @@ export function resolveTurn(
       }
     }
   }
+
+  // ─── Phase 2.8: Deliver scout reports ──────────────────────
+
+  deliverScoutReports(workingState);
 
   // ─── Phase 3: Move players ────────────────────────────────
 

@@ -1,15 +1,17 @@
 /**
  * InstructionBuilder — UI for setting dominion instructions.
  *
- * GDD §4.2: Tier 1 (basic directives) + Tier 2 (IF/THEN/ELSE).
- * "Interface: Visual flowchart builder (primary) + map-click auto-population."
+ * GDD §4.2: Three tiers of complexity:
+ * - Tier 1: Basic directives (Defend, Expand, Recruit, Scout, Hold)
+ * - Tier 2: Conditional IF/THEN/ELSE
+ * - Tier 3: Expert visual flowchart builder
  *
- * This is the simplified Tier 1/2 builder. The full visual flowchart
- * builder is planned for Milestone 7.
+ * "Interface: Visual flowchart builder (primary) + map-click auto-population
+ *  + optional code mode."
  */
 
 import { useState, useCallback } from 'react';
-import { createBasicInstructions, createConditionalInstructions } from '@shattered-covenant/shared';
+import { createBasicInstructions, createConditionalInstructions, createExpertInstructions } from '@shattered-covenant/shared';
 import type {
   DominionInstructionSet,
   DominionActionType,
@@ -18,6 +20,7 @@ import type {
   InstructionCondition,
   NodeId,
 } from '@shattered-covenant/shared';
+import { FlowchartCanvas } from './FlowchartCanvas';
 import './styles/instruction-builder.css';
 
 // ─── Constants ──────────────────────────────────────────────────
@@ -46,6 +49,8 @@ interface InstructionBuilderProps {
   selectedTargetNodeId: NodeId | null;
   /** Current turn number. */
   turnNumber: number;
+  /** Max flowchart nodes (for expert tier). */
+  maxNodes?: number;
   /** Called when instructions are confirmed. */
   onConfirm: (instructions: DominionInstructionSet) => void;
   /** Called when the builder is closed without changes. */
@@ -58,10 +63,12 @@ export function InstructionBuilder({
   currentInstructions,
   selectedTargetNodeId,
   turnNumber,
+  maxNodes = 8,
   onConfirm,
   onCancel,
 }: InstructionBuilderProps) {
-  const [tier, setTier] = useState<1 | 2>(currentInstructions?.tier === 'advanced' ? 2 : 1);
+  const currentTier = currentInstructions?.tier === 'advanced' ? 2 : currentInstructions?.tier === 'expert' ? 3 : 1;
+  const [tier, setTier] = useState<1 | 2 | 3>(currentTier);
 
   // Tier 1 state
   const [selectedAction, setSelectedAction] = useState<DominionActionType>(
@@ -78,6 +85,16 @@ export function InstructionBuilder({
   const [thenTarget, setThenTarget] = useState<NodeId | null>(null);
   const [elseAction, setElseAction] = useState<DominionActionType>('expand');
   const [elseTarget, setElseTarget] = useState<NodeId | null>(null);
+
+  // Tier 3 state
+  const [expertInstructions, setExpertInstructions] = useState<DominionInstructionSet>(() => {
+    if (currentInstructions?.tier === 'expert') return currentInstructions;
+    return createExpertInstructions(
+      'root',
+      { root: { id: 'root', action: { type: 'hold' } } },
+      turnNumber,
+    );
+  });
 
   // Track which target field is "listening" for map clicks
   const [listeningField, setListeningField] = useState<'tier1' | 'then' | 'else' | null>(null);
@@ -107,18 +124,23 @@ export function InstructionBuilder({
       return createBasicInstructions(action, turnNumber);
     }
 
-    const condObj: InstructionCondition = { type: condition };
-    const condDef = CONDITIONS.find((c) => c.type === condition);
-    if (condDef?.hasThreshold) condObj.threshold = threshold;
+    if (tier === 2) {
+      const condObj: InstructionCondition = { type: condition };
+      const condDef = CONDITIONS.find((c) => c.type === condition);
+      if (condDef?.hasThreshold) condObj.threshold = threshold;
 
-    const tAction: DominionAction = { type: thenAction };
-    if (thenTarget) tAction.targetNodeId = thenTarget;
+      const tAction: DominionAction = { type: thenAction };
+      if (thenTarget) tAction.targetNodeId = thenTarget;
 
-    const eAction: DominionAction = { type: elseAction };
-    if (elseTarget) eAction.targetNodeId = elseTarget;
+      const eAction: DominionAction = { type: elseAction };
+      if (elseTarget) eAction.targetNodeId = elseTarget;
 
-    return createConditionalInstructions(condObj, tAction, eAction, turnNumber);
-  }, [tier, selectedAction, targetNodeId, condition, threshold, thenAction, thenTarget, elseAction, elseTarget, turnNumber]);
+      return createConditionalInstructions(condObj, tAction, eAction, turnNumber);
+    }
+
+    // Tier 3: expert flowchart — return current state with updated turn
+    return { ...expertInstructions, lastModifiedTurn: turnNumber };
+  }, [tier, selectedAction, targetNodeId, condition, threshold, thenAction, thenTarget, elseAction, elseTarget, turnNumber, expertInstructions]);
 
   const handleConfirm = useCallback(() => {
     onConfirm(buildInstructions());
@@ -147,6 +169,12 @@ export function InstructionBuilder({
           onClick={() => setTier(2)}
         >
           Tier 2 — Conditional
+        </button>
+        <button
+          className={`instr-builder__tier-tab ${tier === 3 ? 'instr-builder__tier-tab--active' : ''}`}
+          onClick={() => setTier(3)}
+        >
+          Tier 3 — Expert
         </button>
       </div>
 
@@ -285,6 +313,16 @@ export function InstructionBuilder({
             {elseTarget && <> to {elseTarget}</>}
           </div>
         </div>
+      )}
+
+      {/* Tier 3: Expert Flowchart */}
+      {tier === 3 && (
+        <FlowchartCanvas
+          instructions={expertInstructions}
+          maxNodes={maxNodes}
+          selectedTargetNodeId={selectedTargetNodeId}
+          onChange={setExpertInstructions}
+        />
       )}
 
       {/* Footer */}

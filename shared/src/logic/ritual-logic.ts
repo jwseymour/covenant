@@ -99,11 +99,12 @@ export function performRiteOfBinding(state: GameState, playerId: PlayerId, nodeI
 
   let strengthened = false;
 
-  // Reset dominion decay
+  // Reset dominion decay — GDD §4.6: "reset dominion decay, reinforce against subversion"
   for (const dom of Object.values(state.dominions)) {
     if (dom.primaryNodeId === nodeId && dom.ownerId === playerId) {
       const { influence } = getInitialInfluenceInfo(dom.realmId);
       dom.influence = influence;
+      dom.lastVisitedTurn = state.turnNumber; // Reset decay timer
       strengthened = true;
     }
   }

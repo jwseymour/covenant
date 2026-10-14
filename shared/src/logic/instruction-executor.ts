@@ -228,10 +228,8 @@ function evaluateCondition(
       // Check if any non-owned religion has followers at our primary node
       for (const rel of Object.values(state.religions)) {
         if (rel.founderId === dominion.ownerId) continue;
-        const relAny = rel as unknown as Record<string, unknown>;
-        if (relAny['nodePresence'] && typeof relAny['nodePresence'] === 'object') {
-          const presence = relAny['nodePresence'] as Record<string, unknown>;
-          if (presence[dominion.primaryNodeId]) return true;
+        if (rel.followersByNode[dominion.primaryNodeId] && rel.followersByNode[dominion.primaryNodeId] > 0) {
+          return true;
         }
       }
       return false;
@@ -598,3 +596,21 @@ export function createConditionalInstructions(
     lastModifiedTurn: turn,
   };
 }
+
+/**
+ * Create a Tier 3 (expert) instruction set — multi-node flowchart.
+ * Used by FlowchartCanvas to wrap its node data into a well-formed set.
+ */
+export function createExpertInstructions(
+  entryNodeId: string,
+  nodes: Record<string, import('../types/instruction.js').InstructionNode>,
+  turn: number,
+): DominionInstructionSet {
+  return {
+    tier: 'expert',
+    entryNodeId,
+    nodes,
+    lastModifiedTurn: turn,
+  };
+}
+

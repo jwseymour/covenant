@@ -184,28 +184,55 @@ export class GameRoom {
   // ─── State Filtering ────────────────────────────────────────
 
   private filterStateForPlayer(state: GameState, playerId: PlayerId): GameState {
-    // GDD §4.8: Soul counts, instructions, and missions are hidden from other players.
+    // Enforce all GDD §4.8 visibility rules.
+    // The client currently expects GameState shape — full PlayerView migration is future work.
     const filteredPlayers = { ...state.players };
-
     for (const [pid, player] of Object.entries(filteredPlayers)) {
-      if (pid === playerId) continue; // Self always sees full info
-
-      // Hide soul ledger details from other players
+      if (pid === playerId) continue;
       filteredPlayers[pid as PlayerId] = {
         ...player,
         soulLedger: {
           ...player.soulLedger,
-          balance: 0,       // Hidden
-          totalEarned: 0,    // Hidden
-          totalSpent: 0,     // Hidden
-          currentTurnIncome: [], // Hidden
-          history: [],       // Hidden
+          balance: 0,
+          totalEarned: 0,
+          totalSpent: 0,
+          currentTurnIncome: [],
+          history: [],
         },
-        missions: [],        // Hidden per GDD §4.8
+        missions: [],
+        intel: [],
       };
     }
 
-    return { ...state, players: filteredPlayers };
+    // Hide other players' dominion instructions and exact influence
+    const filteredDominions = { ...state.dominions };
+    for (const [did, dom] of Object.entries(filteredDominions)) {
+      if (dom.ownerId === playerId) continue;
+      filteredDominions[did] = {
+        ...dom,
+        instructions: null,
+        scoutReports: [],
+      };
+    }
+
+    // Hide other players' religion instructions and exact follower counts
+    const filteredReligions = { ...state.religions };
+    for (const [rid, rel] of Object.entries(filteredReligions)) {
+      if (rel.founderId === playerId) continue;
+      filteredReligions[rid] = {
+        ...rel,
+        instructions: null,
+        stability: 0, // Hidden
+        soulsPerTurn: 0, // Hidden
+      };
+    }
+
+    return {
+      ...state,
+      players: filteredPlayers,
+      dominions: filteredDominions,
+      religions: filteredReligions,
+    };
   }
 
   // ─── Helpers ────────────────────────────────────────────────

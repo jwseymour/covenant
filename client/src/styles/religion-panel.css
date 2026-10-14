@@ -6,6 +6,7 @@
   border-top: 1px solid rgba(196, 162, 101, 0.12);
   padding-top: var(--space-sm);
   margin-top: var(--space-sm);
+  animation: fadeIn 0.3s ease-out;
 }
 
 .religion-panel__label {
@@ -33,6 +34,7 @@
 .religion-panel__found-btn:hover {
   background: rgba(139, 92, 246, 0.15);
   border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.08);
 }
 
 /* Founder Panel */
@@ -186,6 +188,7 @@
 .religion-panel__confirm-btn:hover:not(:disabled) {
   background: rgba(139, 92, 246, 0.2);
   border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.12);
 }
 
 .religion-panel__confirm-btn:disabled {
@@ -258,8 +261,10 @@
 
 .religion-panel__rel-name {
   font-size: 11px;
-  color: #a78bfa;
+  color: var(--sacred, #a78bfa);
   font-weight: 600;
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
 }
 
 .religion-panel__rel-nodes {
@@ -336,6 +341,7 @@
 .religion-panel__set-instr-btn:hover {
   background: rgba(139, 92, 246, 0.12);
   border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.06);
 }
 
 .religion-panel__empty {

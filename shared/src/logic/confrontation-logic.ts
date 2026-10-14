@@ -80,63 +80,82 @@ export function resolveConfrontations(state: GameState, submissions: Record<Play
       continue;
     }
 
-    // Someone confronted. All 'coexist' are treated as bid 0 confronts.
+    // GDD §5.1: Someone confronted. Only 'confront' players participate in bidding.
+    // 'coexist' players stay at the node and act normally — they didn't choose to fight.
+    // 'retreat' players flee regardless.
+    const confronters: typeof stances = [];
+    
     for (const playerStance of stances) {
       if (playerStance.stance === 'retreat') {
         const adj = getRandomAdjacent(state, group.realmId, nodeId);
         losers.push({ playerId: playerStance.pid, expelledToNodeId: adj || nodeId, lostTurn: true });
+      } else if (playerStance.stance === 'confront') {
+        confronters.push(playerStance);
       } else {
-        const effectiveBid = playerStance.bid;
-        if (effectiveBid > maxBid) {
-          maxBid = effectiveBid;
+        // 'coexist' — they stay and act normally (GDD §5.1)
+        coexisters.push(playerStance.pid);
+      }
+    }
+
+    // If only one confronter and no other confronters, they win by default (no bid needed)
+    if (confronters.length === 1) {
+      winners = [confronters[0].pid];
+      // GDD §5.1: "The winner keeps their bid" — no deduction
+    } else if (confronters.length > 1) {
+      // Multiple confronters: highest bid wins
+      for (const playerStance of confronters) {
+        if (playerStance.bid > maxBid) {
+          maxBid = playerStance.bid;
           winners = [playerStance.pid];
-        } else if (effectiveBid === maxBid) {
+        } else if (playerStance.bid === maxBid) {
           winners.push(playerStance.pid);
         }
       }
-    }
 
-    // Handle ties
-    if (winners.length > 1) {
-      // Mutual destruction/expulsion for tying winners
-      for (const t of winners) {
-        const adj = getRandomAdjacent(state, group.realmId, nodeId);
-        losers.push({ playerId: t, expelledToNodeId: adj || nodeId, lostTurn: true });
-        
-        // They still lose their bid!
-        state.players[t].soulLedger.balance -= maxBid;
-        state.players[t].soulLedger.history.push({
-          purpose: 'Confrontation Tie',
-          amount: maxBid,
-          turn: state.turnNumber
-        });
+      // Handle ties
+      if (winners.length > 1) {
+        // Mutual destruction/expulsion for tying confronters
+        for (const t of winners) {
+          const adj = getRandomAdjacent(state, group.realmId, nodeId);
+          losers.push({ playerId: t, expelledToNodeId: adj || nodeId, lostTurn: true });
+          
+          // Tiers lose their bid
+          state.players[t].soulLedger.balance -= maxBid;
+          state.players[t].soulLedger.history.push({
+            purpose: 'Confrontation Tie',
+            amount: maxBid,
+            turn: state.turnNumber
+          });
+        }
+        winners = [];
       }
-      winners = [];
-    } else if (winners.length === 1) {
-      // Deduct bid from the sole winner
-      const w = winners[0];
-      state.players[w].soulLedger.balance -= maxBid;
-      state.players[w].soulLedger.history.push({
-        purpose: 'Confrontation Dominance',
-        amount: maxBid,
-        turn: state.turnNumber
-      });
+      // GDD §5.1: "The winner keeps their bid" — no deduction for the sole winner
     }
 
-    // The rest of the players in `group.players` who aren't the sole winner (and didn't already retreat) are losers
-    for (const playerStance of stances) {
+    // Losing confronters (those who confronted but lost the bid) are expelled
+    for (const playerStance of confronters) {
       if (winners.length === 1 && playerStance.pid === winners[0]) continue;
       // If not winner and not already in losers array
       if (!losers.find(l => l.playerId === playerStance.pid)) {
          const adj = getRandomAdjacent(state, group.realmId, nodeId);
          losers.push({ playerId: playerStance.pid, expelledToNodeId: adj || nodeId, lostTurn: true });
+         
+         // Loser forfeits their bid
+         if (playerStance.bid > 0) {
+           state.players[playerStance.pid].soulLedger.balance -= playerStance.bid;
+           state.players[playerStance.pid].soulLedger.history.push({
+             purpose: 'Confrontation Loss',
+             amount: playerStance.bid,
+             turn: state.turnNumber
+           });
+         }
       }
     }
 
     events.push({
       nodeId, realmId: group.realmId, playersInvolved: group.players, winnerId: winners.length === 1 ? winners[0] : null,
       losersExpelled: losers,
-      details: winners.length === 1 ? `${winners[0]} dominated the location.` : `Savage tie resulted in mutual expulsion.`
+      details: winners.length === 1 ? `${winners[0]} dominated the location.` : (confronters.length > 1 ? `Savage tie resulted in mutual expulsion.` : 'Confrontation resolved.')
     });
   }
 

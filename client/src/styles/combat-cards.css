@@ -1,0 +1,196 @@
+/**
+ * Combat card styles — dark fantasy card UI.
+ */
+
+.combat-cards {
+  margin-top: 12px;
+  padding: 10px;
+  background: rgba(12, 12, 18, 0.85);
+  border: 1px solid rgba(196, 162, 101, 0.15);
+  border-radius: 6px;
+}
+
+.combat-cards__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.combat-cards__header h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+}
+
+.combat-cards__badge {
+  background: rgba(196, 162, 101, 0.15);
+  border: 1px solid rgba(196, 162, 101, 0.25);
+  border-radius: 10px;
+  padding: 1px 8px;
+  font-size: 10px;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.combat-cards__empty {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 8px 0;
+}
+
+.combat-cards__hand {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.combat-cards__card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.combat-cards__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(196, 162, 101, 0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.combat-cards__card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(196, 162, 101, 0.2);
+}
+
+.combat-cards__card:hover::before {
+  opacity: 1;
+}
+
+.combat-cards__card--selected {
+  background: rgba(196, 162, 101, 0.08);
+  border-color: rgba(196, 162, 101, 0.35);
+  box-shadow: 0 0 12px rgba(196, 162, 101, 0.08);
+}
+
+.combat-cards__card--selected::before {
+  opacity: 1;
+}
+
+.combat-cards__card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.combat-cards__card-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.combat-cards__card-name {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+}
+
+.combat-cards__card-desc {
+  font-size: 9px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.combat-cards__card-stats {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.combat-cards__stat {
+  font-size: 9px;
+  font-weight: 600;
+  font-family: monospace;
+  padding: 1px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+}
+
+.combat-cards__stat--buff {
+  background: rgba(74, 222, 128, 0.08);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.15);
+}
+
+.combat-cards__stat--debuff {
+  background: rgba(248, 113, 113, 0.08);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.15);
+}
+
+.combat-cards__play-btn {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 5px 8px;
+  background: rgba(196, 162, 101, 0.12);
+  border: 1px solid rgba(196, 162, 101, 0.3);
+  border-radius: 4px;
+  color: var(--gold);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  transition: all 0.2s ease;
+}
+
+.combat-cards__play-btn:hover {
+  background: rgba(196, 162, 101, 0.2);
+  box-shadow: 0 0 8px rgba(196, 162, 101, 0.15);
+}
+
+.combat-cards__used {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.combat-cards__used-label {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.combat-cards__used-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.combat-cards__used-card {
+  font-size: 9px;
+  color: rgba(107, 103, 96, 0.5);
+  text-decoration: line-through;
+  padding: 1px 4px;
+  background: rgba(255, 255, 255, 0.01);
+  border-radius: 2px;
+}

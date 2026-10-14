@@ -296,6 +296,7 @@ export {
   executeAllDominionInstructions,
   createBasicInstructions,
   createConditionalInstructions,
+  createExpertInstructions,
 } from './logic/instruction-executor.js';
 
 export {
@@ -410,3 +411,21 @@ export {
 
 export * from './logic/merge-logic.js';
 export * from './logic/combat-logic.js';
+
+export {
+  createPlayerView,
+  deliverScoutReports,
+  performDeepScout,
+} from './logic/state-filter.js';
+
+export {
+  COMBAT_CARD_LIBRARY,
+  createCombatCard,
+  grantRandomCombatCard,
+  getPlayableCards,
+  checkFlankingCondition,
+} from './logic/combat-cards.js';
+
+export type {
+  CombatCardDefinition,
+} from './logic/combat-cards.js';

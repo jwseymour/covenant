@@ -22,6 +22,7 @@ import { MissionPanel } from './MissionPanel';
 import { RelicInventoryPanel } from './RelicInventoryPanel';
 import { ConfrontationPanel, type ConfrontationStance } from './ConfrontationPanel';
 import { ActiveRulesPanel } from './ActiveRulesPanel';
+import { CombatCardPanel } from './CombatCardPanel';
 import { ErrorBoundary } from './ErrorBoundary';
 import { getActiveRealms } from '@shattered-covenant/shared';
 
@@ -203,11 +204,11 @@ export function TurnPanel({ gameState, playerId, onSubmitTurn, selectedNodeId, s
         const criticalReligions = Object.values(gameState.religions).filter(r => r.founderId === playerId && r.stability < 35);
         if (criticalReligions.length === 0) return null;
         return (
-          <div className="turn-panel__section" style={{ backgroundColor: '#451a1a', border: '1px solid #dc2626', color: '#fca5a5', padding: '10px', margin: '0 0 16px 0', borderRadius: '4px' }}>
-             <strong style={{ fontSize: '13px' }}>⚠️ CRISIS WARNING:</strong>
-             <ul style={{ margin: '8px 0 0 16px', padding: 0, fontSize: '12px' }}>
+          <div className="turn-panel__crisis-warning">
+             <strong>⚠ Crisis — Fracture Imminent</strong>
+             <ul>
                {criticalReligions.map(r => (
-                  <li key={r.id} style={{ marginBottom: '4px' }}>"{r.name}" Stability: {r.stability.toFixed(1)}%. Imminent fracture and doctrine drift risk.</li>
+                  <li key={r.id}>"{r.name}" — Stability {r.stability.toFixed(1)}%. Doctrine drift risk.</li>
                ))}
              </ul>
           </div>
@@ -406,6 +407,14 @@ export function TurnPanel({ gameState, playerId, onSubmitTurn, selectedNodeId, s
           playerId={playerId}
           addAction={addAction}
           apRemaining={apRemaining}
+        />
+      )}
+
+      {/* Combat Cards */}
+      {!showInstructionBuilder && (
+        <CombatCardPanel
+          gameState={gameState}
+          playerId={playerId}
         />
       )}
 

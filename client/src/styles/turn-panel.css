@@ -221,3 +221,55 @@
   padding: 2px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
+
+/* Crisis Warning */
+.turn-panel__crisis-warning {
+  background: rgba(170, 50, 50, 0.12);
+  border: 1px solid var(--blood, #c44);
+  color: #fca5a5;
+  padding: 10px 12px;
+  margin: 0 0 var(--space-md) 0;
+  border-radius: 6px;
+  animation: crisisPulse 3s ease-in-out infinite;
+}
+
+.turn-panel__crisis-warning strong {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.turn-panel__crisis-warning ul {
+  margin: 8px 0 0 16px;
+  padding: 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.turn-panel__crisis-warning li {
+  margin-bottom: 4px;
+}
+
+@keyframes crisisPulse {
+  0%, 100% { border-color: rgba(170, 50, 50, 0.4); }
+  50% { border-color: rgba(200, 60, 60, 0.7); box-shadow: 0 0 12px rgba(170, 50, 50, 0.15); }
+}
+
+/* Submitted state pulse */
+.turn-panel__submitted {
+  text-align: center;
+  font-size: 12px;
+  color: var(--status-connected);
+  padding: 8px 0;
+  font-style: italic;
+  animation: submittedGlow 2s ease-in-out infinite;
+}
+
+@keyframes submittedGlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
