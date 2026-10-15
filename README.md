@@ -9,6 +9,10 @@ A multiplayer, digital-only **dark fantasy board game** about hopping between dr
 
 You play one of the **Ordained**, a sacred being freed when the Covenant that bound reality shattered into five realms. Four players compete for souls, secret missions, or an instant win through the *Rite of the New Covenant*, while the realms drift toward a final Convergence.
 
+![Shattered Covenant gameplay: the Eternal Hierarchy realm graph with an established dominion and a founded religion](docs/images/gameplay.jpg)
+
+*The Eternal Hierarchy realm in a live two-player game. The sidebar shows an established dominion (98% influence), a founded religion with its belief tags, and soul income.*
+
 ## Highlights
 
 - **Programmable orchestration.** Players can't be everywhere, so they leave conditional instructions for their dominions and religions. A visual flowchart builder compiles these into rules that an instruction executor runs each turn.
